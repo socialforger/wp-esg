@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: WP ESG
+ * Plugin Name: WP ESG Market Frameworks
  * Plugin URI:  https://github.com/socialforger/wp-esg
  * Description: Modular ESG Assessment Engine. Integrates OpenESEA, SDG Mapping, PGS Evaluation, and Vertical Product Self-Certifications.
  * Version:     1.0.0
@@ -14,23 +14,57 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 
+// 🔴 CORREZIONE BUG 1: Path allineato alla cartella frameworks/
 define( 'WP_ESG_PATH', plugin_dir_path( __FILE__ ) );
-define( 'WP_ESG_FRAMEWORKS_PATH', WP_ESG_PATH . 'wp-esg-frameworks/' );
+define( 'WP_ESG_FRAMEWORKS_PATH', WP_ESG_PATH . 'frameworks/' );
+define( 'WP_ESG_INCLUDES_PATH', WP_ESG_PATH . 'includes/' );
+
+/**
+ * 🔴 CORREZIONE BUG 2 & 3: Autoloading del Vendor manuale e caricamento delle classi Core.
+ */
+require_once WP_ESG_PATH . 'vendor/autoload.php';
+
+// Caricamento programmatico di tutte le classi core in includes/
+$core_modules = array(
+    'DatabaseSetup.php',
+    'FormulaEngine.php',
+    'WorkflowManager.php',
+    // Aggiungi qui eventuali altri file presenti in includes/
+);
+
+foreach ( $core_modules as $module ) {
+    $module_path = WP_ESG_INCLUDES_PATH . $module;
+    if ( file_exists( $module_path ) ) {
+        require_once $module_path;
+    }
+}
+
+/**
+ * Inizializzazione dei componenti Core dopo il caricamento
+ */
+add_action( 'plugins_loaded', 'wp_esg_initialize_core' );
+function wp_esg_initialize_core() {
+    // Registrazione hook di installazione db
+    if ( class_exists( 'WpEsg\DatabaseSetup' ) ) {
+        register_activation_hook( __FILE__, array( 'WpEsg\DatabaseSetup', 'activate' ) );
+    }
+    
+    // Inizializzazione dei manager a runtime
+    if ( class_exists( 'WpEsg\WorkflowManager' ) ) {
+        new WpEsg\WorkflowManager();
+    }
+}
 
 /**
  * Class WP_ESG_Engine_Test
- * Core test suite to verify frameworks and schemas discovery.
+ * Monitor di diagnostica per l'Auto-Discovery dei framework JSON.
  */
 class WP_ESG_Engine_Test {
 
     public function __construct() {
-        // Hooks checking for activation and registering a diagnostic admin notice
         add_action( 'admin_notices', array( $this, 'render_diagnostic_notice' ) );
     }
 
-    /**
-     * Scans and verifies the existence and integrity of JSON schemas.
-     */
     public static function run_diagnostics() {
         $results = array();
         $directories_to_check = array(
@@ -46,7 +80,6 @@ class WP_ESG_Engine_Test {
                 continue;
             }
 
-            // Target key files to test scanning capabilities
             $files = glob( $path . '*.json' );
             if ( empty( $files ) ) {
                 $results[$key] = array( 'status' => 'WARNING', 'message' => 'No JSON blueprints found' );
@@ -61,9 +94,6 @@ class WP_ESG_Engine_Test {
         return $results;
     }
 
-    /**
-     * Renders a clean status bar in WP Backend to visually verify the setup.
-     */
     public function render_diagnostic_notice() {
         if ( ! current_user_can( 'activate_plugins' ) ) {
             return;
@@ -89,5 +119,4 @@ class WP_ESG_Engine_Test {
     }
 }
 
-// Instantiate the test monitor
 new WP_ESG_Engine_Test();
