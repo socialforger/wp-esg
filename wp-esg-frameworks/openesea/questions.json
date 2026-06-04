@@ -1,5 +1,5 @@
 {
-  "framework_id": "reas_complete_2024",
+  "framework_id": "openesea_core_2024",
   "schema_version": "1.0.0",
   "questions": {
     "q0101": { "block": "general_data", "type": "int", "required": true },
