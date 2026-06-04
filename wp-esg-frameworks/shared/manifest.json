@@ -1,0 +1,11 @@
+{
+  "framework_id": "reas_complete_2024",
+  "generated_at": "2026-06-04T19:44:00Z",
+  "integrity": {
+    "framework.json": "placeholder_hash_value_framework_json_file_integrity_check",
+    "questions.json": "placeholder_hash_value_questions_json_file_integrity_check",
+    "metrics.json": "placeholder_hash_value_metrics_json_file_integrity_check",
+    "indicators.json": "placeholder_hash_value_indicators_json_file_integrity_check",
+    "sdg_mapping.json": "placeholder_hash_value_sdg_mapping_json_file_integrity_check"
+  }
+}
