@@ -1,5 +1,5 @@
 {
-  "framework_id": "reas_complete_2024",
+  "framework_id": "openesea_core_2024",
   "metrics": {
     "/* --- CHAPTER 1: GENERAL DATA --- */": {},
     "m_q0101": { "source": "q0101", "type": "int", "fallback": 0 },
