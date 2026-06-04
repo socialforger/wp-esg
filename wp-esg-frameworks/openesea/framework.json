@@ -1,8 +1,8 @@
 {
-  "id": "reas_complete_2024",
+  "id": "openesea_core_2026",
   "version": "1.0.0",
-  "name": "REAS Social Audit Framework 2024",
-  "description": "Quantitative ESG assessment framework based on REAS network methodology",
+  "name": "OpenESEA Global ESG Framework",
+  "description": "Core quantitative ESG assessment framework based on OpenESEA open standard methodology",
   "author": "SocialForger",
   "year": 2024,
   "blocks": [
