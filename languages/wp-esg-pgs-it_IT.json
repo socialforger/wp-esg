@@ -1,0 +1,20 @@
+{
+  "domain": "wp-esg-pgs",
+  "locale_data": {
+    "wp-esg-pgs": {
+      "": {
+        "domain": "wp-esg-pgs",
+        "lang": "it_IT",
+        "plural_forms": "nplurals=2; plural=(n != 1);"
+      },
+      "pgs_01_label": ["Rapporto tra la retribuzione massima e quella minima interna (Forbice salariale)"],
+      "pgs_01_help": ["Calcola il rapporto numerico tra il compenso/salario più alto erogato e il livello minimo tabellare applicato in azienda."],
+      "pgs_02_label": ["Percentuale di acquisti da fornitori locali o dell'economia solidale (%)"],
+      "pgs_02_help": ["Quota del volume d'acquisto merci e servizi effettuata entro un raggio di 100 km o da soggetti iscritti a reti di economia solidale."],
+      "pgs_03_label": ["Destinazione degli utili o avanzi di gestione ad attività di mutualità e comunione"],
+      "pgs_03_help": ["Quota percentuale di risorse finanziarie reinvestite in progetti sociali esterni, fondi mutualistici o benessere della comunità locale."],
+      "pgs_04_label": ["Partecipazione attiva della base dei lavoratori ai processi decisionali strategici"],
+      "pgs_04_help": ["Metodi formali di coinvolgimento (consigli operativi partecipati, assemblee decisionali periodiche oltre gli obblighi di legge)."]
+    }
+  }
+}
