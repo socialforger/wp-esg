@@ -1,0 +1,56 @@
+{
+  "S.r.l.": {
+    "acronimo": "SRL",
+    "descrizione": "Società a Responsabilità Limitata",
+    "governance_tier": "STANDARD_CAPITAL",
+    "requires_turnover": true
+  },
+  "S.r.l.s.": {
+    "acronimo": "SRLS",
+    "descrizione": "Società a Responsabilità Limitata Semplificata",
+    "governance_tier": "STANDARD_CAPITAL",
+    "requires_turnover": true
+  },
+  "S.p.A.": {
+    "acronimo": "SPA",
+    "descrizione": "Società per Azioni",
+    "governance_tier": "STANDARD_CAPITAL",
+    "requires_turnover": true
+  },
+  "S.a.p.a.": {
+    "acronimo": "SAPA",
+    "descrizione": "Società in Accomandita per Azioni",
+    "governance_tier": "STANDARD_CAPITAL",
+    "requires_turnover": true
+  },
+  "S.n.c.": {
+    "acronimo": "SNC",
+    "descrizione": "Società in Nome Collettivo",
+    "governance_tier": "PARTNERSHIP_TRADITIONAL",
+    "requires_turnover": false
+  },
+  "S.a.s.": {
+    "acronimo": "SAS",
+    "descrizione": "Società in Accomandita Semplice",
+    "governance_tier": "PARTNERSHIP_TRADITIONAL",
+    "requires_turnover": false
+  },
+  "Soc. Coop.": {
+    "acronimo": "COOP",
+    "descrizione": "Società Cooperativa Mutualistica",
+    "governance_tier": "COOPERATIVE_SOLIDARY",
+    "requires_turnover": true
+  },
+  "S.S.": {
+    "acronimo": "SS",
+    "descrizione": "Società Semplice Agricola",
+    "governance_tier": "ARTISAN_AGRICULTURE",
+    "requires_turnover": false
+  },
+  "Ditta Individuale": {
+    "acronimo": "DI",
+    "descrizione": "Imprenditore Individuale / Libero Professionista",
+    "governance_tier": "SOLE_PROPRIETORSHIP",
+    "requires_turnover": false
+  }
+}
