@@ -1,0 +1,109 @@
+{
+  "framework_id": "reas_complete_2024",
+  "indicators": {
+    "ind1": {
+      "unit": "count",
+      "formula": "metrics['m_q0101'] + metrics['m_q0103'] + metrics['m_q0104'] + metrics['m_q0105'] + metrics['m_q0106'] + metrics['m_q0107']"
+    },
+    "ind2": {
+      "unit": "count",
+      "formula": "metrics['m_q0101'] + metrics['m_q0103'] + metrics['m_q0104'] + metrics['m_q0105'] + metrics['m_q0106'] + metrics['m_q0107']"
+    },
+    "ind3": {
+      "unit": "percentage",
+      "formula": "indicators['ind2'] > 0 ? (indicators['ind1'] / indicators['ind2']) * 100 : 0"
+    },
+    "ind118": {
+      "unit": "count",
+      "formula": "metrics['m_q0105'] + metrics['m_q0106']"
+    },
+    "ind264": {
+      "unit": "count",
+      "formula": "metrics['m_q0201']"
+    },
+    "ind4": {
+      "unit": "count",
+      "formula": "metrics['m_q1101']"
+    },
+    "ind5": {
+      "unit": "percentage",
+      "formula": "metrics['m_q1201'] > 0 ? (metrics['m_q1202'] / metrics['m_q1201']) * 100 : 0"
+    },
+    "ind6": {
+      "unit": "percentage",
+      "formula": "metrics['m_q1203'] > 0 ? (metrics['m_q1204'] / metrics['m_q1203']) * 100 : 0"
+    },
+    "ind7": {
+      "unit": "percentage",
+      "formula": "metrics['m_q1203'] > 0 ? (metrics['m_q1205'] / metrics['m_q1203']) * 100 : 0"
+    },
+    "ind8": {
+      "unit": "currency",
+      "formula": "metrics['m_q1203'] - metrics['m_q1201']"
+    },
+    "ind168": {
+      "unit": "currency",
+      "formula": "metrics['m_q1101'] + metrics['m_q1107']"
+    },
+    "ind114": {
+      "unit": "currency",
+      "formula": "metrics['m_q1101'] > 0 ? (indicators['ind168'] / metrics['m_q1101']) : 0"
+    },
+    "ind256": {
+      "unit": "percentage",
+      "formula": "metrics['m_q1404'] > 0 ? (metrics['m_q1405'] / metrics['m_q1404']) * 100 : 0"
+    },
+    "ind257": {
+      "unit": "percentage",
+      "formula": "metrics['m_q1404'] > 0 ? (metrics['m_q1406'] / metrics['m_q1404']) * 100 : 0"
+    },
+    "ind258": {
+      "unit": "percentage",
+      "formula": "metrics['m_q1404'] > 0 ? (metrics['m_q1413'] / metrics['m_q1404']) * 100 : 0"
+    },
+    "ind26": {
+      "unit": "ratio",
+      "formula": "metrics['m_q3302'] > 0 ? (metrics['m_q3301'] / metrics['m_q3302']) : 0"
+    },
+    "ind27": {
+      "unit": "ratio",
+      "formula": "metrics['m_q3302'] > 0 ? (metrics['m_q3301'] / metrics['m_q3302']) : 0"
+    },
+    "ind58": {
+      "unit": "boolean",
+      "formula": "metrics['m_q2202'] == 1 ? 1 : 0"
+    },
+    "ind42": {
+      "unit": "percentage",
+      "formula": "metrics['m_q1202'] > 0 ? (metrics['m_q5302'] / metrics['m_q1202']) * 100 : 0"
+    },
+    "ind71": {
+      "unit": "boolean",
+      "formula": "metrics['m_q5202'] == 1 ? 1 : 0"
+    },
+    "ind72": {
+      "unit": "percentage",
+      "formula": "metrics['m_q1202'] > 0 ? (metrics['m_q5306'] / metrics['m_q1202']) * 100 : 0"
+    },
+    "ind74": {
+      "unit": "boolean",
+      "formula": "metrics['m_q5501'] == 1 ? 1 : 0"
+    },
+    "ind77": {
+      "unit": "boolean",
+      "formula": "metrics['m_q6202'] == 1 ? 1 : 0"
+    },
+    "ind78": {
+      "unit": "boolean",
+      "formula": "metrics['m_q6601'] == 1 ? 1 : 0"
+    },
+    "ind80": {
+      "unit": "boolean",
+      "formula": "metrics['m_q6801'] == 1 ? 1 : 0"
+    },
+    "ind105": {
+      "unit": "boolean",
+      "formula": "metrics['m_q6802'] == 1 ? 1 : 0"
+    }
+  }
+}
