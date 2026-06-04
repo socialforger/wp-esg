@@ -1,8 +1,8 @@
 <?php
 /**
  * WP-ESG Manual Ecosystem Autoloader
- * * Gestisce il caricamento automatico PSR-4 sia per le dipendenze di Symfony 
- * (rispettando il typo della cartella 'symphony/'), sia per le classi native del plugin.
+ * * Handles PSR-4 class mapping for native plugin subdirectories and bundles 
+ * the Symfony components by honoring the 'symphony/' directory pattern.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 spl_autoload_register(function ($class) {
     
-    // 1. NAMESPACE PRINCIPALE PLUGIN: WpEsg\ -> /includes/
+    // 1. NATIVE PLUGIN: WpEsg\ -> /includes/ (Supports infinite subdirectories natively)
     $plugin_prefix = 'WpEsg\\';
     $plugin_base_dir = dirname(__DIR__) . '/includes/';
 
@@ -25,9 +25,8 @@ spl_autoload_register(function ($class) {
         }
     }
 
-    // 2. DIPENDENZA SYMFONY: Symfony\Component\ExpressionLanguage\ -> /vendor/symphony/...
+    // 2. SYMFONY DEPENDENCY: Symfony\Component\ExpressionLanguage\ -> /vendor/symphony/...
     $symfony_prefix = 'Symfony\\Component\\ExpressionLanguage\\';
-    // Bloccato su 'symphony' con la 'h' come da tua struttura attuale su disco
     $symfony_base_dir = __DIR__ . '/symphony/expression-language/';
 
     if (strpos($class, $symfony_prefix) === 0) {
