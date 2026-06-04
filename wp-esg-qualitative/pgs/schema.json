@@ -1,0 +1,55 @@
+{
+  "framework_id": "reas_complete_2024",
+  "system_type": "participatory_guarantee_system",
+  "version": "1.0.0",
+  "pgs_workflow": {
+    "stages": {
+      "self_assessment": {
+        "order": 1,
+        "requires_quantitative_completion": true,
+        "allow_narrative_disclaimer": true
+      },
+      "peer_review_assignment": {
+        "order": 2,
+        "evaluators_required": 2,
+        "cross_evaluation_strategy": "blind_network_match"
+      },
+      "field_visit_checklist": {
+        "order": 3,
+        "mandatory": true,
+        "validation_type": "onsite_or_digital_evidence"
+      },
+      "evaluation_committee_approval": {
+        "order": 4,
+        "consensus_required": "majority_vote",
+        "final_status_options": ["approved", "conditional_approval", "rejected"]
+      }
+    },
+    "qualitative_criteria": {
+      "c_social_cohesion": {
+        "scope": "network_engagement",
+        "evaluation_method": "peer_interview",
+        "fields": {
+          "mutual_aid_actions": { "type": "text", "required": true },
+          "local_currency_support": { "type": "bool", "fallback": false }
+        }
+      },
+      "c_democratic_transparency": {
+        "scope": "governance",
+        "evaluation_method": "document_veracity",
+        "fields": {
+          "assembly_minutes_accessibility": { "type": "bool", "required": true },
+          "salary_cap_disclosure": { "type": "bool", "required": true }
+        }
+      },
+      "c_ecological_commitment": {
+        "scope": "environmental_practices",
+        "evaluation_method": "evidence_review",
+        "fields": {
+          "green_energy_provider_name": { "type": "string", "required": false },
+          "waste_reduction_plan_details": { "type": "text", "required": true }
+        }
+      }
+    }
+  }
+}
