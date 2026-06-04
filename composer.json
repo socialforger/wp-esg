@@ -1,0 +1,18 @@
+{
+    "name": "socialforger/wp-esg",
+    "description": "WordPress ESG Assessment Framework Plugin based on open-ESEA and REAS methodology",
+    "type": "wordpress-plugin",
+    "license": "GPL-3.0-or-later",
+    "require": {
+        "php": ">=7.4",
+        "symfony/expression-language": "^5.4 || ^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "WPESG\\": "includes/"
+        }
+    },
+    "config": {
+        "vendor-dir": "vendor"
+    }
+}
