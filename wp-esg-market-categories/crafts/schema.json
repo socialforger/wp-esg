@@ -1,0 +1,44 @@
+{
+  "category_id": "crafts_and_handicrafts",
+  "framework_scope": "local_quality_crafts",
+  "version": "1.0.0",
+  "category_specific_rules": {
+    "requires_supply_chain_log": true,
+    "requires_price_list_attachment": true
+  },
+  "supplementary_metrics": {
+    "/* --- COMPANY AND PRODUCTION BACKGROUND --- */": {},
+    "m_craft_company_name": { "source": "craft_company_name", "type": "string", "fallback": "" },
+    "m_craft_operator_name": { "source": "craft_operator_name", "type": "string", "fallback": "" },
+    "m_craft_product_description": { "source": "craft_product_description", "type": "text", "fallback": "" },
+    "m_craft_activity_start_year": { "source": "craft_activity_start_year", "type": "int", "fallback": null },
+    
+    "/* --- INFRASTRUCTURE AND LOGISTICS --- */": {},
+    "m_craft_production_site_location": { "source": "craft_production_site_location", "type": "string", "fallback": "" },
+    "m_craft_tenancy_type": { "source": "craft_tenancy_type", "type": "string", "fallback": "" },
+    
+    "/* --- MATERIALS AND SUPPLY CHAIN --- */": {},
+    "m_craft_materials_used": { "source": "craft_materials_used", "type": "text", "fallback": "" },
+    "m_craft_materials_origin": { "source": "craft_materials_origin", "type": "text", "fallback": "" },
+    
+    "/* --- OPERATIONAL METHODS AND COSTS --- */": {},
+    "m_craft_equipment_used": { "source": "craft_equipment_used", "type": "text", "fallback": "" },
+    "m_craft_production_methodology": { "source": "craft_production_methodology", "type": "text", "fallback": "" },
+    "m_craft_production_costs_structure": { "source": "craft_production_costs_structure", "type": "text", "fallback": "" },
+    "m_craft_has_price_list_attached": { "source": "craft_has_price_list_attached", "type": "bool", "mapping": { "YES": 1, "NO": 0 } },
+    "m_craft_additional_skills": { "source": "craft_additional_skills", "type": "text", "fallback": "" }
+  },
+  "supplementary_indicators": {
+    "ind_craft_formal_pricing_compliance": {
+      "unit": "boolean",
+      "formula": "metrics['m_craft_has_price_list_attached'] == 1 ? 1 : 0"
+    }
+  },
+  "qualitative_verification": {
+    "craft_techniques_preservation": {
+      "type": "text",
+      "required": true,
+      "review_method": "peer_review"
+    }
+  }
+}
