@@ -1,0 +1,37 @@
+{
+  "product_id": "bread_and_bakery",
+  "category_scope": "food_and_agrifood",
+  "version": "1.0.0",
+  "product_evaluation_criteria": {
+    
+    "/* --- 1. PRODUCT SPECIFICATIONS & VARIETIES --- */": {},
+    "bakery_products_names_types": { "type": "text", "required": true },
+    
+    "/* --- 2. FLOURS & INGREDIENTS SOURCING --- */": {},
+    "flours_used_types": { "type": "text", "required": true },
+    "flours_origin_own_or_third_party_location": { "type": "text", "required": true },
+    "flours_characteristics_agronomical_features": { "type": "text", "required": true },
+    "other_ingredients_names_origin": { "type": "text", "fallback": "" },
+    "raw_materials_storage_locations": { "type": "string", "fallback": "" },
+    
+    "/* --- 3. WATER & LEAVENING --- */": {},
+    "water_supply_source": { "type": "string", "required": true },
+    "water_quality_control_monitoring": { "type": "text", "fallback": "" },
+    "yeasts_used_types": { "type": "string", "required": true },
+    
+    "/* --- 4. ADDITIVES & PROCESSING --- */": {},
+    "additives_usage_log": { "type": "text", "fallback": "" },
+    "preservatives_usage_log": { "type": "text", "fallback": "" },
+    "flavorings_usage_log": { "type": "text", "fallback": "" },
+    "processing_and_transformation_methodology": { "type": "text", "required": true },
+    
+    "/* --- 5. BAKING & PACKAGING --- */": {},
+    "baking_oven_type_and_fuel": { "type": "string", "required": true },
+    "packaging_types_materials": { "type": "string", "fallback": "" },
+    "organoleptic_description_free_text": { "type": "text", "fallback": "" },
+    
+    "/* --- 6. SOURCE PRICING (PREZZO SORGENTE) --- */": {},
+    "source_price_per_kg_including_vat": { "type": "text", "required": true },
+    "additional_considerations_notes": { "type": "text", "fallback": "" }
+  }
+}
