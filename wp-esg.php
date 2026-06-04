@@ -14,50 +14,33 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 
-// 🔴 CORREZIONE BUG 1: Path allineato alla cartella frameworks/
 define( 'WP_ESG_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WP_ESG_FRAMEWORKS_PATH', WP_ESG_PATH . 'frameworks/' );
-define( 'WP_ESG_INCLUDES_PATH', WP_ESG_PATH . 'includes/' );
 
-/**
- * 🔴 CORREZIONE BUG 2 & 3: Autoloading del Vendor manuale e caricamento delle classi Core.
- */
-require_once WP_ESG_PATH . 'vendor/autoload.php';
+// Include the manual PSR-4 Ecosystem Autoloader
+if ( file_exists( WP_ESG_PATH . 'vendor/autoload.php' ) ) {
+    require_once WP_ESG_PATH . 'vendor/autoload.php';
+}
 
-// Caricamento programmatico di tutte le classi core in includes/
-$core_modules = array(
-    'DatabaseSetup.php',
-    'FormulaEngine.php',
-    'WorkflowManager.php',
-    // Aggiungi qui eventuali altri file presenti in includes/
-);
-
-foreach ( $core_modules as $module ) {
-    $module_path = WP_ESG_INCLUDES_PATH . $module;
-    if ( file_exists( $module_path ) ) {
-        require_once $module_path;
-    }
+// 🔴 FIXED CRITICAL BUG 2: Global activation hook registered with the correct nested namespace
+if ( class_exists( 'WpEsg\Storage\DatabaseSetup' ) ) {
+    register_activation_hook( __FILE__, array( 'WpEsg\Storage\DatabaseSetup', 'activate' ) );
 }
 
 /**
- * Inizializzazione dei componenti Core dopo il caricamento
+ * Core initialization routine triggered on plugins_loaded
  */
 add_action( 'plugins_loaded', 'wp_esg_initialize_core' );
 function wp_esg_initialize_core() {
-    // Registrazione hook di installazione db
-    if ( class_exists( 'WpEsg\DatabaseSetup' ) ) {
-        register_activation_hook( __FILE__, array( 'WpEsg\DatabaseSetup', 'activate' ) );
-    }
-    
-    // Inizializzazione dei manager a runtime
-    if ( class_exists( 'WpEsg\WorkflowManager' ) ) {
-        new WpEsg\WorkflowManager();
+    // 🔴 FIXED CRITICAL BUG 1 & 2: Resolved through Autoloader via the real Core namespace
+    if ( class_exists( 'WpEsg\Core\WorkflowManager' ) ) {
+        new WpEsg\Core\WorkflowManager();
     }
 }
 
 /**
  * Class WP_ESG_Engine_Test
- * Monitor di diagnostica per l'Auto-Discovery dei framework JSON.
+ * Diagnostic monitoring suite for Frameworks Auto-Discovery.
  */
 class WP_ESG_Engine_Test {
 
