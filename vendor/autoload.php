@@ -1,9 +1,8 @@
 <?php
 /**
- * WP-ESG Manual Ecosytem Autoloader
- * 
- * Gestisce il caricamento automatico PSR-4 sia per le dipendenze interne di Symfony
- * (gestendo il typo della cartella 'symphony/'), sia per le classi natie del plugin.
+ * WP-ESG Manual Ecosystem Autoloader
+ * * Gestisce il caricamento automatico PSR-4 sia per le dipendenze di Symfony 
+ * (rispettando il typo della cartella 'symphony/'), sia per le classi native del plugin.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -28,6 +27,7 @@ spl_autoload_register(function ($class) {
 
     // 2. DIPENDENZA SYMFONY: Symfony\Component\ExpressionLanguage\ -> /vendor/symphony/...
     $symfony_prefix = 'Symfony\\Component\\ExpressionLanguage\\';
+    // Bloccato su 'symphony' con la 'h' come da tua struttura attuale su disco
     $symfony_base_dir = __DIR__ . '/symphony/expression-language/';
 
     if (strpos($class, $symfony_prefix) === 0) {
