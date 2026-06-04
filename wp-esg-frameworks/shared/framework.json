@@ -1,0 +1,22 @@
+{
+  "id": "reas_complete_2024",
+  "version": "1.0.0",
+  "name": "REAS Social Audit Framework 2024",
+  "description": "Quantitative ESG assessment framework based on REAS network methodology",
+  "author": "SocialForger",
+  "year": 2024,
+  "blocks": [
+    { "id": "general_data", "order": 1, "weight": 0.0 },
+    { "id": "economy_profit_policy", "order": 2, "weight": 0.2 },
+    { "id": "equity_democracy", "order": 3, "weight": 0.2 },
+    { "id": "environmental_sustainability", "order": 4, "weight": 0.2 },
+    { "id": "social_commitment_cooperation", "order": 5, "weight": 0.2 },
+    { "id": "quality_of_work", "order": 6, "weight": 0.2 }
+  ],
+  "settings": {
+    "allow_partial_save": true,
+    "require_labor_validation": true,
+    "min_labor_response_rate_small_entities": 50,
+    "min_labor_response_rate_large_entities": 25
+  }
+}
