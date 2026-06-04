@@ -9,7 +9,8 @@ use WpEsg\Core\FormulaEngine;
 
 /**
  * Class WorkflowManager
- * Enforces transactional progression limits across the assessment lifecycle matrix.
+ * Enforces atomic state transitions (BPM) across the corporate assessment registry lifecycle,
+ * embedding localized file snapshots as permanent historical seals.
  *
  * @package WpEsg\Core
  */
@@ -24,20 +25,19 @@ class WorkflowManager {
     }
 
     /**
-     * Moves an active record context from Draft status to Pending Review, capturing a language configuration snapshot.
+     * Advances a session record from Draft status to Pending Review, capturing a cryptographic language snapshot.
      *
-     * @param int $assessmentId Core primary key locator inside index tracking matrix.
+     * @param int $assessmentId Primary database locator row ID target.
      * @return bool             True on successful verification updates.
      */
     public function submitToReview(int $assessmentId): bool {
         global $wpdb;
 
         $table = $wpdb->prefix . 'esg_assessments';
-        
         $assessment = $wpdb->get_row($wpdb->prepare("SELECT * FROM $table WHERE id = %d", $assessmentId), ARRAY_A);
 
         if (!$assessment || $assessment['workflow_status'] !== 'Draft') {
-            return false;
+            return false; // Modifications are blocked once a session steps out of the un-submitted Draft state
         }
 
         $locale = determine_locale();
@@ -58,7 +58,7 @@ class WorkflowManager {
     }
 
     /**
-     * Certifies a pending audit, fires mathematical score translations, and builds immutable calculation logs.
+     * Approves a pending assessment, runs quantitative scoring pipelines, and archives frozen analytical results.
      */
     public function completeAssessment(int $assessmentId, string $frameworkId, string $version): bool {
         global $wpdb;
@@ -75,10 +75,11 @@ class WorkflowManager {
             return false;
         }
 
+        // Run quantitative calculations translation engine (Questions -> Metrics -> Indicators)
         $outputPayload = $this->formulaEngine->computeAssessment($assessment);
 
-        $manifestPath = WP_ESG_PATH . 'frameworks/openesea/manifest.json';
-        $manifestData = file_exists($manifestPath) ? json_decode(file_get_contents($manifestPath), true) : [];
+        $manifestFile = WP_ESG_PATH . 'frameworks/openesea/manifest.json';
+        $manifestData = file_exists($manifestFile) ? json_decode(file_get_contents($manifestFile), true) : [];
         $manifestHash = hash('sha256', json_encode($manifestData));
 
         $inserted = $wpdb->insert(
@@ -105,11 +106,14 @@ class WorkflowManager {
         return false;
     }
 
+    /**
+     * Captures runtime file hashes of standard translations to embed into raw records for audit logging.
+     */
     private function generateLanguageSnapshot(string $locale): array {
         $files = [
             'framework'  => "frameworks/openesea-{$locale}.json",
             'pgs'        => "frameworks/pgs-{$locale}.json",
-            'categories' => "categories/textile_clothing-{$locale}.json" // Fallback reference target
+            'categories' => "categories/textile_clothing-{$locale}.json" // Anchor baseline taxonomy target
         ];
 
         $hashes = [];
@@ -120,6 +124,9 @@ class WorkflowManager {
         return $hashes;
     }
 
+    /**
+     * Serializes cryptographic language metadata tags straight into raw questionnaire string structures.
+     */
     private function injectLanguageMeta(string $rawAnswersJson, array $hashes): string {
         $answers = json_decode($rawAnswersJson, true) ?: [];
         $answers['_meta_language_snapshot'] = $hashes;
