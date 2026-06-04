@@ -1,0 +1,25 @@
+{
+  "framework_id": "reas_complete_2024",
+  "mappings": {
+    "sdg5": {
+      "name": "Gender Equality",
+      "indicators": ["ind20", "ind23", "ind26", "ind97", "ind261", "ind262", "ind272"]
+    },
+    "sdg8": {
+      "name": "Decent Work and Economic Growth",
+      "indicators": ["ind4", "ind114", "ind168", "ind58", "ind77", "ind78", "ind80", "ind104", "ind105"]
+    },
+    "sdg10": {
+      "name": "Reduced Inequalities",
+      "indicators": ["ind26", "ind27", "ind190", "ind322", "ind329"]
+    },
+    "sdg12": {
+      "name": "Responsible Consumption and Production",
+      "indicators": ["ind5", "ind63", "ind65", "ind69", "ind102", "ind106", "ind42", "ind72"]
+    },
+    "sdg13": {
+      "name": "Climate Action",
+      "indicators": ["ind59", "ind60", "ind62", "ind106"]
+    }
+  }
+}
