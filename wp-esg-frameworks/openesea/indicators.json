@@ -1,5 +1,5 @@
 {
-  "framework_id": "reas_complete_2024",
+  "framework_id": "openesea_core_2024",
   "indicators": {
     "ind1": {
       "unit": "count",
