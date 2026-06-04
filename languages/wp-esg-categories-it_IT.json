@@ -1,0 +1,31 @@
+{
+  "domain": "wp-esg-categories",
+  "locale_data": {
+    "wp-esg-categories": {
+      "": {
+        "domain": "wp-esg-categories",
+        "lang": "it_IT",
+        "plural_forms": "nplurals=2; plural=(n != 1);"
+      },
+      "tex_01_label": ["Tracciabilità totale delle fibre tessili impiegate nei processi"],
+      "tex_01_help": ["Indicare la quota percentuale di materie prime tessili dotate di certificazioni biologiche o rigenerate (es. GOTS, GRS)."],
+      "tex_02_label": ["Monitoraggio dell'impatto chimico nelle fasi di tintura e finissaggio"],
+      "tex_02_help": ["Verifica se i terzisti o le fasi interne escludono le sostanze tossiche iscritte nella lista ZDHC (Zero Discharge of Hazardous Chemicals)."],
+      
+      "hrb_01_label": ["Metodo di raccolta e provenienza delle varietà botaniche ed erbe officinali"],
+      "hrb_01_help": ["Mappatura delle colture biologiche certificate o della raccolta spontanea effettuata secondo protocolli di sostenibilità ecologica."],
+      "hrb_02_label": ["Efficienza energetica e rendimento termico dei sistemi di distillazione ed essiccazione"],
+      "hrb_02_help": ["Presenza di impianti di recupero calore o alimentazione a biomasse aziendali nei processi estrattivi."],
+      
+      "det_01_label": ["Percentuale di tensioattivi da fonti interamente vegetali e rinnovabili (%)"],
+      "det_01_help": ["Quota sul totale delle materie prime impiegate nella formulazione dei detergenti escludendo derivati petrolchimici."],
+      "det_02_label": ["Indice di biodegradabilità anaerobica primaria e secondaria dei formulati"],
+      "det_02_help": ["Rapporto di conformità verificato da analisi di laboratorio esterne secondo i regolamenti europei ecolabel."],
+      
+      "art_01_label": ["Utilizzo di materie prime naturali locali o materiali di recupero creativo"],
+      "art_01_help": ["Percentuale di legno certificato FSC/PEFC, argille autoctone o scarti industriali nobilitati nei manufatti artigianali."],
+      "art_02_label": ["Assenza di composti organici volatili (COV) nei trattamenti superficiali"],
+      "art_02_help": ["Impiego esclusivo di oli naturali, cere d'api o vernici all'acqua prive di solventi chimici nocivi."]
+    }
+  }
+}
