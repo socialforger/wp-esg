@@ -1,0 +1,26 @@
+{
+  "domain": "wp-esg-qualitative-pgs",
+  "locale_data": {
+    "wp-esg-qualitative-pgs": {
+      "": {
+        "domain": "wp-esg-qualitative-pgs",
+        "lang": "it_IT",
+        "plural_forms": "nplurals=2; plural=(n != 1);"
+      },
+      "pgs_ch1_title": ["1. ADESIONE E PATTO DI FIDUCIA"],
+      "pgs_ch1_abstract": ["Questo blocco valuta il livello di coinvolgimento formale dell'organizzazione all'interno dei Sistemi di Garanzia Partecipata. Misura l'allineamento dei valori aziendali con i patti di fiducia locali e i criteri di trasparenza condivisi all'interno del distretto di rete."],
+      
+      "pgs_ch1_sub1_title": ["Sottoscrizione e impegni di rete"],
+      "pgs_01": ["Sottoscrizione formale del Patto di Fiducia e Garanzia Partecipata della Rete locale"],
+      "pgs_02": ["Frequenza di partecipazione attiva alle assemblee di distretto e ai nodi di interscambio"],
+
+      "pgs_ch2_title": ["2. VALIDAZIONE PARTECIPATA (PEER REVIEW)"],
+      "pgs_ch2_abstract": ["La valutazione tra pari è il cuore del modulo PGS. In questa sezione si tracciano le visite incrociate effettuate e ricevute, mirate a verificare sul campo l'applicazione reale dei criteri dell'Economia Sociale e Solidale."],
+      
+      "pgs_ch2_sub1_title": ["Visite incrociate e Mutualità"],
+      "pgs_03": ["Coinvolgimento in visite di verifica incrociata (Peer Review) presso altre aziende della rete"],
+      "pgs_04": ["Adesione a progetti di mutualità interna e fondi di solidarietà condivisi tra i nodi"],
+      "pgs_05": ["Risoluzione partecipata dei conflitti tramite i comitati etici o collegi di garanzia locali"]
+    }
+  }
+}
