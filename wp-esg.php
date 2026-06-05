@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: WP ESG Market Frameworks
+ * Plugin Name: WP ESG 
  * Plugin URI:  https://github.com/socialforger/wp-esg
  * Description: Modular ESG Assessment Engine. Integrates OpenESEA, SDG Mapping, PGS Evaluation, and Vertical Product Self-Certifications.
  * Version:     1.0.0
@@ -27,6 +27,11 @@ if ( class_exists( 'WpEsg\Storage\DatabaseSetup' ) ) {
     register_activation_hook( __FILE__, array( 'WpEsg\Storage\DatabaseSetup', 'activate' ) );
 }
 
+// Set activation redirect transient so WizardController routes to the settings page on first load
+register_activation_hook( __FILE__, function() {
+    set_transient( 'wp_esg_activation_redirect_flag', true, 30 );
+} );
+
 /**
  * Core initialization routine triggered on plugins_loaded
  */
@@ -35,6 +40,19 @@ function wp_esg_initialize_core() {
     // 🔴 FIXED CRITICAL BUG 1 & 2: Resolved through Autoloader via the real Core namespace
     if ( class_exists( 'WpEsg\Core\WorkflowManager' ) ) {
         new WpEsg\Core\WorkflowManager();
+    }
+
+    // Initialize Admin UI panels (settings page, workflow monitor, activation wizard redirect)
+    if ( is_admin() ) {
+        if ( class_exists( 'WpEsg\Admin\AdminSettingsView' ) ) {
+            new WpEsg\Admin\AdminSettingsView();
+        }
+        if ( class_exists( 'WpEsg\Admin\AdminWorkflowView' ) ) {
+            new WpEsg\Admin\AdminWorkflowView();
+        }
+        if ( class_exists( 'WpEsg\Admin\WizardController' ) ) {
+            new WpEsg\Admin\WizardController();
+        }
     }
 }
 
