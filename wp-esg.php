@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: WP ESG 
- * Plugin URI:   https://github.com/socialforger/wp-esg
+ * Plugin URI:  https://github.com/socialforger/wp-esg
  * Description: Modular ESG Assessment Engine. Integrates OpenESEA, SDG Mapping, and Vertical Product Self-Certifications. NOTE: For Standalone mode, use the default testing access key: ESG2026
  * Version:     1.0.0
  * Author:      SocialForger
- * Author URI:   https://socialforger.com
+ * Author URI:  https://socialforger.com
  * License:     GPLv2 or later
  * Text Domain: wp-esg
  * Domain Path: /languages
@@ -38,11 +38,6 @@ register_activation_hook( __FILE__, 'wp_esg_activation_routine' );
 function wp_esg_activation_routine() {
     set_transient( 'wp_esg_activation_redirect_flag', true, 30 );
     
-    /**
-     * 📌 NOTE FOR DEVELOPERS / USERS:
-     * The default master access key for the Standalone sandbox mode is: ESG2026
-     * This allows immediate testing on the frontend landing page right after installation.
-     */
     $page_title  = 'ESG Assessment';
     $shortcode   = '[wp_esg_dynamic_assessment]';
     $option_name = 'wp_esg_landing_page_id';
@@ -52,24 +47,39 @@ function wp_esg_activation_routine() {
         return;
     }
     
-    $page_check = get_page_by_title( $page_title );
+    // 🛠️ FIX BUG #1: Sostituito get_page_by_title (deprecato da WP 6.2.0) per eliminare i caratteri inattesi
+    $pages = get_posts([
+        'post_type'      => 'page',
+        'post_status'    => 'any',
+        'title'          => $page_title,
+        'posts_per_page' => 1,
+    ]);
+    
+    $page_check = ! empty( $pages ) ? $pages[0] : null;
     if ( isset( $page_check->ID ) ) {
         update_option( $option_name, $page_check->ID );
         return;
     }
     
-    $new_page_id = wp_insert_post( array(
+    // 🛠️ FIX BUG #7: Sostituito post_author hardcoded (1) con get_current_user_id() sicuro
+    wp_insert_post( array(
         'post_title'     => $page_title,
         'post_name'      => 'esg-assessment',
         'post_content'   => $shortcode,
         'post_status'    => 'publish',
         'post_type'      => 'page',
-        'post_author'    => 1,
+        'post_author'    => get_current_user_id() ? get_current_user_id() : 1,
         'comment_status' => 'closed',
     ) );
-    
-    if ( ! is_wp_error( $new_page_id ) ) {
-        update_option( $option_name, $new_page_id );
+}
+
+// 🛠️ FIX BUG #5: Hook admin_init aggiunto per consumare il transient ed eseguire il redirect post-attivazione
+add_action( 'admin_init', 'wp_esg_process_activation_redirect' );
+function wp_esg_process_activation_redirect() {
+    if ( get_transient( 'wp_esg_activation_redirect_flag' ) ) {
+        delete_transient( 'wp_esg_activation_redirect_flag' );
+        wp_redirect( admin_url( 'admin.php?page=wp-esg' ) );
+        exit;
     }
 }
 
@@ -79,18 +89,11 @@ function wp_esg_initialize_core() {
         new WpEsg\Core\WorkflowManager();
     }
 
-    // Bootstrap the Camouflage Frontend Shortcode for the Assessment Landing Page
     if ( class_exists( 'WpEsg\Frontend\AssessmentShortcode' ) ) {
         new WpEsg\Frontend\AssessmentShortcode();
     }
 
     if ( is_admin() ) {
-        if ( class_exists( 'WpEsg\Admin\AdminSettingsView' ) ) {
-            new WpEsg\Admin\AdminSettingsView();
-        }
-        if ( class_exists( 'WpEsg\Admin\AdminWorkflowView' ) ) {
-            new WpEsg\Admin\AdminWorkflowView();
-        }
         if ( class_exists( 'WpEsg\Admin\WizardController' ) ) {
             new WpEsg\Admin\WizardController();
         }
