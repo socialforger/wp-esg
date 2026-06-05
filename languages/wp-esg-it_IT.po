@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WP-ESG 1.0.0\n"
-"Report-Msgid-Bugs-To: https://github.com/socialforger/wp-esg/issuesn"
+"Report-Msgid-Bugs-To: https://github.com/socialforger/wp-esg/issues\n"
 "POT-Creation-Date: 2026-06-04 15:30+0200\n"
-"PO-Revision-Date: 2026-06-04 15:32+0200\n"
+"PO-Revision-Date: 2026-06-05 23:45+0200\n"
 "Last-Translator: SocialForger <info@socialforger.org>\n"
 "Language: it_IT\n"
 "MIME-Version: 1.0\n"
@@ -43,3 +43,189 @@ msgstr "In Revisione"
 #: includes/Core/WorkflowManager.php:118
 msgid "Completed"
 msgstr "Approvato e Chiuso"
+
+#: includes/Frontend/AssessmentShortcode.php:57
+msgid "🔒 Assessment Locked"
+msgstr "🔒 Questionario Bloccato"
+
+#: includes/Frontend/AssessmentShortcode.php:58
+#, php-format
+msgid "The ESG report for the year %d has already been submitted and officially signed off. Sent records cannot be modified or re-opened."
+msgstr "Il report ESG per l'anno %d è già stato inviato e firmato ufficialmente. I record inviati non possono essere modificati o riaperti."
+
+#: includes/Frontend/AssessmentShortcode.php:111
+msgid "Step 1 of 4: Setup"
+msgstr "Fase 1 di 4: Configurazione"
+
+#: includes/Frontend/AssessmentShortcode.php:129
+msgid "Generate Questionnaires Index &rarr;"
+msgstr "Genera Indice Questionari &rarr;"
+
+#: includes/Frontend/AssessmentShortcode.php:154
+msgid "Initialize & Continue &rarr;"
+msgstr "Inizializza e Continua &rarr;"
+
+#: includes/Frontend/AssessmentShortcode.php:173
+msgid "Corporate ESG Disclosure Index"
+msgstr "Indice della Dichiarazione ESG Aziendale"
+
+#: includes/Frontend/AssessmentShortcode.php:175
+#, php-format
+msgid "Reporting Year: %d | Business Registry VAT ID: %s"
+msgstr "Anno di Rendicontazione: %d | Partita IVA Registro Imprese: %s"
+
+#: includes/Frontend/AssessmentShortcode.php:184
+msgid "Mandatory - Subject to official Auditing & Review"
+msgstr "Obbligatorio - Sottoposto a Revisione e Certificazione Ufficiale"
+
+#: includes/Frontend/AssessmentShortcode.php:187
+msgid "🔒 Locked & Submitted"
+msgstr "🔒 Bloccato e Inviato"
+
+#: includes/Frontend/AssessmentShortcode.php:189
+#: includes/Frontend/AssessmentShortcode.php:204
+#: includes/Frontend/AssessmentShortcode.php:219
+msgid "Compile Section &rarr;"
+msgstr "Compila Sezione &rarr;"
+
+#: includes/Frontend/AssessmentShortcode.php:196
+msgid "2. Network PGS Evaluation"
+msgstr "2. Valutazione PGS di Rete"
+
+#: includes/Frontend/AssessmentShortcode.php:197
+msgid "Social & Governance parameters - Platform Score"
+msgstr "Parametri Social e Governance - Punteggio di Piattaforma"
+
+#: includes/Frontend/AssessmentShortcode.php:201
+#: includes/Frontend/AssessmentShortcode.php:216
+msgid "✓ Completed"
+msgstr "✓ Completato"
+
+#: includes/Frontend/AssessmentShortcode.php:202
+#: includes/Frontend/AssessmentShortcode.php:217
+msgid "Edit responses"
+msgstr "Modifica risposte"
+
+#: includes/Frontend/AssessmentShortcode.php:211
+msgid "3. Vertical Product Self-Certifications"
+msgstr "3. Autocertificazioni Verticali di Prodotto"
+
+#: includes/Frontend/AssessmentShortcode.php:212
+msgid "Product environmental footprints declarations"
+msgstr "Dichiarazioni dell'impronta ambientale di prodotto"
+
+#: includes/Frontend/AssessmentShortcode.php:231
+msgid "⚠️ You must fill all core matrices modules to seal the structural database record packet."
+msgstr "⚠️ È necessario compilare tutti i moduli delle matrici principali per sigillare il pacchetto dei record nel database."
+
+#: includes/Frontend/AssessmentShortcode.php:252
+msgid "Save & Back to Index &rarr;"
+msgstr "Salva e Torna all'Indice &rarr;"
+
+#: includes/Frontend/AssessmentShortcode.php:284
+msgid "Does your enterprise run local community support guidelines or corporate code-of-conduct transparency policies?"
+msgstr "L'azienda adotta linee guida per il supporto della comunità locale o politiche di trasparenza sul codice di condotta aziendale?"
+
+#: includes/Frontend/AssessmentShortcode.php:314
+msgid "Are your primary commercial goods produced utilizing certified eco-compatible materials?"
+msgstr "I vostri beni commerciali principali sono prodotti utilizzando materiali ecocompatibili certificati?"
+
+#: includes/Frontend/AssessmentShortcode.php:350
+msgid "Assessment Campaign Closed"
+msgstr "Campagna di Valutazione Chiusa"
+
+#: includes/Frontend/AssessmentShortcode.php:352
+msgid "The unbundled assessment data blocks have been registered and successfully locked. OpenESEA module is queued for auditing verification processing."
+msgstr "I singoli blocchi di dati della valutazione sono stati registrati e bloccati con successo. Il modulo OpenESEA è in coda per il processo di verifica e audit."
+
+#: includes/Frontend/AssessmentShortcode.php:79
+msgid "Corporate ESG Reporting Archive"
+msgstr "Archivio Storico dei Report ESG Aziendali"
+
+#: includes/Frontend/AssessmentShortcode.php:80
+msgid "+ New Campaign Assessment"
+msgstr "+ Nuova Campagna di Valutazione"
+
+#: includes/Frontend/AssessmentShortcode.php:83
+msgid "Review previously locked accounting disclosure campaigns or launch a new dynamic validation lifecycle profile."
+msgstr "Rivedi le campagne di rendicontazione precedentemente bloccate o avvia un nuovo profilo dinamico del ciclo di vita della validazione."
+
+#: includes/Frontend/AssessmentShortcode.php:87
+msgid "No historical assessments found. Click the button above to initialize your first framework."
+msgstr "Nessuna valutazione storica trovata. Clicca sul pulsante in alto per inizializzare il tuo primo framework."
+
+#: includes/Frontend/AssessmentShortcode.php:94
+msgid "Target Year"
+msgstr "Anno di Riferimento"
+
+#: includes/Frontend/AssessmentShortcode.php:95
+msgid "Company Registry ID"
+msgstr "ID Registro Imprese"
+
+#: includes/Frontend/AssessmentShortcode.php:96
+msgid "Status"
+msgstr "Stato"
+
+#: includes/Frontend/AssessmentShortcode.php:97
+msgid "Actions"
+msgstr "Azioni"
+
+#: includes/Frontend/AssessmentShortcode.php:108
+msgid "🔒 Locked (Submitted)"
+msgstr "🔒 Bloccato (Inviato)"
+
+#: includes/Frontend/AssessmentShortcode.php:110
+msgid "📝 Draft"
+msgstr "📝 Bozza"
+
+#: includes/Frontend/AssessmentShortcode.php:115
+msgid "View Report &raquo;"
+msgstr "Visualizza Report &raquo;"
+
+#: includes/Frontend/AssessmentShortcode.php:117
+msgid "Resume &raquo;"
+msgstr "Riprendi &raquo;"
+
+#: includes/Output/Adapters/TablePressIntegrator.php:32
+msgid "Company Tax ID"
+msgstr "Partita IVA Azienda"
+
+#: includes/Output/Adapters/TablePressIntegrator.php:33
+msgid "ATECO Code"
+msgstr "Codice ATECO"
+
+#: includes/Output/Adapters/TablePressIntegrator.php:34
+msgid "Reporting Year"
+msgstr "Anno Fiscale"
+
+#: includes/Output/Adapters/TablePressIntegrator.php:35
+msgid "Company Size"
+msgstr "Dimensione Azienda"
+
+#: includes/Output/Adapters/TablePressIntegrator.php:36
+msgid "OpenESEA Status"
+msgstr "Stato OpenESEA"
+
+#: includes/Output/Adapters/TablePressIntegrator.php:37
+msgid "PGS Local Guidelines"
+msgstr "Linee Guida PGS"
+
+#: includes/Output/Adapters/TablePressIntegrator.php:38
+msgid "Eco-Compatible Products"
+msgstr "Prodotti Ecocompatibili"
+
+#: includes/Output/Adapters/TablePressIntegrator.php:57
+msgid "✓ Approved & Certified"
+msgstr "✓ Approvato e Certificato"
+
+#: includes/Output/Adapters/TablePressIntegrator.php:59
+msgid "🔒 Under Review"
+msgstr "🔒 In Fase di Revisione"
+
+#: includes/Output/Adapters/TablePressIntegrator.php:61
+msgid "📝 In Progress (Draft)"
+msgstr "📝 In Corso (Bozza)"
+
+#: includes/Output/Adapters/TablePressIntegrator.php:66
+msgid "N/A"
+msgstr "N/D"
