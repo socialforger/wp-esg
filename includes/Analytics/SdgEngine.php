@@ -6,30 +6,19 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use WpEsg\Core\FormulaEvaluator;
-
-/**
- * Class SdgEngine
- *
- * Computes SDG badge eligibility
- * from calculated indicators.
- */
 class SdgEngine
 {
-    private FormulaEvaluator $lexer;
-
     private string $mappingPath;
 
     public function __construct()
     {
-        $this->lexer = new FormulaEvaluator();
-
         $this->mappingPath =
-            WP_ESG_PATH . 'frameworks/sdg/sdg_mapping.json';
+            WP_ESG_PATH .
+            'frameworks/sdg/sdg_mapping.json';
     }
 
     /**
-     * Computes unlocked SDGs.
+     * Associa gli SDG agli indicatori presenti.
      */
     public function computeUnlockedGoals(
         array $indicatorsMap
@@ -39,59 +28,77 @@ class SdgEngine
             return [];
         }
 
-        $mappingData = json_decode(
-            file_get_contents($this->mappingPath),
+        $mapping = json_decode(
+            file_get_contents(
+                $this->mappingPath
+            ),
             true
         );
 
-        $rules =
-            $mappingData['rules'] ?? [];
+        $sdgs =
+            $mapping['mappings'] ?? [];
 
-        $unlockedGoals = [];
+        $results = [];
 
-        foreach ($rules as $goalId => $context) {
+        foreach ($sdgs as $sdgCode => $sdgData) {
 
-            $expression =
-                $context['condition'] ?? '0';
+            $linkedIndicators =
+                $sdgData['indicators'] ?? [];
 
-            try {
+            $score = 0;
+            $count = 0;
 
-                $isEligible =
-                    $this->lexer->evaluate(
-                        $expression,
-                        [
-                            'indicators' => $indicatorsMap
+            foreach (
+                $linkedIndicators
+                as $indicatorId
+            ) {
+
+                if (
+                    isset(
+                        $indicatorsMap[
+                            $indicatorId
                         ]
-                    );
+                    )
+                ) {
 
-                if ((bool)$isEligible) {
+                    $score +=
+                        (float)
+                        $indicatorsMap[
+                            $indicatorId
+                        ];
 
-                    $unlockedGoals[$goalId] = [
-
-                        'goal_code' =>
-                            sanitize_text_field(
-                                $goalId
-                            ),
-
-                        'score_link' =>
-                            (float)(
-                                $context['target_weight']
-                                ?? 100
-                            ),
-
-                        'audited_at' =>
-                            gmdate(
-                                'Y-m-d H:i:s'
-                            )
-                    ];
+                    $count++;
                 }
-
-            } catch (\Throwable $e) {
-
-                continue;
             }
+
+            $average =
+                $count > 0
+                    ? $score / $count
+                    : 0;
+
+            $results[$sdgCode] = [
+
+                'goal_code' => $sdgCode,
+
+                'goal_name' =>
+                    $sdgData['name'] ?? '',
+
+                'score' =>
+                    round(
+                        $average,
+                        2
+                    ),
+
+                'indicator_count' =>
+                    $count,
+
+                'audited_at' =>
+                    gmdate(
+                        'Y-m-d H:i:s'
+                    )
+            ];
         }
 
-        return $unlockedGoals;
+        return $results;
     }
 }
