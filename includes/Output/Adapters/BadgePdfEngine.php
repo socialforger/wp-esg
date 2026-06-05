@@ -30,7 +30,15 @@ class BadgePdfEngine {
         }
 
         $data = json_decode($payload, true);
-        $taxId = esc_attr($data['meta']['company_tax_id'] ?? 'unknown');
+
+        // 🔄 AGGIORNAMENTO MAPPATURA: Estrazione dai nuovi cassetti strutturati dallo Shortcode
+        // I metadati aziendali ora risiedono dentro 'company_metadata' (o valorizzati nativamente nel payload di report)
+        $metadata = $data['company_metadata'] ?? [];
+        
+        // Fallback di sicurezza: se il payload dei risultati ha una chiave piatta 'meta', la usiamo, altrimenti leggiamo lo shortcode unificato
+        $taxId   = esc_attr($metadata['company_tax_id'] ?? ($data['meta']['company_tax_id'] ?? 'unknown'));
+        $year    = esc_attr($data['balance_year'] ?? ($metadata['balance_year'] ?? '2026'));
+        $hash    = esc_attr($data['framework_manifest_hash'] ?? ($data['meta']['framework_manifest_hash'] ?? 'N/A'));
 
         // Instantiate native FPDF library components
         $pdf = new \FPDF('P', 'mm', 'A4');
@@ -41,8 +49,8 @@ class BadgePdfEngine {
         
         $pdf->SetFont('Arial', '', 12);
         $pdf->Cell(0, 10, 'Organization Tax ID Target: ' . $taxId, 0, 1, 'L');
-        $pdf->Cell(0, 10, 'Fiscal Balance Period: ' . esc_attr($data['meta']['balance_year'] ?? '2026'), 0, 1, 'L');
-        $pdf->Cell(0, 10, 'Cryptographic Manifest Seal: ' . esc_attr($data['meta']['framework_manifest_hash'] ?? 'N/A'), 0, 1, 'L');
+        $pdf->Cell(0, 10, 'Fiscal Balance Period: ' . $year, 0, 1, 'L');
+        $pdf->Cell(0, 10, 'Cryptographic Manifest Seal: ' . $hash, 0, 1, 'L');
         
         $uploadDir = wp_upload_dir();
         $targetDirectory = $uploadDir['basedir'] . '/wp-esg-badges/';
