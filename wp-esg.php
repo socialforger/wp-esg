@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WP ESG 
  * Plugin URI:   https://github.com/socialforger/wp-esg
- * Description: Modular ESG Assessment Engine. Integrates OpenESEA, SDG Mapping, PGS Evaluation, and Vertical Product Self-Certifications.
+ * Description: Modular ESG Assessment Engine. Integrates OpenESEA, SDG Mapping, and Vertical Product Self-Certifications. NOTE: For Standalone mode, use the default testing access key: ESG2026
  * Version:     1.0.0
  * Author:      SocialForger
  * Author URI:   https://socialforger.com
@@ -38,7 +38,11 @@ register_activation_hook( __FILE__, 'wp_esg_activation_routine' );
 function wp_esg_activation_routine() {
     set_transient( 'wp_esg_activation_redirect_flag', true, 30 );
     
-    // Provision the default landing page template title in English
+    /**
+     * 📌 NOTE FOR DEVELOPERS / USERS:
+     * The default master access key for the Standalone sandbox mode is: ESG2026
+     * This allows immediate testing on the frontend landing page right after installation.
+     */
     $page_title  = 'ESG Assessment';
     $shortcode   = '[wp_esg_dynamic_assessment]';
     $option_name = 'wp_esg_landing_page_id';
