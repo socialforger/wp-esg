@@ -19,19 +19,19 @@ class AssessmentShortcode {
     public function render_shortcode( $atts ) {
         $engine_mode = get_option( 'wp_esg_engine_mode', 'standalone' );
 
-        // STATO 0: Landing CTA Button (Mostrato solo se non siamo loggati e non abbiamo inserito codici)
+        // STATO 0: Landing CTA Button (Mostrato solo se scollegati e senza codici attivi)
         if ( ! isset( $_GET['esg_action'] ) && ! isset( $_POST['action'] ) && ! isset( $_SESSION['esg_verified_code'] ) && ! is_user_logged_in() ) {
             return $this->render_landing_button( $engine_mode );
         }
 
-        // ROTTA DI INTERFACCIA: MODALITÀ USERS DB (MULTITENANT COGNITIVE)
+        // ROTTA DI INTERFACCIA: MODALITÀ USERS DB (MULTITENANT CONNESSO)
         if ( 'multitenant_db' === $engine_mode ) {
             if ( ! is_user_logged_in() ) {
                 wp_redirect( wp_login_url( get_permalink() ) );
                 exit;
             }
         } 
-        // ROTTA DI INTERFACCIA: MODALITÀ STANDALONE (PROTEZIONE CON CODICE MASTER)
+        // ROTTA DI INTERFACCIA: MODALITÀ STANDALONE (CODICE MASTER ESG2026)
         else {
             if ( isset( $_POST['esg_submit_code'] ) ) {
                 $inserted_code = sanitize_text_field( $_POST['access_code'] );
@@ -48,31 +48,31 @@ class AssessmentShortcode {
         }
 
         // ==========================================
-        // GESTORE INVII E INTERCETTAZIONI DEI FORM
+        // GESTORE INTERCETTAZIONE FORM E SALVATAGGI
         // ==========================================
 
-        // Processo Screening Iniziale Anagrafico
+        // Screening Iniziale Anagrafico
         if ( isset( $_POST['action'] ) && $_POST['action'] === 'submit_screening' ) {
             return $this->process_screening_and_route();
         }
 
-        // Processo Salvataggio STEP 1: OPENESEA (Sottoposto a Giudizio)
+        // STEP 1: OPENESEA (Sottoposto a Giudizio)
         if ( isset( $_POST['action'] ) && $_POST['action'] === 'submit_openesea' ) {
             return $this->process_openesea_and_route();
         }
 
-        // Processo Salvataggio STEP 2: PGS
+        // STEP 2: PGS
         if ( isset( $_POST['action'] ) && $_POST['action'] === 'submit_pgs' ) {
             return $this->process_pgs_and_route();
         }
 
-        // Processo Salvataggio STEP 3: PRODOTTI
+        // STEP 3: PRODOTTI (Chiusura Campagna)
         if ( isset( $_POST['action'] ) && $_POST['action'] === 'submit_products' ) {
             return $this->process_products_and_route();
         }
 
         // ==========================================
-        // AUTOMATIC INTERFACE STEP ROUTING (GET)
+        // ROUTING SCHERMATE DYNAMIC STEP (GET)
         // ==========================================
         $current_step = isset($_GET['esg_step']) ? sanitize_text_field($_GET['esg_step']) : 'history';
         
@@ -138,7 +138,6 @@ class AssessmentShortcode {
         return ob_get_clean();
     }
 
-    // Helper interno per estrarre in modo sicuro la P.IVA attiva in base alla modalità
     private function resolve_active_tax_id($engine_mode) {
         if ( 'multitenant_db' === $engine_mode && class_exists('WpEsg\Storage\UserCompanyLinker') ) {
             return \WpEsg\Storage\UserCompanyLinker::getCompanyTaxIdByUserId( get_current_user_id() );
@@ -147,7 +146,7 @@ class AssessmentShortcode {
     }
 
     // ==========================================
-    // ARCHIVIO REQUISITI STORICI (DASHBOARD)
+    // PARTE 1: DASHBOARD STORICO ARCHIVIO
     // ==========================================
     private function render_history_dashboard($engine_mode) {
         global $wpdb;
@@ -155,8 +154,6 @@ class AssessmentShortcode {
         
         $tax_id = $this->resolve_active_tax_id($engine_mode);
 
-        // Se siamo in modalità multitenant/connessa, mostriamo SOLO la roba di questa azienda. 
-        // In standalone/sandbox estraiamo l'archivio globale locale per i test.
         if ( ! empty($tax_id) ) {
             $records = $wpdb->get_results( $wpdb->prepare( "SELECT id, company_tax_id, balance_year, workflow_status FROM $table WHERE company_tax_id = %s ORDER BY balance_year DESC", $tax_id ) );
         } else {
@@ -191,7 +188,7 @@ class AssessmentShortcode {
                     </thead>
                     <tbody>
                         <?php foreach ( $records as $row ) : 
-                            $is_submitted = ( 'Submitted' === $row->workflow_status );
+                            $is_submitted = ( 'Submitted' === $row->workflow_status || 'Pending Review' === $row->workflow_status || 'Completed' === $row->workflow_status );
                             ?>
                             <tr style="border-bottom:1px solid #f0f0f1;">
                                 <td style="padding:12px; font-weight:bold; color:#1d2327;">📈 <?php echo esc_html( $row->balance_year ); ?></td>
@@ -221,7 +218,7 @@ class AssessmentShortcode {
     }
 
     // ==========================================
-    // DETTAGLIO REPORT ARCHIVIATO (READ-ONLY)
+    // PARTE 2: READ-ONLY ARCHIVE AUDIT VIEW
     // ==========================================
     private function render_archive_detail() {
         global $wpdb;
@@ -278,13 +275,14 @@ class AssessmentShortcode {
     }
 
     // ==========================================
-    // STEP FASE 1: PRE-QUESTIONARIO SCREENING
+    // FASE 1: PRE-QUESTIONARIO SCREENING ANAGRAFICO
     // ==========================================
     private function render_screening_form() {
         ob_start();
         ?>
         <div class="esg-screening-box" style="max-width: 550px; margin: 30px auto; padding: 25px; border: 1px solid #ccd0d4; background: #fff; border-radius: 6px; font-family: sans-serif;">
             <div style="margin-bottom:15px;"><a href="<?php echo esc_url(add_query_arg('esg_step', 'history', get_permalink())); ?>" style="color:#2271b1; text-decoration:none; font-size:13px;">&larr; Back to Archive</a></div>
+            <div style="color:#2271b1; font-weight:bold; font-size:12px; margin-bottom:10px; text-transform:uppercase;"><?php esc_html_e( 'Step 1 of 4: Setup', 'wp-esg' ); ?></div>
             <h2><?php esc_html_e( 'Pre-Assessment Screening', 'wp-esg' ); ?></h2>
             <form method="post" action="">
                 <input type="hidden" name="action" value="submit_screening">
@@ -356,7 +354,7 @@ class AssessmentShortcode {
     }
 
     // ==========================================
-    // 📋 HUB CENTRALE: INDICE COMPILATIVO
+    // 📋 HUB CENTRALE: INDICE COMPILATIVO DEI CASSETTI
     // ==========================================
     private function render_assessment_hub() {
         global $wpdb;
@@ -456,24 +454,52 @@ class AssessmentShortcode {
     }
 
     // ==========================================
-    // COMPILAZIONE DELLE MATRIX SINGOLE 
+    // STEP 1: MODULE FORM CORE OPENESEA (CON HELP CARICATO DA JSON LINGUA)
     // ==========================================
     private function render_openesea_form() {
         $module = $_SESSION['esg_qualitative_module'] ?? 'none';
+        
+        // 🌐 ACCESSO DINAMICO E PARACADUTE AIUTI LOCALIZZATI
+        $locale = determine_locale(); 
+        $lang_code = substr($locale, 0, 2); 
+        
+        $help_file_path = WP_ESG_PATH . "languages/{$lang_code}/frameworks/openesea/questions-help.json";
+        
+        // Paracadute di sicurezza: se la lingua del sito non è ancora mappata, carica la cartella standard italiana
+        if ( ! file_exists($help_file_path) ) {
+            $help_file_path = WP_ESG_PATH . "languages/it/frameworks/openesea/questions-help.json";
+        }
+
+        $openesea_help_text = '';
+        if ( file_exists($help_file_path) ) {
+            $help_data = json_decode(file_get_contents($help_file_path), true);
+            $openesea_help_text = $help_data['openesea_q1'] ?? ''; 
+        }
+
         ob_start();
         ?>
         <div class="esg-questions-box" style="max-width: 600px; margin: 30px auto; padding: 25px; border: 1px solid #ccd0d4; background: #fff; border-radius: 6px; font-family: sans-serif;">
-            <h2 style="color:#2271b1; margin-top:0; border-bottom:2px solid #2271b1; padding-bottom:10px;">1. OpenESEA Core Framework</h2>
+            <div style="color:#2271b1; font-weight:bold; font-size:12px; margin-bottom:10px; text-transform:uppercase;"><?php esc_html_e( 'Step 2 of 4: Compliance Validation', 'wp-esg' ); ?></div>
+            <h2 style="color:#2271b1; margin-top:0; border-bottom:2px solid #2271b1; padding-bottom:10px;"><?php esc_html_e( 'OpenESEA Core Framework', 'wp-esg' ); ?></h2>
+            
             <form method="post" action="">
                 <input type="hidden" name="action" value="submit_openesea">
                 <p>
                     <label style="display:block; margin-bottom:8px; font-weight:bold; line-height:1.4;">
-                        Does your enterprise actively monitor circular economy protocols or resource recycling targets contextualized to the industrial vertical sector: <strong><?php echo esc_html($module); ?></strong>?
+                        <?php esc_html_e( 'Does your enterprise actively monitor circular economy protocols or resource recycling targets contextualized to the industrial vertical sector:', 'wp-esg' ); ?> <code><?php echo esc_html($module); ?></code>?
                     </label>
-                    <input type="radio" name="openesea_q1" value="yes" required> Yes &nbsp;&nbsp;
-                    <input type="radio" name="openesea_q1" value="no"> No
+                    
+                    <!-- Box Descrizione Aiuto Localizzato -->
+                    <?php if ( ! empty($openesea_help_text) ) : ?>
+                        <span class="esg-question-help" style="display:block; font-size:13px; color:#50575e; background:#f6f7f7; padding:12px; border-left:4px solid #2271b1; margin-bottom:15px; font-style:italic; line-height:1.4; border-radius: 0 4px 4px 0;">
+                            ℹ️ <?php echo esc_html($openesea_help_text); ?>
+                        </span>
+                    <?php endif; ?>
+
+                    <input type="radio" name="openesea_q1" value="yes" required> <?php esc_html_e( 'Yes', 'wp-esg' ); ?> &nbsp;&nbsp;
+                    <input type="radio" name="openesea_q1" value="no"> <?php esc_html_e( 'No', 'wp-esg' ); ?>
                 </p>
-                <input type="submit" class="button" value="Save & Back to Index &rarr;" style="margin-top:15px; padding:10px 20px; background:#2271b1; color:#fff; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">
+                <input type="submit" class="button" value="<?php esc_attr_e( 'Save & Back to Index &rarr;', 'wp-esg' ); ?>" style="margin-top:15px; padding:10px 20px; background:#2271b1; color:#fff; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">
             </form>
         </div>
         <?php
@@ -495,8 +521,7 @@ class AssessmentShortcode {
 
             $wpdb->update(
                 $table,
-                // L'invio parziale del blocco OpenESEA imposta lo stato formale a "Submitted"
-                array( 'workflow_status' => 'Submitted', 'raw_answers' => json_encode($payload) ), 
+                array( 'workflow_status' => 'Submitted', 'raw_answers' => json_encode($payload) ),
                 array('company_tax_id' => $tax_id, 'balance_year' => $year)
             );
         }
@@ -504,21 +529,26 @@ class AssessmentShortcode {
         exit;
     }
 
+    // ==========================================
+    // STEP 2: MODULE FORM NETWORK PGS
+    // ==========================================
     private function render_pgs_form() {
         ob_start();
         ?>
         <div class="esg-questions-box" style="max-width: 600px; margin: 30px auto; padding: 25px; border: 1px solid #ccd0d4; background: #fff; border-radius: 6px; font-family: sans-serif;">
-            <h2 style="color:#2c3338; margin-top:0; border-bottom:2px solid #2c3338; padding-bottom:10px;">2. Network PGS Evaluation</h2>
+            <div style="color:#2c3338; font-weight:bold; font-size:12px; margin-bottom:10px; text-transform:uppercase;"><?php esc_html_e( 'Step 3 of 4: Platform Evaluation', 'wp-esg' ); ?></div>
+            <h2 style="color:#2c3338; margin-top:0; border-bottom:2px solid #2c3338; padding-bottom:10px;"><?php esc_html_e( 'Network PGS Evaluation (Social & Governance)', 'wp-esg' ); ?></h2>
+            
             <form method="post" action="">
                 <input type="hidden" name="action" value="submit_pgs">
                 <p>
                     <label style="display:block; margin-bottom:8px; font-weight:bold; line-height:1.4;">
-                        Does your enterprise run local community support guidelines or corporate code-of-conduct transparency policies?
+                        <?php esc_html_e( 'Does your enterprise run local community support guidelines or corporate code-of-conduct transparency policies?', 'wp-esg' ); ?>
                     </label>
-                    <input type="radio" name="pgs_q1" value="yes" required> Yes &nbsp;&nbsp;
-                    <input type="radio" name="pgs_q1" value="no"> No
+                    <input type="radio" name="pgs_q1" value="yes" required> <?php esc_html_e( 'Yes', 'wp-esg' ); ?> &nbsp;&nbsp;
+                    <input type="radio" name="pgs_q1" value="no"> <?php esc_html_e( 'No', 'wp-esg' ); ?>
                 </p>
-                <input type="submit" class="button" value="Save & Back to Index &rarr;" style="margin-top:15px; padding:10px 20px; background:#2c3338; color:#fff; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">
+                <input type="submit" class="button" value="<?php esc_attr_e( 'Save & Back to Index &rarr;', 'wp-esg' ); ?>" style="margin-top:15px; padding:10px 20px; background:#2c3338; color:#fff; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">
             </form>
         </div>
         <?php
@@ -544,21 +574,26 @@ class AssessmentShortcode {
         exit;
     }
 
+    // ==========================================
+    // STEP 3: MODULE FORM CATALOGO PRODOTTI
+    // ==========================================
     private function render_products_form() {
         ob_start();
         ?>
         <div class="esg-questions-box" style="max-width: 600px; margin: 30px auto; padding: 25px; border: 1px solid #ccd0d4; background: #fff; border-radius: 6px; font-family: sans-serif;">
-            <h2 style="color:#46b450; margin-top:0; border-bottom:2px solid #46b450; padding-bottom:10px;">3. Vertical Product Self-Certifications</h2>
+            <div style="color:#46b450; font-weight:bold; font-size:12px; margin-bottom:10px; text-transform:uppercase;"><?php esc_html_e( 'Step 4 of 4: Finalization', 'wp-esg' ); ?></div>
+            <h2 style="color:#46b450; margin-top:0; border-bottom:2px solid #46b450; padding-bottom:10px;"><?php esc_html_e( 'Vertical Product Self-Certifications', 'wp-esg' ); ?></h2>
+            
             <form method="post" action="">
                 <input type="hidden" name="action" value="submit_products">
                 <p>
                     <label style="display:block; margin-bottom:8px; font-weight:bold; line-height:1.4;">
-                        Are your primary commercial goods produced utilizing certified eco-compatible materials?
+                        <?php esc_html_e( 'Are your primary commercial goods produced utilizing certified eco-compatible materials?', 'wp-esg' ); ?>
                     </label>
-                    <input type="radio" name="products_q1" value="yes" required> Yes &nbsp;&nbsp;
-                    <input type="radio" name="products_q1" value="no"> No
+                    <input type="radio" name="products_q1" value="yes" required> <?php esc_html_e( 'Yes', 'wp-esg' ); ?> &nbsp;&nbsp;
+                    <input type="radio" name="products_q1" value="no"> <?php esc_html_e( 'No', 'wp-esg' ); ?>
                 </p>
-                <input type="submit" class="button" value="Save & Back to Index &rarr;" style="margin-top:15px; padding:10px 20px; background:#46b450; color:#fff; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">
+                <input type="submit" class="button" value="<?php esc_attr_e( 'Save & Back to Index &rarr;', 'wp-esg' ); ?>" style="margin-top:15px; padding:10px 20px; background:#46b450; color:#fff; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">
             </form>
         </div>
         <?php
@@ -572,24 +607,39 @@ class AssessmentShortcode {
 
         if ( ! empty($tax_id) && $year > 0 ) {
             $table = $wpdb->prefix . 'esg_assessments';
-            $current_raw = $wpdb->get_var($wpdb->prepare("SELECT raw_answers FROM $table WHERE company_tax_id = %s AND balance_year = %d", $tax_id, $year));
-            $payload = $current_raw ? json_decode($current_raw, true) : array();
+            $row = $wpdb->get_row($wpdb->prepare("SELECT id, raw_answers FROM $table WHERE company_tax_id = %s AND balance_year = %d", $tax_id, $year));
             
-            $payload['products_framework'] = array_map('sanitize_text_field', $_POST);
-            unset($payload['products_framework']['action']);
+            if ($row) {
+                $payload = json_decode($row->raw_answers, true) ?: array();
+                
+                // Se la richiesta arriva dal form, salviamo le risposte nel cassetto prodotti
+                if (isset($_POST['products_q1'])) {
+                    $payload['products_framework'] = array_map('sanitize_text_field', $_POST);
+                    unset($payload['products_framework']['action']);
+                }
 
-            $wpdb->update($table, array( 'raw_answers' => json_encode($payload) ), array('company_tax_id' => $tax_id, 'balance_year' => $year));
+                $wpdb->update($table, array( 'raw_answers' => json_encode($payload) ), array('id' => $row->id));
+
+                // ⚡ SEGNALE CHIUSURA INTERNA: Se attivato dal bottone di sblocco definitivo dell'Hub
+                if ( ! isset($_POST['products_q1']) ) {
+                    if ( class_exists('WpEsg\Core\WorkflowManager') ) {
+                        $wm = new \WpEsg\Core\WorkflowManager();
+                        $wm->submitToReview((int)$row->id); // Cambia lo stato in Pending Review e sigilla le traduzioni!
+                    } else {
+                        $wpdb->update($table, array( 'workflow_status' => 'Pending Review' ), array('id' => $row->id));
+                    }
+                }
+            }
         }
 
-        if(isset($_POST['products_q1'])) {
+        // Se l'invio è interno al form singolo, riporta all'hub per premere l'invio finale
+        if ( isset($_POST['products_q1']) ) {
             wp_redirect( add_query_arg( 'esg_step', 'hub', get_permalink() ) );
             exit;
         }
 
-        // Se scatta il completamento definitivo dall'Hub, ripuliamo le sessioni volatili
+        // Se la sottomissione è globale dell'intera campagna, azzera le sessioni volatili e torna all'archivio storico
         unset($_SESSION['esg_company_tax_id'], $_SESSION['esg_balance_year'], $_SESSION['esg_qualitative_module']);
-        
-        // Reindirizzamento finale automatico sulla dashboard storica aggiornata
         wp_redirect( add_query_arg( 'esg_step', 'history', get_permalink() ) );
         exit;
     }
