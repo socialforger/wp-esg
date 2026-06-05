@@ -21,6 +21,35 @@ class Registry {
      * @param string $businessCode Raw code string from form fields (e.g., "01.13.11", "011100").
      * @return string              The raw sector token defined inside the JSON metadata file, or an empty string.
      */
+    /**
+     * Maps ATECO section letter codes to canonical sector tokens.
+     * Used as a fallback when the ateco2025.json data lacks a sector_token field.
+     */
+    private static array $sectionTokenMap = [
+        'A' => 'AGRICULTURE',
+        'B' => 'EXTRACTIVE',
+        'C' => 'MANUFACTURING',
+        'D' => 'ENERGY',
+        'E' => 'WATER_WASTE',
+        'F' => 'CONSTRUCTION',
+        'G' => 'TRADE',
+        'H' => 'TRANSPORT',
+        'I' => 'HOSPITALITY',
+        'J' => 'MEDIA_PUBLISHING',
+        'K' => 'ICT_SERVICES',
+        'L' => 'FINANCE_INSURANCE',
+        'M' => 'REAL_ESTATE',
+        'N' => 'PROFESSIONAL_SERVICES',
+        'O' => 'ADMIN_SUPPORT',
+        'P' => 'PUBLIC_ADMINISTRATION',
+        'Q' => 'EDUCATION',
+        'R' => 'HEALTH_SOCIAL',
+        'S' => 'ARTS_ENTERTAINMENT',
+        'T' => 'OTHER_SERVICES',
+        'U' => 'HOUSEHOLD',
+        'V' => 'EXTRATERRITORIAL',
+    ];
+
     public function getSector(string $businessCode): string {
         // 1. Symmetrical input normalization: extract digits only
         $cleanInput = preg_replace('/[^0-9]/', '', $businessCode);
@@ -39,16 +68,44 @@ class Registry {
             return '';
         }
 
-        // 2. Symmetrical JSON key normalization: strip dots/formatting at runtime
+        // 2a. Build section letter -> Division numeric mapping (e.g. 'A' -> ['01','02','03'])
+        //     and Numeric -> sector_token index (uses sector_token field when present, falls back to section map).
+        $sectionOfDivision = []; // numeric division prefix -> section letter
+        $currentSection    = '';
+        foreach ($rawRows as $row) {
+            if ( !isset($row['codice']) ) {
+                continue;
+            }
+            if ($row['classificazione'] === 'Sezione') {
+                $currentSection = strtoupper(trim($row['codice']));
+                continue;
+            }
+            if ($row['classificazione'] === 'Divisione') {
+                $divKey = preg_replace('/[^0-9]/', '', $row['codice']);
+                if (!empty($divKey) && !empty($currentSection)) {
+                    $sectionOfDivision[$divKey] = $currentSection;
+                }
+            }
+        }
+
+        // 2b. Build optimized numeric-key index with sector_token (or derived token via section map)
         $optimizedIndex = [];
         foreach ($rawRows as $row) {
             if (!isset($row['codice'])) {
                 continue;
             }
             $cleanKey = preg_replace('/[^0-9]/', '', $row['codice']);
-            if (!empty($cleanKey)) {
-                // Ingests the custom sector_token directly mapped onto the structural taxonomy nodes
-                $optimizedIndex[$cleanKey] = $row['sector_token'] ?? '';
+            if (empty($cleanKey)) {
+                continue;
+            }
+            if (!empty($row['sector_token'])) {
+                // Prefer explicit token when the JSON provides it
+                $optimizedIndex[$cleanKey] = $row['sector_token'];
+            } else {
+                // Derive token from ATECO section letter via static map
+                $divPrefix = substr($cleanKey, 0, 2);
+                $section   = $sectionOfDivision[$divPrefix] ?? '';
+                $optimizedIndex[$cleanKey] = self::$sectionTokenMap[$section] ?? 'UNIVERSAL_SERVICES';
             }
         }
 
@@ -60,7 +117,7 @@ class Registry {
             }
         }
 
-        return '';
+        return 'UNIVERSAL_SERVICES';
     }
 
     /**
