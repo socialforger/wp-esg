@@ -8,19 +8,12 @@ if (!defined('ABSPATH')) {
 /**
  * Class Registry
  * Symmetrical algorithmic normalizer for Italian enterprise business metadata.
- * Ingests the unified ATECO 2025 JSON dump co-located within the /it/ module directory.
+ * Ingests the unified ATECO 2025 JSON dump co-located within the /It/ module directory.
  *
  * @package WpEsg\Storage\Registry\It
  */
 class Registry {
 
-    /**
-     * Normalizes an Italian ATECO code and searches the local ateco2025.json structure.
-     * Executes a punctuation-agnostic inverse tree search over the imported data rows.
-     *
-     * @param string $businessCode Raw code string from form fields (e.g., "01.13.11", "011100").
-     * @return string              The raw sector token defined inside the JSON metadata file, or an empty string.
-     */
     /**
      * Maps ATECO section letter codes to canonical sector tokens.
      * Used as a fallback when the ateco2025.json data lacks a sector_token field.
@@ -50,37 +43,73 @@ class Registry {
         'V' => 'EXTRATERRITORIAL',
     ];
 
+    /**
+     * Risolve il percorso dei file JSON gestendo in modo aggressivo la case-sensitivity di Linux
+     * Cerca in ordine: minuscolo locale, esatto locale, minuscolo nel path parent, maiuscolo nel path parent.
+     */
+    private function resolveJsonPath(string $filename): string {
+        $paths_to_test = [
+            __DIR__ . '/' . strtolower($filename),
+            __DIR__ . '/' . $filename,
+            dirname(__DIR__) . '/It/' . strtolower($filename),
+            dirname(__DIR__) . '/it/' . strtolower($filename),
+            dirname(__DIR__) . '/It/' . $filename,
+            dirname(__DIR__) . '/it/' . $filename,
+        ];
+
+        foreach ($paths_to_test as $path) {
+            if (file_exists($path)) {
+                return $path;
+            }
+        }
+        return '';
+    }
+
+    /**
+     * Normalizes an Italian ATECO code and searches the local ateco2025.json structure.
+     * Executes a punctuation-agnostic inverse tree search over the imported data rows.
+     *
+     * @param string $businessCode Raw code string from form fields (e.g., "01.13.11", "011100").
+     * @return string              The raw sector token defined inside the JSON metadata file, or diagnostic error.
+     */
     public function getSector(string $businessCode): string {
         // 1. Symmetrical input normalization: extract digits only
         $cleanInput = preg_replace('/[^0-9]/', '', $businessCode);
         if (empty($cleanInput)) {
-            return '';
+            return 'ERR_INPUT_EMPTY';
         }
 
-        // Updated path targeting the real repository standard filename
-        $jsonPath = __DIR__ . '/ateco2025.json';
-        if (!file_exists($jsonPath)) {
-            return '';
+        $jsonPath = $this->resolveJsonPath('ateco2025.json');
+        if (empty($jsonPath)) {
+            return 'ERR_ATECO_JSON_NOT_FOUND_IN_' . esc_html(basename(__DIR__));
         }
 
         $rawRows = json_decode(file_get_contents($jsonPath), true);
         if (!is_array($rawRows)) {
-            return '';
+            return 'ERR_ATECO_JSON_CORRUPTED_OR_UNREADABLE';
         }
 
         // 2a. Build section letter -> Division numeric mapping (e.g. 'A' -> ['01','02','03'])
-        //     and Numeric -> sector_token index (uses sector_token field when present, falls back to section map).
         $sectionOfDivision = []; // numeric division prefix -> section letter
         $currentSection    = '';
+        
         foreach ($rawRows as $row) {
-            if ( !isset($row['codice']) ) {
+            if (!is_array($row)) {
                 continue;
             }
-            if ($row['classificazione'] === 'Sezione') {
+            // Normalizzazione protettiva delle chiavi del JSON (es. 'Codice' -> 'codice')
+            $row = array_change_key_case($row, CASE_LOWER);
+            
+            if (!isset($row['codice'])) {
+                continue;
+            }
+            
+            $classificazione = isset($row['classificazione']) ? trim($row['classificazione']) : '';
+            if (strcasecmp($classificazione, 'Sezione') === 0) {
                 $currentSection = strtoupper(trim($row['codice']));
                 continue;
             }
-            if ($row['classificazione'] === 'Divisione') {
+            if (strcasecmp($classificazione, 'Divisione') === 0) {
                 $divKey = preg_replace('/[^0-9]/', '', $row['codice']);
                 if (!empty($divKey) && !empty($currentSection)) {
                     $sectionOfDivision[$divKey] = $currentSection;
@@ -88,9 +117,14 @@ class Registry {
             }
         }
 
-        // 2b. Build optimized numeric-key index with sector_token (or derived token via section map)
+        // 2b. Build optimized numeric-key index with sector_token
         $optimizedIndex = [];
         foreach ($rawRows as $row) {
+            if (!is_array($row)) {
+                continue;
+            }
+            $row = array_change_key_case($row, CASE_LOWER);
+            
             if (!isset($row['codice'])) {
                 continue;
             }
@@ -98,11 +132,12 @@ class Registry {
             if (empty($cleanKey)) {
                 continue;
             }
+            
             if (!empty($row['sector_token'])) {
-                // Prefer explicit token when the JSON provides it
+                // Se il JSON ha già il token esplicito, lo usiamo
                 $optimizedIndex[$cleanKey] = $row['sector_token'];
             } else {
-                // Derive token from ATECO section letter via static map
+                // Altrimenti lo ricaviamo dalla Sezione tramite la mappa statica
                 $divPrefix = substr($cleanKey, 0, 2);
                 $section   = $sectionOfDivision[$divPrefix] ?? '';
                 $optimizedIndex[$cleanKey] = self::$sectionTokenMap[$section] ?? 'UNIVERSAL_SERVICES';
@@ -130,7 +165,7 @@ class Registry {
     public function getLegalEntityMeta(string $legalEntity): array {
         $emptyFallback = [
             'acronimo'        => 'N/A',
-            'descrizione'     => 'Unknown',
+            'descrizione'     => 'Unknown (JSON Structure Missing)',
             'governance_tier' => 'UNKNOWN'
         ];
 
@@ -140,13 +175,15 @@ class Registry {
             return $emptyFallback;
         }
 
-        $jsonPath = __DIR__ . '/legal_entities.json';
-        if (!file_exists($jsonPath)) {
+        $jsonPath = $this->resolveJsonPath('legal_entities.json');
+        if (empty($jsonPath)) {
+            $emptyFallback['descrizione'] = 'ERR_LEGAL_JSON_NOT_FOUND';
             return $emptyFallback;
         }
 
         $rawMatrix = json_decode(file_get_contents($jsonPath), true);
         if (!is_array($rawMatrix)) {
+            $emptyFallback['descrizione'] = 'ERR_LEGAL_JSON_UNREADABLE';
             return $emptyFallback;
         }
 
@@ -161,9 +198,14 @@ class Registry {
 
         // 3. Symmetrical atomic O(1) comparison match
         if (isset($optimizedMatrix[$cleanInputKey])) {
-            return array_map('sanitize_text_field', $optimizedMatrix[$cleanInputKey]);
+            // Se i dati interni sono un array, esegui la sanificazione di WordPress su ciascun valore
+            if (is_array($optimizedMatrix[$cleanInputKey])) {
+                return array_map('sanitize_text_field', $optimizedMatrix[$cleanInputKey]);
+            }
+            return $emptyFallback;
         }
 
+        $emptyFallback['descrizione'] = 'ERR_NO_MATCH_IN_MATRIX_FOR_' . $cleanInputKey;
         return $emptyFallback;
     }
 }
