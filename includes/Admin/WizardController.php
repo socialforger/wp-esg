@@ -13,7 +13,7 @@ class WizardController {
     }
 
     /**
-     * FIX BUG #4: Registrazione fogli di stile e script per l'interfaccia WP ESG
+     * Caricamento nativo di fogli di stile e script per l'interfaccia WP ESG
      */
     public function enqueue_admin_assets($hook) {
         if ( strpos($hook, 'wp-esg') === false ) {
@@ -32,10 +32,11 @@ class WizardController {
     }
 
     /**
-     * FIX BUG #3: Configurazione sotto-pagine gerarchiche sotto un'unica radice
+     * Configurazione dell'albero dei sotto-menu sotto l'unica radice coerente 'wp-esg'
      */
     public function register_custom_wp_esg_menu() {
         
+        // Menu Principale Top-Level
         add_menu_page(
             'WP ESG Platform',
             'WP ESG',
@@ -46,6 +47,7 @@ class WizardController {
             25
         );
 
+        // Submenu 1: Workflow Monitor (Coincide con la radice)
         add_submenu_page(
             'wp-esg',
             'Workflow Monitor',
@@ -55,6 +57,7 @@ class WizardController {
             array( $this, 'render_dashboard_view' )
         );
 
+        // Submenu 2: Setup Wizard
         add_submenu_page(
             'wp-esg',
             'Setup Wizard',
@@ -64,6 +67,7 @@ class WizardController {
             array( $this, 'render_wizard_view' )
         );
 
+        // Submenu 3: Historical Archive
         add_submenu_page(
             'wp-esg',
             'Historical Archive',
@@ -73,6 +77,7 @@ class WizardController {
             array( $this, 'render_archive_view' )
         );
 
+        // Submenu 4: System Settings
         add_submenu_page(
             'wp-esg',
             'System Settings',
@@ -83,13 +88,23 @@ class WizardController {
         );
     }
 
+    /**
+     * Gestione della prima pagina di visualizzazione: Workflow Monitor
+     */
     public function render_dashboard_view() {
+        echo '<div class="wrap">';
+        echo '<h1>📊 WP ESG — Workflow Monitor</h1>';
+        echo '<p class="description">' . esc_html__('Monitoraggio in tempo reale degli stati di avanzamento dei report di sostenibilità della rete aziendale.', 'wp-esg') . '</p>';
+        echo '<hr class="wp-header-end">';
+
         if ( class_exists( 'WpEsg\Admin\AdminWorkflowView' ) ) {
             $view = new \WpEsg\Admin\AdminWorkflowView();
-            $view->render(); 
+            $view->render(); // Ora chiama direttamente il metodo allineato!
         } else {
-            echo '<div class="wrap"><h2>Workflow Monitor</h2><p>Core dashboard view class missing.</p></div>';
+            echo '<div class="notice notice-error inline" style="margin-top:20px;"><p>Classe AdminWorkflowView non trovata.</p></div>';
         }
+
+        echo '</div>';
     }
 
     public function render_wizard_view() {
@@ -101,34 +116,54 @@ class WizardController {
         </div>';
     }
 
+    /**
+     * Archivio Storico Centralizzato per il Revisore
+     */
     public function render_archive_view() {
         echo '<div class="wrap">
             <h2>🏛️ Centralized Historical Archive (Auditor Panel)</h2>
             <p class="description">Pannello di controllo del revisore per analizzare i JSON strutturati ed emettere i giudizi formali di validazione.</p>
             <hr>';
         
+        // Sfrutta l'integratore per mostrare i dati strutturati flat
         if ( class_exists('WpEsg\Output\Adapters\TablePressIntegrator') ) {
             $integrator = new \WpEsg\Output\Adapters\TablePressIntegrator();
             $data = $integrator->compileDatasetForTablePress();
-            echo '<table class="wp-list-table widefat fixed striped" style="margin-top:20px; border:1px solid #ccd0d4; box-shadow:0 1px 3px rgba(0,0,0,0.05);">';
-            foreach($data as $index => $row) {
-                $tag = ($index === 0) ? 'th' : 'td';
-                $style = ($index === 0) ? 'background:#f6f7f7; padding:12px; font-weight:bold; border-bottom:2px solid #dcdcde;' : 'padding:12px;';
-                echo '<tr>';
-                foreach($row as $cell) { echo "<$tag style='{$style}'>$cell</$tag>"; }
-                echo '</tr>';
+            
+            if ( ! empty($data) ) {
+                echo '<table class="wp-list-table widefat fixed striped" style="margin-top:20px; border:1px solid #ccd0d4; box-shadow:0 1px 3px rgba(0,0,0,0.05);">';
+                foreach($data as $index => $row) {
+                    $tag = ($index === 0) ? 'th' : 'td';
+                    $style = ($index === 0) ? 'background:#f6f7f7; padding:12px; font-weight:bold; border-bottom:2px solid #dcdcde;' : 'padding:12px;';
+                    echo '<tr>';
+                    foreach($row as $cell) { echo "<$tag style='{$style}'>$cell</$tag>"; }
+                    echo '</tr>';
+                }
+                echo '</table>';
+            } else {
+                echo '<div class="notice notice-info inline" style="margin-top:20px;"><p>Nessun record presente nell\'archivio storico.</p></div>';
             }
-            echo '</table>';
         }
         echo '</div>';
     }
 
+    /**
+     * Gestione delle impostazioni generali del plugin
+     */
     public function render_settings_view() {
         if ( class_exists( 'WpEsg\Admin\AdminSettingsView' ) ) {
             $view = new \WpEsg\Admin\AdminSettingsView();
-            $view->render(); 
+            
+            // Gestione flessibile per la vista impostazioni se usasse ancora un nome differente
+            if ( method_exists( $view, 'render' ) ) {
+                $view->render();
+            } elseif ( method_exists( $view, 'display' ) ) {
+                $view->display();
+            } elseif ( method_exists( $view, 'render_page' ) ) {
+                $view->render_page();
+            }
         } else {
-            echo '<div class="wrap"><h2>System Settings</h2><p>Settings view class missing.</p></div>';
+            echo '<div class="wrap"><h2>System Settings</h2><p>Classe delle impostazioni non trovata.</p></div>';
         }
     }
 }
