@@ -50,9 +50,36 @@ class AssessmentShortcode {
             }
         }
 
-        // SCREENING & QUESTIONNAIRE BLOCK
+        // 🛡️ SECURITY GUARD: Controlla se l'azienda ha già INVIATO e CONGELATO il form per questo specifico anno
+        if ( isset( $_POST['balance_year'] ) || ( isset( $_POST['action'] ) && $_POST['action'] === 'save_final_responses' ) ) {
+            global $wpdb;
+            $table = $wpdb->prefix . 'esg_assessments';
+            $tax_id = sanitize_text_field( $_POST['company_tax_id'] ?? '' );
+            $year = (int)( $_POST['balance_year'] ?? 0 );
+
+            if ( ! empty( $tax_id ) && $year > 0 ) {
+                $status = $wpdb->get_var( $wpdb->prepare(
+                    "SELECT workflow_status FROM $table WHERE company_tax_id = %s AND balance_year = %d LIMIT 1",
+                    $tax_id, $year
+                ) );
+
+                if ( 'Submitted' === $status ) {
+                    return '<div style="max-width:650px; margin:30px auto; padding:20px; border:1px solid #ccd0d4; background:#fff2f2; border-left:4px solid #dc3232; border-radius:6px; font-family:sans-serif;">
+                        <h3 style="color:#dc3232; margin-top:0;">' . esc_html__( '🔒 Assessment Locked', 'wp-esg' ) . '</h3>
+                        <p style="color:#1d2327; font-size:14px;">' . sprintf( esc_html__( 'The ESG report for the year %d has already been submitted and officially signed off. Sent records cannot be modified or re-opened.', 'wp-esg' ), $year ) . '</p>
+                    </div>';
+                }
+            }
+        }
+
+        // SCREENING BLOCK
         if ( isset( $_POST['action'] ) && $_POST['action'] === 'submit_screening' ) {
             return $this->process_screening_and_render_questions();
+        }
+
+        // FINAL SUBMISSION PROCESS BLOCK
+        if ( isset( $_POST['action'] ) && $_POST['action'] === 'save_final_responses' ) {
+            return $this->process_final_responses();
         }
 
         return $this->render_screening_form();
@@ -128,4 +155,86 @@ class AssessmentShortcode {
                     <label style="font-weight:bold; display:block; margin-bottom:5px;"><?php esc_html_e( 'Reporting Accounting Year:', 'wp-esg' ); ?></label>
                     <input type="number" name="balance_year" value="2026" required style="width:100%; padding:8px;">
                 </p>
-                <input type="submit" class="button button-primary" value="<?php esc_attr_e( 'Generate Dynamic Questionnaire &rarr;', 'wp-esg' ); ?>" style="margin-top:10px; padding:10px 20px; background:#2271b1; color:#fff; border:
+                <input type="submit" class="button button-primary" value="<?php esc_attr_e( 'Generate Dynamic Questionnaire &rarr;', 'wp-esg' ); ?>" style="margin-top:10px; padding:10px 20px; background:#2271b1; color:#fff; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">
+            </form>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
+    private function process_screening_and_render_questions() {
+        $country   = sanitize_text_field($_POST['company_country']);
+        $tax_id    = sanitize_text_field($_POST['company_tax_id']);
+        $ateco     = sanitize_text_field($_POST['business_code']);
+        $employees = (int)$_POST['employees_count'];
+        $year      = (int)$_POST['balance_year'];
+
+        $context = array('company_size_scope' => 'Standard', 'qualitative_module' => 'none');
+        if ( class_exists( 'WpEsg\Storage\UserCompanyLinker' ) ) {
+            $context = \WpEsg\Storage\UserCompanyLinker::resolveContext($country, $ateco, $employees, $year);
+        }
+
+        global $wpdb;
+        $table = $wpdb->prefix . 'esg_assessments';
+
+        $db_record = array(
+            'company_tax_id'  => $tax_id,
+            'business_code'   => $ateco,
+            'company_size'    => $context['company_size_scope'],
+            'balance_year'    => $year,
+            'country_code'    => $country,
+            'workflow_status' => 'Draft',
+            'raw_answers'     => json_encode($_POST)
+        );
+
+        $existing_id = $wpdb->get_var( $wpdb->prepare(
+            "SELECT id FROM $table WHERE company_tax_id = %s AND balance_year = %d",
+            $tax_id, $year
+        ) );
+
+        if ( $existing_id ) {
+            $wpdb->update( $table, $db_record, array( 'id' => $existing_id ) );
+        } else {
+            $wpdb->insert( $table, $db_record );
+        }
+
+        ob_start();
+        ?>
+        <div class="esg-dynamic-questions" style="max-width: 650px; margin: 30px auto; padding:25px; border:1px solid #ccd0d4; background:#fff; border-radius:6px; font-family: sans-serif;">
+            <h3><?php esc_html_e( 'Questionnaire Generated Successfully', 'wp-esg' ); ?></h3>
+            <p style="background:#e7f5fe; padding:12px; border-left:4px solid #2271b1; font-size:14px;">
+                <strong><?php esc_html_e( 'Calculated Scope Size:', 'wp-esg' ); ?></strong> <?php echo esc_html($context['company_size_scope']); ?> | <strong><?php esc_html_e( 'Active Modular Matrix:', 'wp-esg' ); ?></strong> <code><?php echo esc_html($context['qualitative_module']); ?></code>
+            </p>
+            
+            <form method="post" action="">
+                <input type="hidden" name="action" value="save_final_responses">
+                <input type="hidden" name="company_tax_id" value="<?php echo esc_attr($tax_id); ?>">
+                <input type="hidden" name="balance_year" value="<?php echo esc_attr($year); ?>">
+
+                <h4><?php esc_html_e( 'Target Dynamic ESG Metrics', 'wp-esg' ); ?></h4>
+                <p>
+                    <label style="display:block; margin-bottom:8px; line-height:1.4;">
+                        <?php esc_html_e( 'Does your enterprise actively monitor circular economy protocols or resource recycling targets contextualized to the industrial vertical sector:', 'wp-esg' ); ?> <strong><?php echo esc_html($context['qualitative_module']); ?></strong>?
+                    </label>
+                    <input type="radio" name="q_1" value="yes" required> <?php esc_html_e( 'Yes', 'wp-esg' ); ?> &nbsp;&nbsp;
+                    <input type="radio" name="q_1" value="no"> <?php esc_html_e( 'No', 'wp-esg' ); ?>
+                </p>
+                <input type="submit" value="<?php esc_attr_e( 'Save & Submit Responses', 'wp-esg' ); ?>" class="button button-primary" style="padding:10px 20px; background:#46b450; color:#fff; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">
+            </form>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
+    // 🔒 CONGELAMENTO DEFINITIVO DEL QUESTIONARIO
+    private function process_final_responses() {
+        global $wpdb;
+        $table = $wpdb->prefix . 'esg_assessments';
+        
+        $tax_id = sanitize_text_field($_POST['company_tax_id']);
+        $year   = (int)$_POST['balance_year'];
+
+        // Puliamo tutte le risposte arrivate dal questionario definitivo
+        $final_answers = array_map('sanitize_text_field', $_POST);
+
+        // Aggiorniamo il database impostando lo stato su "Submitted"
