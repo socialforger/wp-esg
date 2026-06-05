@@ -47,7 +47,6 @@ function wp_esg_activation_routine() {
         return;
     }
     
-    // FIX BUG #1: Uso di get_posts invece di get_page_by_title per azzerare l'output inatteso
     $pages = get_posts([
         'post_type'      => 'page',
         'post_status'    => 'any',
@@ -61,7 +60,6 @@ function wp_esg_activation_routine() {
         return;
     }
     
-    // FIX BUG #7: ID autore dinamico basato sul sysadmin corrente
     wp_insert_post( array(
         'post_title'     => $page_title,
         'post_name'      => 'esg-assessment',
@@ -73,7 +71,6 @@ function wp_esg_activation_routine() {
     ) );
 }
 
-// FIX BUG #5: Intercettazione del transient su admin_init per il redirect automatico pulito
 add_action( 'admin_init', 'wp_esg_process_activation_redirect' );
 function wp_esg_process_activation_redirect() {
     if ( get_transient( 'wp_esg_activation_redirect_flag' ) ) {
@@ -81,6 +78,11 @@ function wp_esg_process_activation_redirect() {
         wp_redirect( admin_url( 'admin.php?page=wp-esg' ) );
         exit;
     }
+}
+
+// 🔥 INIZIALIZZAZIONE ANTICIPATA DELLE IMPOSTAZIONI (Risolve l'errore wp_esg_settings_group non trovata)
+if ( is_admin() && class_exists( 'WpEsg\Admin\AdminSettingsView' ) ) {
+    new WpEsg\Admin\AdminSettingsView();
 }
 
 // Bootstrap dei componenti del plugin
