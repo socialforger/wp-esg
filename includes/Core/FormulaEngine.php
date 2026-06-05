@@ -11,103 +11,180 @@ use WpEsg\Core\FormulaEvaluator;
 
 /**
  * Class FormulaEngine
- * Implements the universal two-step analytical pipeline mapping raw question answers
- * to intermediate metrics, and then translating those metrics into 0-100 indicators.
  *
- * @package WpEsg\Core
+ * OpenESEA analytical engine.
+ *
+ * Step 1:
+ * Raw answers -> Metrics
+ *
+ * Step 2:
+ * Metrics -> Indicators
  */
 class FormulaEngine
 {
-    private FormulaEvaluator $lexer;
+    private FormulaEvaluator $evaluator;
+
     private string $frameworkPath;
 
     public function __construct()
     {
-        $this->lexer = new FormulaEvaluator();
-        $this->frameworkPath = WP_ESG_PATH . 'frameworks/openesea/';
+        $this->evaluator = new FormulaEvaluator();
+
+        $this->frameworkPath =
+            WP_ESG_PATH . 'frameworks/openesea/';
     }
 
     /**
-     * Executes the absolute analytical pipeline evaluation on a target session record.
+     * Executes a full assessment computation.
      */
-    public function computeAssessment(array $assessmentRow): array
-    {
-        $rawAnswers   = json_decode($assessmentRow['raw_answers'] ?? '{}', true);
-        $companySize  = $assessmentRow['company_size'] ?? 'Short';
-        $businessCode = $assessmentRow['business_code'] ?? '';
+    public function computeAssessment(
+        array $assessmentRow
+    ): array {
 
-        $computedMetrics = $this->compileMetrics(
+        $rawAnswers = json_decode(
+            $assessmentRow['raw_answers'] ?? '{}',
+            true
+        ) ?: [];
+
+        $companySize =
+            $assessmentRow['company_size'] ?? 'Short';
+
+        $businessCode =
+            $assessmentRow['business_code'] ?? '';
+
+        $metrics = $this->compileMetrics(
             $rawAnswers,
             $companySize
         );
 
-        $computedIndicators = $this->compileIndicators(
-            $computedMetrics
+        $indicators = $this->compileIndicators(
+            $metrics
         );
 
         return [
             'meta' => [
-                'computed_at'       => gmdate('Y-m-d H:i:s'),
-                'target_size_scope' => $companySize,
-                'business_code'     => $businessCode,
-                'product_category'  => FrameworkRegistry::mapSectorToCategory(
-                    $businessCode
-                )
+                'computed_at' =>
+                    gmdate('Y-m-d H:i:s'),
+
+                'target_size_scope' =>
+                    $companySize,
+
+                'business_code' =>
+                    $businessCode,
+
+                'product_category' =>
+                    FrameworkRegistry::mapSectorToCategory(
+                        $businessCode
+                    )
             ],
-            'metrics' => $computedMetrics,
-            'indicators' => $computedIndicators
+
+            'metrics' => $metrics,
+
+            'indicators' => $indicators
         ];
     }
 
     /**
-     * Step 1: Processes raw form data into standardized structural metrics variables.
+     * Converts raw questionnaire answers
+     * into normalized metrics.
      */
     private function compileMetrics(
         array $rawAnswers,
         string $companySize
     ): array {
 
-        $metricsFile = $this->frameworkPath . 'metrics.json';
+        $file =
+            $this->frameworkPath . 'metrics.json';
 
-        if (!file_exists($metricsFile)) {
+        if (!file_exists($file)) {
             return [];
         }
 
-        $metricsRules = json_decode(
-            file_get_contents($metricsFile),
+        $config = json_decode(
+            file_get_contents($file),
             true
-        ) ?: [];
+        );
+
+        if (
+            !is_array($config) ||
+            !isset($config['metrics'])
+        ) {
+            return [];
+        }
+
+        $rules = $config['metrics'];
 
         $compiled = [];
 
-        foreach ($metricsRules as $metricId => $rule) {
+        foreach ($rules as $metricId => $rule) {
 
-            $targetScope = $rule['scope'] ?? 'Universal';
-
-            if (
-                $targetScope === 'Long' &&
-                $companySize === 'Short'
-            ) {
-                $compiled[$metricId] = 0.0;
+            if (!is_array($rule)) {
                 continue;
             }
 
-            $expression = $rule['formula'] ?? '0';
+            $scope =
+                $rule['scope'] ?? 'Universal';
 
-            try {
+            if (
+                $scope === 'Long' &&
+                $companySize === 'Short'
+            ) {
+                $compiled[$metricId] = 0;
+                continue;
+            }
 
-                $value = $this->lexer->evaluate(
-                    $expression,
-                    [
-                        'answers' => $rawAnswers
-                    ]
-                );
+            $source =
+                $rule['source'] ?? null;
 
-                $compiled[$metricId] = (float)$value;
+            if (!$source) {
+                continue;
+            }
 
-            } catch (\Throwable $e) {
+            $rawValue =
+                $rawAnswers[$source] ?? null;
 
-                $compiled[$metricId] = 0.0;
+            $type =
+                $rule['type'] ?? 'string';
+
+            switch ($type) {
+
+                case 'int':
+
+                    $compiled[$metricId] =
+                        (int)(
+                            $rawValue
+                            ?? ($rule['fallback'] ?? 0)
+                        );
+
+                    break;
+
+                case 'float':
+
+                    $compiled[$metricId] =
+                        (float)(
+                            $rawValue
+                            ?? ($rule['fallback'] ?? 0)
+                        );
+
+                    break;
+
+                case 'bool':
+
+                    $mapping =
+                        $rule['mapping'] ?? [];
+
+                    $compiled[$metricId] =
+                        (int)(
+                            $mapping[$rawValue]
+                            ?? ($rule['fallback'] ?? 0)
+                        );
+
+                    break;
+
+                default:
+
+                    $compiled[$metricId] =
+                        $rawValue;
             }
         }
 
@@ -115,40 +192,53 @@ class FormulaEngine
     }
 
     /**
-     * Step 2: Aggregates intermediate metrics into final percentage indicator dimensions.
+     * Computes indicators from metrics.
      */
     private function compileIndicators(
-        array $computedMetrics
+        array $metrics
     ): array {
 
-        $indicatorsFile = $this->frameworkPath . 'indicators.json';
+        $file =
+            $this->frameworkPath . 'indicators.json';
 
-        if (!file_exists($indicatorsFile)) {
+        if (!file_exists($file)) {
             return [];
         }
 
-        $indicatorsRules = json_decode(
-            file_get_contents($indicatorsFile),
+        $config = json_decode(
+            file_get_contents($file),
             true
-        ) ?: [];
+        );
+
+        if (
+            !is_array($config) ||
+            !isset($config['indicators'])
+        ) {
+            return [];
+        }
+
+        $rules = $config['indicators'];
 
         $compiled = [];
 
-        foreach ($indicatorsRules as $indicatorId => $rule) {
+        foreach ($rules as $indicatorId => $rule) {
 
-            $expression = $rule['formula'] ?? '0';
+            $formula =
+                $rule['formula'] ?? '0';
 
             try {
 
-                $score = $this->lexer->evaluate(
-                    $expression,
-                    [
-                        'metrics' => $computedMetrics
-                    ]
-                );
+                $value =
+                    $this->evaluator->evaluate(
+                        $formula,
+                        [
+                            'metrics' => $metrics,
+                            'indicators' => $compiled
+                        ]
+                    );
 
-                $compiled[$indicatorId] = (float)
-                    max(0, min(100, $score));
+                $compiled[$indicatorId] =
+                    (float)$value;
 
             } catch (\Throwable $e) {
 
