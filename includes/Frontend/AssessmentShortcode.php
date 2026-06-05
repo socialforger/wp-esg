@@ -208,8 +208,15 @@ class AssessmentShortcode {
             
             <form method="post" action="">
                 <input type="hidden" name="action" value="save_final_responses">
+                
+                <!-- 📦 PASSPORT FIELDS: Trasferiamo l'anagrafica completa all'invio finale -->
+                <input type="hidden" name="company_country" value="<?php echo esc_attr($country); ?>">
                 <input type="hidden" name="company_tax_id" value="<?php echo esc_attr($tax_id); ?>">
+                <input type="hidden" name="business_code" value="<?php echo esc_attr($ateco); ?>">
+                <input type="hidden" name="employees_count" value="<?php echo esc_attr($employees); ?>">
                 <input type="hidden" name="balance_year" value="<?php echo esc_attr($year); ?>">
+                <input type="hidden" name="company_size_scope" value="<?php echo esc_attr($context['company_size_scope']); ?>">
+                <input type="hidden" name="qualitative_module" value="<?php echo esc_attr($context['qualitative_module']); ?>">
 
                 <h4><?php esc_html_e( 'Target Dynamic ESG Metrics', 'wp-esg' ); ?></h4>
                 <p>
@@ -226,7 +233,6 @@ class AssessmentShortcode {
         return ob_get_clean();
     }
 
-    // 🔒 CONGELAMENTO DEFINITIVO DEL QUESTIONARIO
     private function process_final_responses() {
         global $wpdb;
         $table = $wpdb->prefix . 'esg_assessments';
@@ -234,7 +240,34 @@ class AssessmentShortcode {
         $tax_id = sanitize_text_field($_POST['company_tax_id']);
         $year   = (int)$_POST['balance_year'];
 
-        // Puliamo tutte le risposte arrivate dal questionario definitivo
-        $final_answers = array_map('sanitize_text_field', $_POST);
+        // Pulizia ricorsiva e mappatura dell'intero $_POST (che ora contiene sia anagrafica che risposte)
+        $final_payload = array_map('sanitize_text_field', $_POST);
+        
+        // Rimuoviamo l'azione interna per non sporcare il log dei dati puliti
+        unset($final_payload['action']);
 
-        // Aggiorniamo il database impostando lo stato su "Submitted"
+        $wpdb->update(
+            $table,
+            array(
+                'workflow_status' => 'Submitted',
+                'raw_answers'     => json_encode($final_payload) // Salva il pacchetto unificato anagrafica + risposte
+            ),
+            array(
+                'company_tax_id' => $tax_id,
+                'balance_year'   => $year
+            )
+        );
+
+        ob_start();
+        ?>
+        <div class="esg-success-submission" style="max-width: 650px; margin: 30px auto; padding: 30px; border: 1px solid #ccd0d4; background: #fff; border-radius: 6px; border-top: 4px solid #46b450; font-family: sans-serif; text-align: center;">
+            <span style="font-size: 50px;">✅</span>
+            <h2 style="color: #1d2327; margin-top: 10px;"><?php esc_html_e( 'Assessment Submitted Successfully', 'wp-esg' ); ?></h2>
+            <p style="color: #646970; font-size: 15px; line-height: 1.6;">
+                <?php esc_html_e( 'Your corporate disclosure report has been officially locked and transmitted to the central review database. In compliance with validation requirements, this dataset cannot be modified further.', 'wp-esg' ); ?>
+            </p>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+}
