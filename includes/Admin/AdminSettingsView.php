@@ -14,8 +14,8 @@ if (!defined('ABSPATH')) {
 class AdminSettingsView {
 
     public function __construct() {
-        // La registrazione dei menu è stata centralizzata nel WizardController unificato.
-        add_action('admin_init', [$this, 'registerPlatformSettings']);
+        // Esegue la registrazione immediata per evitare l'esclusione dalla whitelist di options.php
+        $this->registerPlatformSettings();
     }
 
     public function registerPlatformSettings(): void {
@@ -65,7 +65,7 @@ class AdminSettingsView {
                     </tr>
 
                     <tr style="vertical-align: top;">
-                        <th scope="row" style="padding:20px 10px; font-weight:bold Hausa-label;"><?php echo esc_html(__('No-Auth Token Lifecycle Access', 'wp-esg')); ?></th>
+                        <th scope="row" style="padding:20px 10px; font-weight:bold;"></th>
                         <td style="padding:20px 10px;">
                             <fieldset>
                                 <label for="wp_esg_no_auth_mode">
