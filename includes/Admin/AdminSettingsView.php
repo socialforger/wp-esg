@@ -65,7 +65,7 @@ class AdminSettingsView {
                     </tr>
 
                     <tr style="vertical-align: top;">
-                        <th scope="row" style="padding:20px 10px; font-weight:bold;"><?php echo esc_html(__('No-Auth Token Lifecycle Access', 'wp-esg')); ?></th>
+                        <th scope="row" style="padding:20px 10px; font-weight:bold Hausa-label;"><?php echo esc_html(__('No-Auth Token Lifecycle Access', 'wp-esg')); ?></th>
                         <td style="padding:20px 10px;">
                             <fieldset>
                                 <label for="wp_esg_no_auth_mode">
