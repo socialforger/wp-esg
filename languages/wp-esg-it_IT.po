@@ -229,3 +229,23 @@ msgstr "📝 In Corso (Bozza)"
 #: includes/Output/Adapters/TablePressIntegrator.php:66
 msgid "N/A"
 msgstr "N/D"
+
+#: includes/Admin/WizardController.php:40
+msgid "Workflow Monitor"
+msgstr "Monitoraggio dei Workflow"
+
+#: includes/Admin/WizardController.php:50
+msgid "Setup Wizard"
+msgstr "Configurazione Guidata"
+
+#: includes/Admin/WizardController.php:60
+msgid "Historical Archive"
+msgstr "Archivio Storico Generale"
+
+#: includes/Admin/WizardController.php:70
+msgid "Token Manager"
+msgstr "Gestione Gettoni di Accesso"
+
+#: includes/Admin/WizardController.php:80
+msgid "System Settings"
+msgstr "Impostazioni di Sistema"
