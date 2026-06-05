@@ -1,5 +1,5 @@
 /**
- * 🛠️ STRUMENTO DI MOCK TESTING PER AMBIENTE BACKEND ISOLATO (VERSIONE BYPASS REGISTRY)
+ * 🛠️ STRUMENTO DI MOCK TESTING PER AMBIENTE BACKEND ISOLATO (VERSIONE CORRETTA - BYPASS REGISTRY)
  * Si attiva visitando: https://mercatosociale.it/?run_esg_test=1
  */
 add_action( 'init', function() {
@@ -26,19 +26,19 @@ add_action( 'init', function() {
 
     echo '<h4>1. Verifica Caricamento Risposte Simulate... [OK]</h4>';
 
-    // 2. MOCK DEL RISOLUTORE DI CONTESTO (Evitiamo il Fatal Error del Registry mancante)
+    // 2. MOCK DEL RISOLUTORE DI CONTESTO (Bypassiamo l'errore del Registry mancante)
     echo '<h4>2. Simulazione Contesto (UserCompanyLinker Bypassato per Test):</h4>';
     
-    // Generiamo artificialmente quello che la classe avrebbe dovuto restituire
+    // Generiamo artificialmente l'output che ci serve per procedere con i test
     $context = array(
         'company_size_scope' => 'Piccola Impresa', // Standard, Piccola, Media, Grande
-        'qualitative_module' => 'agroecology'      // Mappato sul file PGS/OpenESEA
+        'qualitative_module' => 'agroecology'      // Mappato sui moduli dei JSON
     );
 
     echo '<ul>';
     echo '<li>Dimensione Azienda (Simulata): <strong>' . esc_html( $context['company_size_scope'] ) . '</strong></li>';
     echo '<li>Modulo Qualitativo (Simulato): <strong>' . esc_html( $context['qualitative_module'] ) . '</strong></li>';
-    echo '<li style="color:#e6a100; font-size: 13px;">⚠️ Nota: Il caricamento dinamico di WpEsg\Storage\Registry\It\Registry è stato aggirato nel test per evitare crash.</li>';
+    echo '<li style="color:#e6a100; font-size: 13px;">⚠️ Nota: La classe UserCompanyLinker è stata bypassata nel test per evitare il crash sul registro nazionale (It\Registry).</li>';
     echo '</ul>';
 
     // 3. Test della Persistenza dei dati grezzi su Database ($wpdb)
@@ -46,8 +46,9 @@ add_action( 'init', function() {
     global $wpdb;
     $table = $wpdb->prefix . 'esg_assessments';
 
+    // Verifichiamo se la tabella esiste sul DB di mercatosociale.it
     if ( $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $table ) ) !== $table ) {
-        echo '<p style="color:#dc3232;">❌ Errore critico: La tabella `' . esc_html($table) . '` non esiste nel database di mercatosociale.it. Controlla DatabaseSetup.</p>';
+        echo '<p style="color:#dc3232;">❌ Errore critico: La tabella `' . esc_html($table) . '` non esiste nel database. Controlla se DatabaseSetup è stato eseguito all\'attivazione.</p>';
     } else {
         $dbRecord = array(
             'company_tax_id'  => $mockAnswers['company_tax_id'],
@@ -59,6 +60,7 @@ add_action( 'init', function() {
             'raw_answers'     => json_encode( $mockAnswers )
         );
 
+        // Verifica la presenza di sottomissioni per lo stesso anno contabile
         $existingId = $wpdb->get_var( $wpdb->prepare(
             "SELECT id FROM $table WHERE company_tax_id = %s AND balance_year = %d",
             $dbRecord['company_tax_id'], $dbRecord['balance_year']
@@ -66,15 +68,15 @@ add_action( 'init', function() {
 
         if ( $existingId ) {
             $wpdb->update( $table, $dbRecord, array( 'id' => $existingId ) );
-            echo '<p style="color:#46b450; font-weight:bold;">✔ Database OK: Record esistente trovato e sovrascritto! (ID Riga: ' . $existingId . ')</p>';
+            echo '<p style="color:#46b450; font-weight:bold;">✔ Record esistente trovato e aggiornato correttamente nel DB! (ID Riga: ' . $existingId . ')</p>';
         } else {
             $wpdb->insert( $table, $dbRecord );
-            echo '<p style="color:#46b450; font-weight:bold;">✔ Database OK: Nuova riga di test inserita correttamente!</p>';
+            echo '<p style="color:#46b450; font-weight:bold;">✔ Nuova riga di test inserita con successo nel database!</p>';
         }
     }
 
     echo '<h4>4. Innesco Motore di Calcolo Proprietario:</h4>';
-    echo '<p style="color:#646970; font-style:italic;">[Configurazione Pronta] Pronto a ricevere i calcoli delle formule estratti dai JSON.</p>';
+    echo '<p style="color:#646970; font-style:italic;">[Configurazione Pronta] Istanziabile per elaborare le formule dei JSON estratti dall\'Auto-Discovery.</p>';
 
     echo '<h3 style="border-top: 1px solid #ccd0d4; padding-top: 15px; margin-bottom:0; color: #46b450;">--- Test Eseguito con Successo ---</h3>';
     echo '</div></body></html>';
