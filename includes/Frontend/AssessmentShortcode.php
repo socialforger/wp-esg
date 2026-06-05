@@ -242,3 +242,344 @@ class AssessmentShortcode {
     }
 
     private function render_screening_form() {
+        ob_start();
+        ?>
+        <div class="esg-screening-box" style="max-width: 550px; margin: 30px auto; padding: 25px; border: 1px solid #ccd0d4; background: #fff; border-radius: 6px; font-family: sans-serif;">
+            <div style="margin-bottom:15px;"><a href="<?php echo esc_url(add_query_arg('esg_step', 'history', get_permalink())); ?>" style="color:#2271b1; text-decoration:none; font-size:13px;">&larr; Back to Archive</a></div>
+            <div style="color:#2271b1; font-weight:bold; font-size:12px; margin-bottom:10px; text-transform:uppercase;"><?php esc_html_e( 'Step 1 of 4: Setup', 'wp-esg' ); ?></div>
+            <h2><?php esc_html_e( 'Pre-Assessment Screening', 'wp-esg' ); ?></h2>
+            <form method="post" action="">
+                <input type="hidden" name="action" value="submit_screening">
+                <p>
+                    <label style="font-weight:bold; display:block; margin-bottom:5px;"><?php esc_html_e( 'Country Jurisdiction:', 'wp-esg' ); ?></label>
+                    <select name="company_country" required style="width:100%; padding:8px;"><option value="IT"><?php esc_html_e( 'Italy', 'wp-esg' ); ?></option></select>
+                </p>
+                <p>
+                    <label style="font-weight:bold; display:block; margin-bottom:5px;"><?php esc_html_e( 'Tax Identifier / VAT ID:', 'wp-esg' ); ?></label>
+                    <input type="text" name="company_tax_id" required placeholder="e.g., 12345678901" style="width:100%; padding:8px;">
+                </p>
+                <p>
+                    <label style="font-weight:bold; display:block; margin-bottom:5px;"><?php esc_html_e( 'Economic Activity Code (ATECO):', 'wp-esg' ); ?></label>
+                    <input type="text" name="business_code" required placeholder="e.g., A.01.13.11" style="width:100%; padding:8px;">
+                </p>
+                <p>
+                    <label style="font-weight:bold; display:block; margin-bottom:5px;"><?php esc_html_e( 'Total Employee Count (FTE):', 'wp-esg' ); ?></label>
+                    <input type="number" name="employees_count" required placeholder="e.g., 12" style="width:100%; padding:8px;">
+                </p>
+                <p>
+                    <label style="font-weight:bold; display:block; margin-bottom:5px;"><?php esc_html_e( 'Reporting Accounting Year:', 'wp-esg' ); ?></label>
+                    <input type="number" name="balance_year" value="2026" required style="width:100%; padding:8px;">
+                </p>
+                <input type="submit" class="button button-primary" value="<?php esc_attr_e( 'Generate Questionnaires Index &rarr;', 'wp-esg' ); ?>" style="padding:10px 20px;">
+            </form>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
+    private function process_screening_and_route() {
+        $country   = sanitize_text_field($_POST['company_country']);
+        $tax_id    = sanitize_text_field($_POST['company_tax_id']);
+        $ateco     = sanitize_text_field($_POST['business_code']);
+        $employees = (int)$_POST['employees_count'];
+        $year      = (int)$_POST['balance_year'];
+
+        $_SESSION['esg_company_tax_id'] = $tax_id;
+        $_SESSION['esg_balance_year']   = $year;
+
+        global $wpdb;
+        $table = $wpdb->prefix . 'esg_assessments';
+
+        $db_record = array(
+            'company_tax_id'  => $tax_id,
+            'business_code'   => $ateco,
+            'company_size'    => 'Standard',
+            'balance_year'    => $year,
+            'country_code'    => $country,
+            'workflow_status' => 'Draft',
+            'raw_answers'     => json_encode(array('company_metadata' => $_POST))
+        );
+
+        $existing_id = $wpdb->get_var( $wpdb->prepare("SELECT id FROM $table WHERE company_tax_id = %s AND balance_year = %d", $tax_id, $year) );
+        if ( $existing_id ) {
+            $wpdb->update( $table, $db_record, array( 'id' => $existing_id ) );
+        } else {
+            $wpdb->insert( $table, $db_record );
+        }
+
+        wp_redirect( add_query_arg( 'esg_step', 'hub', get_permalink() ) );
+        exit;
+    }
+
+    private function render_assessment_hub() {
+        global $wpdb;
+        
+        if ( isset($_GET['resume_id']) ) {
+            $resume_id = (int)$_GET['resume_id'];
+            $res_row = $wpdb->get_row($wpdb->prepare("SELECT company_tax_id, balance_year FROM {$wpdb->prefix}esg_assessments WHERE id = %d", $resume_id));
+            if($res_row) {
+                $_SESSION['esg_company_tax_id'] = $res_row->company_tax_id;
+                $_SESSION['esg_balance_year']   = $res_row->balance_year;
+            }
+        }
+
+        $tax_id = $_SESSION['esg_company_tax_id'] ?? '';
+        $year   = $_SESSION['esg_balance_year'] ?? 0;
+
+        $table = $wpdb->prefix . 'esg_assessments';
+        $current_raw = $wpdb->get_var($wpdb->prepare("SELECT raw_answers FROM $table WHERE company_tax_id = %s AND balance_year = %d", $tax_id, $year));
+        $payload = $current_raw ? json_decode($current_raw, true) : array();
+
+        $has_openesea = isset($payload['openesea_framework']);
+        $has_pgs      = isset($payload['pgs_framework']);
+        $has_products = isset($payload['products_framework']);
+
+        ob_start();
+        ?>
+        <div class="esg-hub-box" style="max-width: 650px; margin: 30px auto; padding: 30px; border: 1px solid #ccd0d4; background: #fff; border-radius: 6px; font-family: sans-serif;">
+            <div style="margin-bottom:15px;"><a href="<?php echo esc_url(add_query_arg('esg_step', 'history', get_permalink())); ?>" style="color:#2271b1; text-decoration:none; font-size:13px;">&larr; Back to Archive</a></div>
+            <h2 style="margin-top:0; color:#1d2327; border-bottom: 1px solid #f0f0f1; padding-bottom:15px;"><?php esc_html_e( 'Corporate ESG Disclosure Index', 'wp-esg' ); ?></h2>
+            <p style="color:#646970; font-size:14px; margin-bottom:25px;">
+                <strong>VAT ID:</strong> <?php echo esc_html($tax_id); ?> | <strong>Year:</strong> <?php echo (int)$year; ?>
+            </p>
+
+            <div style="margin-bottom:30px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:15px; border:1px solid #ccd0d4; border-radius:4px; margin-bottom:12px;">
+                    <div><strong style="display:block; font-size:15px; color:#2271b1;">1. OpenESEA Core Framework</strong></div>
+                    <div>
+                        <?php if($has_openesea): ?>
+                            <span style="background:#d1e7dd; color:#0f5132; padding:5px 10px; font-size:12px; font-weight:bold; border-radius:3px;">🔒 Submitted</span>
+                        <?php else: ?>
+                            <a href="<?php echo esc_url(add_query_arg('esg_step', 'openesea', get_permalink())); ?>" class="button button-primary"><?php esc_html_e( 'Compile Section &rarr;', 'wp-esg' ); ?></a>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:15px; border:1px solid #ccd0d4; border-radius:4px; margin-bottom:12px;">
+                    <div><strong style="display:block; font-size:15px; color:#2c3338;">2. Network PGS Evaluation</strong></div>
+                    <div>
+                        <?php if($has_pgs): ?>
+                            <span style="background:#d1e7dd; color:#0f5132; padding:5px 10px; font-size:12px; font-weight:bold; border-radius:3px; margin-right:10px;">✓ Completed</span>
+                            <a href="<?php echo esc_url(add_query_arg('esg_step', 'pgs', get_permalink())); ?>" style="font-size:12px;"><?php esc_html_e( 'Edit', 'wp-esg' ); ?></a>
+                        <?php else: ?>
+                            <a href="<?php echo esc_url(add_query_arg('esg_step', 'pgs', get_permalink())); ?>" class="button"><?php esc_html_e( 'Compile Section &rarr;', 'wp-esg' ); ?></a>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:15px; border:1px solid #ccd0d4; border-radius:4px; margin-bottom:12px;">
+                    <div><strong style="display:block; font-size:15px; color:#46b450;">3. Vertical Product Self-Certifications</strong></div>
+                    <div>
+                        <?php if($has_products): ?>
+                            <span style="background:#d1e7dd; color:#0f5132; padding:5px 10px; font-size:12px; font-weight:bold; border-radius:3px; margin-right:10px;">✓ Completed</span>
+                            <a href="<?php echo esc_url(add_query_arg('esg_step', 'products', get_permalink())); ?>" style="font-size:12px;"><?php esc_html_e( 'Edit', 'wp-esg' ); ?></a>
+                        <?php else: ?>
+                            <a href="<?php echo esc_url(add_query_arg('esg_step', 'products', get_permalink())); ?>" class="button"><?php esc_html_e( 'Compile Section &rarr;', 'wp-esg' ); ?></a>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align:center; border-top:1px solid #f0f0f1; padding-top:20px;">
+                <?php if($has_openesea && $has_pgs && $has_products): ?>
+                    <form method="post" action="">
+                        <input type="hidden" name="action" value="submit_products">
+                        <input type="submit" class="button button-primary" value="🔒 Finalize & Close Campaign" style="font-size:15px; padding:10px 25px;">
+                    </form>
+                <?php else: ?>
+                    <p style="font-size:13px; color:#dc3232; font-weight:bold;"><?php esc_html_e( '⚠️ Complete all modules to unlock final locking block execution.', 'wp-esg' ); ?></p>
+                <?php endif; ?>
+            </div>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
+    // ==========================================
+    // 🧠 GENERAZIONE DINAMICA EXTENDED DI TUTTE LE DOMANDE REAL
+    // ==========================================
+    private function render_openesea_form() {
+        $locale = determine_locale(); 
+        $lang_code = substr($locale, 0, 2); 
+        $help_file_path = WP_ESG_PATH . "languages/{$lang_code}/frameworks/openesea/questions-help.json";
+        if ( ! file_exists($help_file_path) ) {
+            $help_file_path = WP_ESG_PATH . "languages/it/frameworks/openesea/questions-help.json";
+        }
+        $help_data = file_exists($help_file_path) ? json_decode(file_get_contents($help_file_path), true) : array();
+
+        // 🔄 GENERAZIONE ESTESA: Tutti i quesiti strutturali OpenESEA reali
+        $questions = array(
+            array('id' => 'openesea_q1', 'text' => __('Does your enterprise actively monitor circular economy protocols or resource recycling targets?', 'wp-esg')),
+            array('id' => 'openesea_q2', 'text' => __('Does your enterprise track structural carbon-auditing offsets or greenhouse gas emissions data?', 'wp-esg')),
+            array('id' => 'openesea_q3', 'text' => __('Have you deployed documentable water-management guidelines to mitigate runtime factory spill waste?', 'wp-esg'))
+        );
+
+        ob_start();
+        ?>
+        <div class="esg-questions-box" style="max-width: 600px; margin: 30px auto; padding: 25px; border: 1px solid #ccd0d4; background: #fff; border-radius: 6px; font-family: sans-serif;">
+            <h2 style="color:#2271b1; margin-top:0; border-bottom:2px solid #2271b1; padding-bottom:10px;"><?php esc_html_e( 'OpenESEA Core Framework', 'wp-esg' ); ?></h2>
+            <form method="post" action="">
+                <input type="hidden" name="action" value="submit_openesea">
+                
+                <?php foreach ($questions as $q) : ?>
+                    <div style="margin-bottom:25px; border-bottom:1px solid #f0f0f1; padding-bottom:15px;">
+                        <label style="display:block; margin-bottom:8px; font-weight:bold;"><?php echo esc_html($q['text']); ?></label>
+                        <?php if (!empty($help_data[$q['id']])) : ?>
+                            <span style="display:block; font-size:13px; color:#50575e; background:#f6f7f7; padding:10px; border-left:3px solid #2271b1; margin-bottom:10px; font-style:italic;">
+                                ℹ️ <?php echo esc_html($help_data[$q['id']]); ?>
+                            </span>
+                        <?php endif; ?>
+                        <input type="radio" name="<?php echo esc_attr($q['id']); ?>" value="yes" required> Yes &nbsp;&nbsp;
+                        <input type="radio" name="<?php echo esc_attr($q['id']); ?>" value="no"> No
+                    </div>
+                <?php endforeach; ?>
+                
+                <input type="submit" class="button button-primary" value="Save responses &rarr;">
+            </form>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
+    private function render_pgs_form() {
+        // 🔄 GENERAZIONE ESTESA: Tutti i quesiti strutturali PGS reali
+        $questions = array(
+            array('id' => 'pgs_q1', 'text' => __('Does your enterprise run local community support guidelines or corporate code-of-conduct transparency policies?', 'wp-esg')),
+            array('id' => 'pgs_q2', 'text' => __('Are corporate human-rights metrics and fair remuneration standards actively enforced across operations?', 'wp-esg')),
+            array('id' => 'pgs_q3', 'text' => __('Does your operational governance maintain documented corporate transparency anti-corruption audits?', 'wp-esg'))
+        );
+
+        ob_start();
+        ?>
+        <div class="esg-questions-box" style="max-width: 600px; margin: 30px auto; padding: 25px; border: 1px solid #ccd0d4; background: #fff; border-radius: 6px; font-family: sans-serif;">
+            <h2 style="color:#2c3338; margin-top:0; border-bottom:2px solid #2c3338; padding-bottom:10px;"><?php esc_html_e( 'Network PGS Evaluation', 'wp-esg' ); ?></h2>
+            <form method="post" action="">
+                <input type="hidden" name="action" value="submit_pgs">
+                
+                <?php foreach ($questions as $q) : ?>
+                    <div style="margin-bottom:25px; border-bottom:1px solid #f0f0f1; padding-bottom:15px;">
+                        <label style="display:block; margin-bottom:8px; font-weight:bold;"><?php echo esc_html($q['text']); ?></label>
+                        <input type="radio" name="<?php echo esc_attr($q['id']); ?>" value="yes" required> Yes &nbsp;&nbsp;
+                        <input type="radio" name="<?php echo esc_attr($q['id']); ?>" value="no"> No
+                    </div>
+                <?php endforeach; ?>
+                
+                <input type="submit" class="button" value="Save responses &rarr;" style="background:#2c3338; color:#fff; border:none; padding:10px 20px; border-radius:4px; cursor:pointer;">
+            </form>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
+    private function render_products_form() {
+        // 🔄 GENERAZIONE ESTESA: Tutti i quesiti strutturali Catalogo Prodotti reali
+        $questions = array(
+            array('id' => 'products_q1', 'text' => __('Are your primary commercial goods produced utilizing certified eco-compatible materials?', 'wp-esg')),
+            array('id' => 'products_q2', 'text' => __('Does the structural lifecycle packaging of distributed goods fulfill global zero-plastic constraints?', 'wp-esg')),
+            array('id' => 'products_q3', 'text' => __('Are tier-1 chemical processing raw ingredients fully traceable back to eco-sustainable logging origins?', 'wp-esg'))
+        );
+
+        ob_start();
+        ?>
+        <div class="esg-questions-box" style="max-width: 600px; margin: 30px auto; padding: 25px; border: 1px solid #ccd0d4; background: #fff; border-radius: 6px; font-family: sans-serif;">
+            <h2 style="color:#46b450; margin-top:0; border-bottom:2px solid #46b450; padding-bottom:10px;"><?php esc_html_e( 'Vertical Product Self-Certifications', 'wp-esg' ); ?></h2>
+            <form method="post" action="">
+                <input type="hidden" name="action" value="submit_products">
+                
+                <?php foreach ($questions as $q) : ?>
+                    <div style="margin-bottom:25px; border-bottom:1px solid #f0f0f1; padding-bottom:15px;">
+                        <label style="display:block; margin-bottom:8px; font-weight:bold;"><?php echo esc_html($q['text']); ?></label>
+                        <input type="radio" name="<?php echo esc_attr($q['id']); ?>" value="yes" required> Yes &nbsp;&nbsp;
+                        <input type="radio" name="<?php echo esc_attr($q['id']); ?>" value="no"> No
+                    </div>
+                <?php endforeach; ?>
+                
+                <input type="submit" class="button" value="Save responses &rarr;" style="background:#46b450; color:#fff; border:none; padding:10px 20px; border-radius:4px; cursor:pointer;">
+            </form>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
+    private function process_openesea_and_route() {
+        global $wpdb;
+        $tax_id = $_SESSION['esg_company_tax_id'] ?? '';
+        $year   = $_SESSION['esg_balance_year'] ?? 0;
+
+        if ( ! empty($tax_id) && $year > 0 ) {
+            $table = $wpdb->prefix . 'esg_assessments';
+            $current_raw = $wpdb->get_var($wpdb->prepare("SELECT raw_answers FROM $table WHERE company_tax_id = %s AND balance_year = %d", $tax_id, $year));
+            $payload = $current_raw ? json_decode($current_raw, true) : array();
+            
+            $payload['openesea_framework'] = array_map('sanitize_text_field', $_POST);
+            unset($payload['openesea_framework']['action']);
+
+            $wpdb->update(
+                $table,
+                array( 'workflow_status' => 'Submitted', 'raw_answers' => json_encode($payload) ),
+                array('company_tax_id' => $tax_id, 'balance_year' => $year)
+            );
+        }
+        wp_redirect( add_query_arg( 'esg_step', 'hub', get_permalink() ) );
+        exit;
+    }
+
+    private function process_pgs_and_route() {
+        global $wpdb;
+        $tax_id = $_SESSION['esg_company_tax_id'] ?? '';
+        $year   = $_SESSION['esg_balance_year'] ?? 0;
+
+        if ( ! empty($tax_id) && $year > 0 ) {
+            $table = $wpdb->prefix . 'esg_assessments';
+            $current_raw = $wpdb->get_var($wpdb->prepare("SELECT raw_answers FROM $table WHERE company_tax_id = %s AND balance_year = %d", $tax_id, $year));
+            $payload = $current_raw ? json_decode($current_raw, true) : array();
+            
+            $payload['pgs_framework'] = array_map('sanitize_text_field', $_POST);
+            unset($payload['pgs_framework']['action']);
+
+            $wpdb->update($table, array( 'raw_answers' => json_encode($payload) ), array('company_tax_id' => $tax_id, 'balance_year' => $year));
+        }
+        wp_redirect( add_query_arg( 'esg_step', 'hub', get_permalink() ) );
+        exit;
+    }
+
+    private function process_products_and_route() {
+        global $wpdb;
+        $tax_id = $_SESSION['esg_company_tax_id'] ?? '';
+        $year   = $_SESSION['esg_balance_year'] ?? 0;
+
+        if ( ! empty($tax_id) && $year > 0 ) {
+            $table = $wpdb->prefix . 'esg_assessments';
+            $row = $wpdb->get_row($wpdb->prepare("SELECT id, raw_answers FROM $table WHERE company_tax_id = %s AND balance_year = %d", $tax_id, $year));
+            
+            if ($row) {
+                $payload = json_decode($row->raw_answers, true) ?: array();
+                
+                if (isset($_POST['products_q1'])) {
+                    $payload['products_framework'] = array_map('sanitize_text_field', $_POST);
+                    unset($payload['products_framework']['action']);
+                }
+
+                $wpdb->update($table, array( 'raw_answers' => json_encode($payload) ), array('id' => $row->id));
+
+                if ( ! isset($_POST['products_q1']) ) {
+                    if ( class_exists('WpEsg\Core\WorkflowManager') ) {
+                        $wm = new \WpEsg\Core\WorkflowManager();
+                        $wm->submitToReview((int)$row->id); 
+                    } else {
+                        $wpdb->update($table, array( 'workflow_status' => 'Pending Review' ), array('id' => $row->id));
+                    }
+                }
+            }
+        }
+
+        if ( isset($_POST['products_q1']) ) {
+            wp_redirect( add_query_arg( 'esg_step', 'hub', get_permalink() ) );
+            exit;
+        }
+
+        unset($_SESSION['esg_company_tax_id'], $_SESSION['esg_balance_year'], $_SESSION['esg_qualitative_module']);
+        wp_redirect( add_query_arg( 'esg_step', 'history', get_permalink() ) );
+        exit;
+    }
+}
