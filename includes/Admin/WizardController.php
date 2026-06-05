@@ -99,7 +99,7 @@ class WizardController {
 
         if ( class_exists( 'WpEsg\Admin\AdminWorkflowView' ) ) {
             $view = new \WpEsg\Admin\AdminWorkflowView();
-            $view->render(); // Ora chiama direttamente il metodo allineato!
+            $view->render(); 
         } else {
             echo '<div class="notice notice-error inline" style="margin-top:20px;"><p>Classe AdminWorkflowView non trovata.</p></div>';
         }
@@ -125,7 +125,6 @@ class WizardController {
             <p class="description">Pannello di controllo del revisore per analizzare i JSON strutturati ed emettere i giudizi formali di validazione.</p>
             <hr>';
         
-        // Sfrutta l'integratore per mostrare i dati strutturati flat
         if ( class_exists('WpEsg\Output\Adapters\TablePressIntegrator') ) {
             $integrator = new \WpEsg\Output\Adapters\TablePressIntegrator();
             $data = $integrator->compileDatasetForTablePress();
@@ -151,19 +150,16 @@ class WizardController {
      * Gestione delle impostazioni generali del plugin
      */
     public function render_settings_view() {
+        echo '<div class="wrap">';
+        echo '<h1>⚙️ WP ESG — System Settings</h1>';
+        echo '<hr class="wp-header-end">';
+
         if ( class_exists( 'WpEsg\Admin\AdminSettingsView' ) ) {
             $view = new \WpEsg\Admin\AdminSettingsView();
-            
-            // Gestione flessibile per la vista impostazioni se usasse ancora un nome differente
-            if ( method_exists( $view, 'render' ) ) {
-                $view->render();
-            } elseif ( method_exists( $view, 'display' ) ) {
-                $view->display();
-            } elseif ( method_exists( $view, 'render_page' ) ) {
-                $view->render_page();
-            }
+            $view->render(); 
         } else {
-            echo '<div class="wrap"><h2>System Settings</h2><p>Classe delle impostazioni non trovata.</p></div>';
+            echo '<div class="notice notice-error inline" style="margin-top:20px;"><p>Classe AdminSettingsView non trovata.</p></div>';
         }
+        echo '</div>';
     }
 }
