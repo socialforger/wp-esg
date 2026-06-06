@@ -386,20 +386,37 @@ class AssessmentShortcode {
                             $rel = str_replace($base_dir, '', $file->getPathname());
                             $key = preg_replace('/\.json$/', '', $rel);
                             $pdata = $this->load_framework_json( 'products/' . $key . '.json' );
-                            $product_options[$key] = $pdata['product_id'] ?? $key;
+                            $product_options[$key] = $pdata['title'] ?? $pdata['product_id'] ?? $key;
                         }
                     }
                 }
                 if ( ! empty($product_options) ) : ?>
-                <p>
+                <div style="margin-bottom:15px;">
                     <label style="font-weight:bold; display:block; margin-bottom:8px;"><?php esc_html_e( 'Product Sheets to Compile:', 'wp-esg' ); ?></label>
-                    <?php foreach ($product_options as $pkey => $plabel) : ?>
-                        <label style="display:block; margin-bottom:6px; font-weight:normal;">
-                            <input type="checkbox" name="selected_products[]" value="<?php echo esc_attr($pkey); ?>">
-                            <?php echo esc_html($plabel); ?>
-                        </label>
-                    <?php endforeach; ?>
-                </p>
+                    <table style="width:100%; border-collapse:collapse; font-size:13px; border:1px solid #dcdcde; border-radius:4px; overflow:hidden;">
+                        <thead>
+                            <tr style="background:#f6f7f7; border-bottom:2px solid #dcdcde;">
+                                <th style="padding:8px 10px; text-align:left; width:36px;"></th>
+                                <th style="padding:8px 10px; text-align:left;"><?php esc_html_e( 'Scheda', 'wp-esg' ); ?></th>
+                                <th style="padding:8px 10px; text-align:left; color:#646970; font-weight:normal;"><?php esc_html_e( 'Categoria', 'wp-esg' ); ?></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($product_options as $pkey => $plabel) :
+                                $pdata_full = $this->load_framework_json( 'products/' . $pkey . '.json' );
+                                $category   = $pdata_full['category_scope'] ?? '';
+                            ?>
+                            <tr style="border-bottom:1px solid #f0f0f1;">
+                                <td style="padding:8px 10px; text-align:center;">
+                                    <input type="checkbox" name="selected_products[]" value="<?php echo esc_attr($pkey); ?>">
+                                </td>
+                                <td style="padding:8px 10px; font-weight:600; color:#1d2327;"><?php echo esc_html($plabel); ?></td>
+                                <td style="padding:8px 10px; color:#646970;"><?php echo esc_html($category); ?></td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
                 <?php endif; ?>
                 <input type="submit" class="button button-primary" value="<?php esc_attr_e( 'Generate Questionnaires Index →', 'wp-esg' ); ?>" style="padding:10px 20px;">
             </form>
@@ -495,7 +512,7 @@ class AssessmentShortcode {
             <div style="margin-bottom:15px;"><a href="<?php echo esc_url(add_query_arg('esg_step', 'history', get_permalink())); ?>" style="color:#2271b1; text-decoration:none; font-size:13px;">&larr; <?php esc_html_e( 'Back to Archive', 'wp-esg' ); ?></a></div>
             <h2 style="margin-top:0; color:#1d2327; border-bottom: 1px solid #f0f0f1; padding-bottom:15px;"><?php esc_html_e( 'Corporate ESG Disclosure Index', 'wp-esg' ); ?></h2>
             <p style="color:#646970; font-size:14px; margin-bottom:25px;">
-                <strong>VAT ID:</strong> <?php echo esc_html($tax_id); ?> | <strong>Year:</strong> <?php echo (int)$year; ?>
+                <strong><?php esc_html_e( 'VAT ID:', 'wp-esg' ); ?></strong> <?php echo esc_html($tax_id); ?> | <strong><?php esc_html_e( 'Year:', 'wp-esg' ); ?></strong> <?php echo (int)$year; ?>
             </p>
 
             <?php if ( empty($tax_id) || $year === 0 ) : ?>
@@ -741,7 +758,7 @@ class AssessmentShortcode {
                     <tbody>
                         <?php foreach ( $product_files as $key => $abs_path ) :
                             $pdata = $this->load_framework_json( 'products/' . $key . '.json' );
-                            $label = $pdata['product_id'] ?? $key;
+                            $label = $pdata['title'] ?? $pdata['product_id'] ?? $key;
                             $is_done = in_array($key, $done);
                             $url = esc_url( add_query_arg( array('esg_step' => 'products', 'product' => $key), get_permalink() ) );
                         ?>
@@ -775,7 +792,7 @@ class AssessmentShortcode {
         // Sicurezza: solo alfanumerici, slash e trattini
         $product_key = preg_replace('/[^a-zA-Z0-9_\-\/]/', '', $product_key);
 
-        $data     = $this->load_framework_json( 'frameworks/products/' . $product_key . '.json' );
+        $data     = $this->load_framework_json( 'products/' . $product_key . '.json' );
         $criteria = $data['product_evaluation_criteria'] ?? array();
 
         if ( empty( $criteria ) ) {
@@ -784,7 +801,7 @@ class AssessmentShortcode {
                 . '</p>';
         }
 
-        $product_name = $data['product_id'] ?? $product_key;
+        $product_name = $data['title'] ?? $data['product_id'] ?? $product_key;
 
         // Raggruppa per blocco
         $blocks = array();
