@@ -130,7 +130,7 @@ class AssessmentShortcode {
         $name    = esc_attr( $field_id );
 
         $html  = '<div style="margin-bottom:22px; border-bottom:1px solid #f0f0f1; padding-bottom:16px;">';
-        $html .= '<label style="display:block; margin-bottom:6px; font-weight:bold;">' . $label . '</label>';
+        $html .= '<label style="display:block; margin-bottom:6px;">' . $label . '</label>';
 
         if ( $help ) {
             $html .= '<span style="display:block; font-size:13px; color:#50575e; background:#f6f7f7; padding:8px 10px; border-left:3px solid #2271b1; margin-bottom:10px; font-style:italic;">ℹ️ ' . $help . '</span>';
@@ -472,7 +472,7 @@ class AssessmentShortcode {
 
             <div style="margin-bottom:30px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; padding:15px; border:1px solid #ccd0d4; border-radius:4px; margin-bottom:12px;">
-                    <div><strong style="display:block; font-size:15px; color:#2271b1;">1. OpenESEA Core Framework</strong></div>
+                    <div><strong style="display:block; font-size:15px; color:#2271b1;"><?php esc_html_e( '1. OpenESEA Core Framework', 'wp-esg' ); ?></strong></div>
                     <div>
                         <?php if($has_openesea): ?>
                             <span style="background:#d1e7dd; color:#0f5132; padding:5px 10px; font-size:12px; font-weight:bold; border-radius:3px; margin-right:8px;">✓ Completato</span>
@@ -555,16 +555,16 @@ class AssessmentShortcode {
         ob_start();
         ?>
         <div class="esg-questions-box" style="max-width: 650px; margin: 30px auto; padding: 25px; border: 1px solid #ccd0d4; background: #fff; border-radius: 6px; font-family: sans-serif;">
-            <div style="margin-bottom:15px;"><a href="<?php echo esc_url(add_query_arg('esg_step', 'hub', get_permalink())); ?>" style="color:#2271b1; text-decoration:none; font-size:13px;">&larr; Back to Index</a></div>
+            <div style="margin-bottom:15px;"><a href="<?php echo esc_url(add_query_arg('esg_step', 'hub', get_permalink())); ?>" style="color:#2271b1; text-decoration:none; font-size:13px;">&larr; <?php esc_html_e( 'Back to Index', 'wp-esg' ); ?></a></div>
             <h2 style="color:#2271b1; margin-top:0; border-bottom:2px solid #2271b1; padding-bottom:10px;"><?php esc_html_e( 'OpenESEA Core Framework', 'wp-esg' ); ?></h2>
             <p style="color:#646970; font-size:13px; margin-bottom:20px;"><?php printf( esc_html__( '%d domande suddivise per area tematica.', 'wp-esg' ), count($questions) ); ?></p>
             <form method="post" action="">
                 <input type="hidden" name="action" value="submit_openesea">
 
                 <?php foreach ( $blocks as $block_key => $block_questions ) : ?>
-                    <h3 style="margin-top:25px; margin-bottom:12px; padding:8px 12px; background:#f0f6fc; border-left:4px solid #2271b1; color:#1d2327; font-size:14px;">
+                    <h2 style="margin-top:30px; margin-bottom:15px; padding:10px 15px; background:#f0f6fc; border-left:4px solid #2271b1; color:#1d2327; font-size:17px; font-weight:700;">
                         <?php echo esc_html( $block_labels[ $block_key ] ?? ucwords( str_replace('_', ' ', $block_key) ) ); ?>
-                    </h3>
+                    </h2>
                     <?php foreach ( $block_questions as $q_id => $q_def ) : ?>
                         <?php echo $this->render_field( $q_id, array(
                             'label'    => $q_def['text'] ?? $q_id,
@@ -619,16 +619,16 @@ class AssessmentShortcode {
         ob_start();
         ?>
         <div class="esg-questions-box" style="max-width: 650px; margin: 30px auto; padding: 25px; border: 1px solid #ccd0d4; background: #fff; border-radius: 6px; font-family: sans-serif;">
-            <div style="margin-bottom:15px;"><a href="<?php echo esc_url(add_query_arg('esg_step', 'hub', get_permalink())); ?>" style="color:#2271b1; text-decoration:none; font-size:13px;">&larr; Back to Index</a></div>
+            <div style="margin-bottom:15px;"><a href="<?php echo esc_url(add_query_arg('esg_step', 'hub', get_permalink())); ?>" style="color:#2271b1; text-decoration:none; font-size:13px;">&larr; <?php esc_html_e( 'Back to Index', 'wp-esg' ); ?></a></div>
             <h2 style="color:#2c3338; margin-top:0; border-bottom:2px solid #2c3338; padding-bottom:10px;"><?php esc_html_e( 'Network PGS Evaluation', 'wp-esg' ); ?></h2>
             <p style="color:#646970; font-size:13px; margin-bottom:20px;"><?php printf( esc_html__( '%d criteri di valutazione PGS.', 'wp-esg' ), count($criteria) ); ?></p>
             <form method="post" action="">
                 <input type="hidden" name="action" value="submit_pgs">
 
                 <?php foreach ( $blocks as $block_key => $block_criteria ) : ?>
-                    <h3 style="margin-top:25px; margin-bottom:12px; padding:8px 12px; background:#f6f7f7; border-left:4px solid #2c3338; color:#1d2327; font-size:14px;">
+                    <h2 style="margin-top:30px; margin-bottom:15px; padding:10px 15px; background:#f6f7f7; border-left:4px solid #2c3338; color:#1d2327; font-size:17px; font-weight:700;">
                         <?php echo esc_html( $block_labels[ $block_key ] ?? ucwords( str_replace('_', ' ', $block_key) ) ); ?>
-                    </h3>
+                    </h2>
                     <?php foreach ( $block_criteria as $c_id => $c_def ) : ?>
                         <?php echo $this->render_field( $c_id, $c_def ); ?>
                     <?php endforeach; ?>
@@ -678,7 +678,7 @@ class AssessmentShortcode {
         ob_start();
         ?>
         <div class="esg-questions-box" style="max-width: 650px; margin: 30px auto; padding: 25px; border: 1px solid #ccd0d4; background: #fff; border-radius: 6px; font-family: sans-serif;">
-            <div style="margin-bottom:15px;"><a href="<?php echo esc_url(add_query_arg('esg_step', 'hub', get_permalink())); ?>" style="color:#2271b1; text-decoration:none; font-size:13px;">&larr; Back to Index</a></div>
+            <div style="margin-bottom:15px;"><a href="<?php echo esc_url(add_query_arg('esg_step', 'hub', get_permalink())); ?>" style="color:#2271b1; text-decoration:none; font-size:13px;">&larr; <?php esc_html_e( 'Back to Index', 'wp-esg' ); ?></a></div>
             <h2 style="color:#46b450; margin-top:0; border-bottom:2px solid #46b450; padding-bottom:10px;"><?php esc_html_e( 'Vertical Product Self-Certifications', 'wp-esg' ); ?></h2>
             <p style="color:#646970; font-size:13px; margin-bottom:5px;"><?php esc_html_e( 'Scheda prodotto:', 'wp-esg' ); ?> <strong><?php echo esc_html( $product_name ); ?></strong></p>
             <p style="color:#646970; font-size:13px; margin-bottom:20px;"><?php printf( esc_html__( '%d criteri di auto-certificazione.', 'wp-esg' ), count($criteria) ); ?></p>
@@ -687,9 +687,9 @@ class AssessmentShortcode {
                 <input type="hidden" name="products_q1" value="1"><!-- sentinel per process_products_and_route() -->
 
                 <?php foreach ( $blocks as $block_key => $block_criteria ) : ?>
-                    <h3 style="margin-top:25px; margin-bottom:12px; padding:8px 12px; background:#f0faf0; border-left:4px solid #46b450; color:#1d2327; font-size:14px;">
+                    <h2 style="margin-top:30px; margin-bottom:15px; padding:10px 15px; background:#f0faf0; border-left:4px solid #46b450; color:#1d2327; font-size:17px; font-weight:700;">
                         <?php echo esc_html( $block_labels[ $block_key ] ?? ucwords( str_replace('_', ' ', $block_key) ) ); ?>
-                    </h3>
+                    </h2>
                     <?php foreach ( $block_criteria as $c_id => $c_def ) : ?>
                         <?php echo $this->render_field( $c_id, $c_def ); ?>
                     <?php endforeach; ?>
