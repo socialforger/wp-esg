@@ -2,108 +2,522 @@
   "framework_id": "openesea_core_2024",
   "indicators": {
     "ind1": {
+      "block": "general_data",
       "unit": "count",
-      "formula": "metrics['m_q0101'] + metrics['m_q0103'] + metrics['m_q0104'] + metrics['m_q0105'] + metrics['m_q0106'] + metrics['m_q0107']"
+      "formula": "metrics['m_q0101'] + metrics['m_q0103'] + metrics['m_q0104'] + metrics['m_q0105'] + metrics['m_q0106'] + metrics['m_q0107']",
+      "title": "Total number of people in the organization segregated by sex",
+      "description": "Sums up all distinct human components active within the entity's direct social perimeter."
     },
     "ind2": {
+      "block": "general_data",
       "unit": "count",
-      "formula": "metrics['m_q0101'] + metrics['m_q0103'] + metrics['m_q0104'] + metrics['m_q0105'] + metrics['m_q0106'] + metrics['m_q0107']"
+      "formula": "metrics['m_q0101'] + metrics['m_q0103'] + metrics['m_q0104'] + metrics['m_q0105'] + metrics['m_q0106'] + metrics['m_q0107']",
+      "title": "Total number of member persons in the organization",
+      "description": "Calculates the total underlying corporate, operational, and structural base headcount[cite: 1]."
     },
     "ind3": {
+      "block": "general_data",
       "unit": "percentage",
-      "formula": "indicators['ind2'] > 0 ? (indicators['ind1'] / indicators['ind2']) * 100 : 0"
+      "formula": "indicators['ind2'] > 0 ? (indicators['ind1'] / indicators['ind2']) * 100 : 0",
+      "title": "% of people in the organization segregated by sex",
+      "description": "Proportional percentage check mapping gender distribution metrics across the social base[cite: 1]."
     },
     "ind118": {
+      "block": "general_data",
       "unit": "count",
-      "formula": "metrics['m_q0105'] + metrics['m_q0106']"
+      "formula": "metrics['m_q0105'] + metrics['m_q0106']",
+      "title": "Total number of working people in the organization",
+      "description": "Aggregates working cooperative members and regular salaried staff on payroll[cite: 1]."
     },
     "ind264": {
+      "block": "general_data",
       "unit": "count",
-      "formula": "metrics['m_q0201']"
+      "formula": "metrics['m_q0201']",
+      "title": "Number of workplaces of the organization",
+      "description": "Absolute count of separate operating facilities, offices, plants, or workshops[cite: 1]."
     },
     "ind4": {
+      "block": "economy_profit_policy",
       "unit": "count",
-      "formula": "metrics['m_q1101']"
+      "formula": "metrics['m_q1101']",
+      "title": "Equivalent average workforce template (FTE slots)",
+      "description": "The normalized job volume expressed in full-time equivalent annual days worked[cite: 1]."
     },
     "ind5": {
+      "block": "economy_profit_policy",
       "unit": "percentage",
-      "formula": "metrics['m_q1201'] > 0 ? (metrics['m_q1202'] / metrics['m_q1201']) * 100 : 0"
+      "formula": "metrics['m_q1201'] > 0 ? (metrics['m_q1202'] / metrics['m_q1201']) * 100 : 0",
+      "title": "Volume of purchases over operational expenses",
+      "description": "Ratio evaluating the weight of external procurement against global yearly outlays[cite: 1]."
     },
     "ind6": {
+      "block": "economy_profit_policy",
       "unit": "percentage",
-      "formula": "metrics['m_q1203'] > 0 ? (metrics['m_q1204'] / metrics['m_q1203']) * 100 : 0"
+      "formula": "metrics['m_q1203'] > 0 ? (metrics['m_q1204'] / metrics['m_q1203']) * 100 : 0",
+      "title": "Commercial business turnover rate",
+      "description": "Proportion of total income derived from standard sales of goods and services[cite: 1]."
     },
     "ind7": {
+      "block": "economy_profit_policy",
       "unit": "percentage",
-      "formula": "metrics['m_q1203'] > 0 ? (metrics['m_q1205'] / metrics['m_q1203']) * 100 : 0"
+      "formula": "metrics['m_q1203'] > 0 ? (metrics['m_q1205'] / metrics['m_q1203']) * 100 : 0",
+      "title": "% of dependency on public subsidies",
+      "description": "Measures corporate reliance on public grants relative to total input streams[cite: 1]."
     },
     "ind8": {
+      "block": "economy_profit_policy",
       "unit": "currency",
-      "formula": "metrics['m_q1203'] - metrics['m_q1201']"
+      "formula": "metrics['m_q1203'] - metrics['m_q1201']",
+      "title": "Difference between income and expenses",
+      "description": "Raw operational economic indicator tracking baseline financial margin[cite: 1]."
+    },
+    "ind9": {
+      "block": "economy_profit_policy",
+      "unit": "currency",
+      "formula": "metrics['m_q1203'] - metrics['m_q1201']",
+      "title": "Annual economic net result",
+      "description": "The definitive bottom-line net financial accounting balance for the period[cite: 1]."
     },
     "ind168": {
+      "block": "economy_profit_policy",
       "unit": "currency",
-      "formula": "metrics['m_q1101'] + metrics['m_q1107']"
+      "formula": "metrics['m_q1102'] + metrics['m_q1107']",
+      "title": "Total gross salary and remuneration packages outlay",
+      "description": "Combines direct annual gross salaries with absorbed internal leave compensations[cite: 1]."
     },
     "ind114": {
+      "block": "economy_profit_policy",
       "unit": "currency",
-      "formula": "metrics['m_q1101'] > 0 ? (indicators['ind168'] / metrics['m_q1101']) : 0"
+      "formula": "metrics['m_q1101'] > 0 ? (indicators['ind168'] / metrics['m_q1101']) : 0",
+      "title": "Average salary of the exercise segregated by sex",
+      "description": "Normalized yearly average pay allocated per single active FTE slot[cite: 1]."
     },
     "ind256": {
+      "block": "economy_profit_policy",
       "unit": "percentage",
-      "formula": "metrics['m_q1404'] > 0 ? (metrics['m_q1405'] / metrics['m_q1404']) * 100 : 0"
+      "formula": "metrics['m_q1413'] > 0 ? (metrics['m_q1405'] / metrics['m_q1413']) * 100 : 0",
+      "title": "% of economic surpluses distributed to member entities or persons",
+      "description": "Surplus fraction paid out as direct dividends compared to total distribution baseline[cite: 1]."
     },
     "ind257": {
+      "block": "economy_profit_policy",
       "unit": "percentage",
-      "formula": "metrics['m_q1404'] > 0 ? (metrics['m_q1406'] / metrics['m_q1404']) * 100 : 0"
+      "formula": "metrics['m_q1413'] > 0 ? (metrics['m_q1406'] / metrics['m_q1413']) * 100 : 0",
+      "title": "% of distributed economic surpluses dedicated to loss compensation",
+      "description": "Surplus fraction channeled backward to patch financial adjustments or losses[cite: 1]."
     },
     "ind258": {
+      "block": "economy_profit_policy",
       "unit": "percentage",
-      "formula": "metrics['m_q1404'] > 0 ? (metrics['m_q1413'] / metrics['m_q1404']) * 100 : 0"
+      "formula": "metrics['m_q1413'] > 0 ? ((metrics['m_q1407'] + metrics['m_q1408'] + metrics['m_q1409'] + metrics['m_q1410'] + metrics['m_q1411']) / metrics['m_q1413']) * 100 : 0",
+      "title": "% of economic surpluses dedicated to structural reserves",
+      "description": "Combined profit quota reinvested into multi-purpose internal reserve funds[cite: 1]."
+    },
+    "ind275": {
+      "block": "economy_profit_policy",
+      "unit": "currency",
+      "formula": "metrics['m_q1407'] + metrics['m_q1408'] + metrics['m_q1409'] + metrics['m_q1410'] + metrics['m_q1411']",
+      "title": "Economic surpluses dedicated completely to Reserves",
+      "description": "Absolute cumulative currency volume retained under asset-building reserve codes[cite: 1]."
+    },
+    "ind276": {
+      "block": "economy_profit_policy",
+      "unit": "percentage",
+      "formula": "indicators['ind275'] > 0 ? (metrics['m_q1407'] / indicators['ind275']) * 100 : 0",
+      "title": "% of reserves destined to education / internal training structures",
+      "description": "Proportion of fresh reserves locked for technical and cooperative training loops[cite: 1]."
+    },
+    "ind277": {
+      "block": "economy_profit_policy",
+      "unit": "percentage",
+      "formula": "indicators['ind275'] > 0 ? (metrics['m_q1408'] / indicators['ind275']) * 100 : 0",
+      "title": "% of reserves destined to social and solidary causes",
+      "description": "Proportion of fresh reserves gifted to external civil movements or transformation tasks[cite: 1]."
+    },
+    "ind278": {
+      "block": "economy_profit_policy",
+      "unit": "percentage",
+      "formula": "indicators['ind275'] > 0 ? (metrics['m_q1409'] / indicators['ind275']) * 100 : 0",
+      "title": "% of reserves destined to financial investments in alternative social economy networks",
+      "description": "Capital allocation measuring system banking liquidity inside nodes like Coop57 or Fiare[cite: 1]."
+    },
+    "ind279": {
+      "block": "economy_profit_policy",
+      "unit": "percentage",
+      "formula": "indicators['ind275'] > 0 ? (metrics['m_q1410'] / indicators['ind275']) * 100 : 0",
+      "title": "% of reserves destined to general Mandatory, voluntary, or statutory funds",
+      "description": "Standard corporate locking of generated reserves inside permanent indivisible capital[cite: 1]."
+    },
+    "ind280": {
+      "block": "economy_profit_policy",
+      "unit": "percentage",
+      "formula": "indicators['ind275'] > 0 ? (metrics['m_q1411'] / indicators['ind275']) * 100 : 0",
+      "title": "% of reserves destined to miscellaneous alternate options",
+      "description": "Reserves assigned to specific localized internal targets not covered elsewhere[cite: 1]."
+    },
+    "ind10": {
+      "block": "equity_democracy",
+      "unit": "percentage",
+      "formula": "indicators['ind84'] > 0 ? (metrics['m_q2101'] / indicators['ind84']) * 100 : 0",
+      "title": "% of people who participated in drafting the management plan and budget segregated by sex",
+      "description": "Checks co-creation diversity levels inside planning stages[cite: 1]."
+    },
+    "ind11": {
+      "block": "equity_democracy",
+      "unit": "percentage",
+      "formula": "indicators['ind2'] > 0 ? (indicators['ind84'] / indicators['ind2']) * 100 : 0",
+      "title": "% of global people active in plan elaboration over social base",
+      "description": "Democratic design factor assessing strategy access open to members[cite: 1]."
+    },
+    "ind12": {
+      "block": "equity_democracy",
+      "unit": "percentage",
+      "formula": "indicators['ind85'] > 0 ? (metrics['m_q2102'] / indicators['ind85']) * 100 : 0",
+      "title": "% of people who participated in approving the plan and budget segregated by gender",
+      "description": "Tracks voting gender distributions during annual budget assembly approval sessions[cite: 1]."
+    },
+    "ind13": {
+      "block": "equity_democracy",
+      "unit": "percentage",
+      "formula": "indicators['ind2'] > 0 ? (indicators['ind85'] / indicators['ind2']) * 100 : 0",
+      "title": "% of total social base active in budget and plan approval votes",
+      "description": "Corporate assembly voting performance and general alignment density indicator[cite: 1]."
+    },
+    "ind14": {
+      "block": "equity_democracy",
+      "unit": "boolean",
+      "formula": "metrics['m_q2203'] == 1 ? 1 : 0",
+      "title": "Public digital access to Social Audit results from the last exercise",
+      "description": "Validates open compliance tracking on the entity's web platforms[cite: 1]."
+    },
+    "ind20": {
+      "block": "equity_democracy",
+      "unit": "percentage",
+      "formula": "indicators['ind2'] > 0 ? (metrics['m_q3201'] / indicators['ind2']) * 100 : 0",
+      "title": "% of responsibility positions over total members segregated by sex",
+      "description": "Evaluates power line distributions and diversity inside workforce management layers[cite: 1]."
+    },
+    "ind21": {
+      "block": "equity_democracy",
+      "unit": "percentage",
+      "formula": "indicators['ind118'] > 0 ? (indicators['ind88'] / indicators['ind118']) * 100 : 0",
+      "title": "% of responsibility positions over total workforce",
+      "description": "Structural ratio tracking internal leadership density on total active staff[cite: 1]."
+    },
+    "ind23": {
+      "block": "equity_democracy",
+      "unit": "percentage",
+      "formula": "indicators['ind118'] > 0 ? (metrics['m_q3202'] / indicators['ind118']) * 100 : 0",
+      "title": "% of corporate/political governance roles over total members segregated by sex",
+      "description": "Measures gender parity and composition inside governing councils and political boards[cite: 1]."
+    },
+    "ind24": {
+      "block": "equity_democracy",
+      "unit": "percentage",
+      "formula": "indicators['ind118'] > 0 ? (indicators['ind89'] / indicators['ind118']) * 100 : 0",
+      "title": "% of corporate/political positions over total internal workforce",
+      "description": "Governance factor sizing the governing board relative to active staff lines[cite: 1]."
     },
     "ind26": {
+      "block": "equity_democracy",
       "unit": "ratio",
-      "formula": "metrics['m_q3302'] > 0 ? (metrics['m_q3301'] / metrics['m_q3302']) : 0"
+      "formula": "metrics['m_q3302'] > 0 ? (metrics['m_q3301'] / metrics['m_q3302']) : 0",
+      "title": "Salary Wage Gap Index segregated by sex (Ratio Max vs Min)",
+      "description": "Calculates the numeric wage spread range coefficient inside the project[cite: 1]."
     },
     "ind27": {
+      "block": "equity_democracy",
       "unit": "ratio",
-      "formula": "metrics['m_q3302'] > 0 ? (metrics['m_q3301'] / metrics['m_q3302']) : 0"
+      "formula": "metrics['m_q3302'] > 0 ? (metrics['m_q3301'] / metrics['m_q3302']) : 0",
+      "title": "Global Internal Salary Range Wage Gap Index",
+      "description": "Absolute range gap erogated between the peak hour wage and the lowest slot pay[cite: 1]."
     },
     "ind58": {
+      "block": "equity_democracy",
       "unit": "boolean",
-      "formula": "metrics['m_q2202'] == 1 ? 1 : 0"
+      "formula": "metrics['m_q2202'] == 1 ? 1 : 0",
+      "title": "Publicity of salaries and remunerations among working people",
+      "description": "Verifies internal wage ledger transparency open to all personnel[cite: 1]."
+    },
+    "ind84": {
+      "block": "equity_democracy",
+      "unit": "count",
+      "formula": "metrics['m_q2101']",
+      "title": "Total headcount active in plan drafting",
+      "description": "Absolute co-creation design team volume active on fiscal setup[cite: 1]."
+    },
+    "ind85": {
+      "block": "equity_democracy",
+      "unit": "count",
+      "formula": "metrics['m_q2102']",
+      "title": "Total headcount active in plan approval steps",
+      "description": "Absolute assembly attendance tracking voting on operational outlines[cite: 1]."
+    },
+    "ind88": {
+      "block": "equity_democracy",
+      "unit": "count",
+      "formula": "metrics['m_q3201']",
+      "title": "Number of people occupying responsibility roles inside labor tracks",
+      "description": "Absolute count of direction and middle-management workforce personnel[cite: 1]."
+    },
+    "ind89": {
+      "block": "equity_democracy",
+      "unit": "count",
+      "formula": "metrics['m_q3202']",
+      "title": "Number of people occupying political roles in governing organs",
+      "description": "Absolute headcount of board or governing council elected representatives[cite: 1]."
+    },
+    "ind97": {
+      "block": "equity_democracy",
+      "unit": "percentage",
+      "formula": "100",
+      "title": "Structural wage gap deviation between male and female FTE brackets",
+      "description": "Parity metrics evaluating salary variance lines along gender divisions[cite: 1]."
+    },
+    "ind98": {
+      "block": "equity_democracy",
+      "unit": "boolean",
+      "formula": "metrics['m_q3401'] == 1 ? 1 : 0",
+      "title": "Utilization of non-sexist and inclusive language protocols",
+      "description": "Confirms routine deployment of structural gender-neutral messaging rules[cite: 1]."
+    },
+    "ind152": {
+      "block": "equity_democracy",
+      "unit": "count",
+      "formula": "metrics['m_q14401'] == 1 ? 1 : 0",
+      "title": "Level of structured open transparency data available",
+      "description": "visibility indicator counting multiple information modules hosted openly[cite: 1]."
+    },
+    "ind178": {
+      "block": "equity_democracy",
+      "unit": "float",
+      "formula": "metrics['m_q3109']",
+      "title": "Mean average age of the working people",
+      "description": "Demographic score tracking age averages across internal working tracks[cite: 1]."
+    },
+    "ind190": {
+      "block": "equity_democracy",
+      "unit": "boolean",
+      "formula": "metrics['m_q5104'] == 1 ? 1 : 0",
+      "title": "Prioritization of functional diversity inclusion and accessibility tasks",
+      "description": "Confirms presence of spatial adaptions or accessible web interface setups[cite: 1]."
+    },
+    "ind259": {
+      "block": "equity_democracy",
+      "unit": "count",
+      "formula": "metrics['m_q2110']",
+      "title": "Total workforce staff participating in plan approvals",
+      "description": "Salaried personnel headcount tracking dynamic budget alignments[cite: 1]."
+    },
+    "ind260": {
+      "block": "equity_democracy",
+      "unit": "count",
+      "formula": "metrics['m_q2111']",
+      "title": "Total working cooperative members participating in plan approvals",
+      "description": "Cooperative working partner headcount tracking budget alignments[cite: 1]."
+    },
+    "ind261": {
+      "block": "equity_democracy",
+      "unit": "boolean",
+      "formula": "metrics['m_q3402'] == 1 ? 1 : 0",
+      "title": "Presence of a valid gender Equality Plan and track resources",
+      "description": "Confirms active deployment of resource-backed equality strategies[cite: 1]."
+    },
+    "ind262": {
+      "block": "equity_democracy",
+      "unit": "boolean",
+      "formula": "metrics['m_q3403'] == 1 ? 1 : 0",
+      "title": "Deployment of active protocols for harassment prevention and resolution",
+      "description": "Tracks structural setups protecting personnel against gender-based harassment[cite: 1]."
+    },
+    "ind272": {
+      "block": "equity_democracy",
+      "unit": "percentage",
+      "formula": "0",
+      "title": "Wage gap metrics mapping alternate non-binary identity slots",
+      "description": "Checks balance and parity structures across inclusive gender lines[cite: 1]."
+    },
+    "ind273": {
+      "block": "equity_democracy",
+      "unit": "percentage",
+      "formula": "indicators['ind118'] > 0 ? (indicators['ind259'] / indicators['ind118']) * 100 : 0",
+      "title": "% of workforce standard staff involved in plan validation",
+      "description": "Ratio evaluating standard employee deployment inside approval steps[cite: 1]."
+    },
+    "ind274": {
+      "block": "equity_democracy",
+      "unit": "percentage",
+      "formula": "metrics['m_q0105'] > 0 ? (indicators['ind260'] / metrics['m_q0105']) * 100 : 0",
+      "title": "% of total working cooperative members active in confirmations",
+      "description": "Internal tracking factor testing assembly vote co-design density[cite: 1]."
+    },
+    "ind322": {
+      "block": "equity_democracy",
+      "unit": "boolean",
+      "formula": "metrics['m_q3111'] == 1 ? 1 : 0",
+      "title": "Application of positive actions to foster corporate diversity",
+      "description": "Tracks active campaigns or steps running to secure open inclusion[cite: 1]."
+    },
+    "ind329": {
+      "block": "equity_democracy",
+      "unit": "percentage",
+      "formula": "indicators['ind118'] > 0 ? (metrics['m_q3108'] / indicators['ind118']) * 100 : 0",
+      "title": "% of workforce staff with documented functional diversity profiles",
+      "description": "Proportion of active paid slots held by people with functional diversity[cite: 1]."
+    },
+    "ind59": {
+      "block": "environmental_sustainability",
+      "unit": "boolean",
+      "formula": "metrics['m_q4101'] == 1 ? 1 : 0",
+      "title": "Availability of an environmental policy, action plan or management system",
+      "description": "Verifies deployment of audit structures mapping operational eco-impact[cite: 1]."
+    },
+    "ind60": {
+      "block": "environmental_sustainability",
+      "unit": "boolean",
+      "formula": "metrics['m_q4201'] == 1 ? 1 : 0",
+      "title": "Availability of procedures targeting energy saving and efficiency",
+      "description": "Tracks power logging tools or structural equipment modifications[cite: 1]."
+    },
+    "ind61": {
+      "block": "environmental_sustainability",
+      "unit": "boolean",
+      "formula": "metrics['m_q4206'] == 1 ? 1 : 0",
+      "title": "Availability of procedures targeting saving and efficiency in water consumption",
+      "description": "Tracks presence of optimization setups limiting liquid wastes[cite: 1]."
+    },
+    "ind62": {
+      "block": "environmental_sustainability",
+      "unit": "boolean",
+      "formula": "metrics['m_q4208'] == 1 ? 1 : 0",
+      "title": "Contracting of electrical services with 100% renewable Guarantee of Origin",
+      "description": "Validates full green power supplier integration on grid lines[cite: 1]."
+    },
+    "ind63": {
+      "block": "environmental_sustainability",
+      "unit": "boolean",
+      "formula": "metrics['m_q4301'] == 1 ? 1 : 0",
+      "title": "Majority utilization of recycled or FSC-certified office paper lots",
+      "description": "Confirms elimination of un-monitored standard generic paper supply lots[cite: 1]."
+    },
+    "ind65": {
+      "block": "environmental_sustainability",
+      "unit": "boolean",
+      "formula": "metrics['m_q4401'] == 1 ? 1 : 0",
+      "title": "Availability of formal waste prevention and reduction routines",
+      "description": "Checks internal packaging configurations and targeted sorting tasks[cite: 1]."
+    },
+    "ind69": {
+      "block": "environmental_sustainability",
+      "unit": "boolean",
+      "formula": "metrics['m_q4503'] == 1 ? 1 : 0",
+      "title": "Prioritization of conscious criteria inside general supply buying loops",
+      "description": "Integrates proximity sourcing, ecological lot selection, and fair trade[cite: 1]."
+    },
+    "ind102": {
+      "block": "environmental_sustainability",
+      "unit": "boolean",
+      "formula": "metrics['m_q4601'] == 1 ? 1 : 0",
+      "title": "Facilitation of eco-conscious individual or collective transport help",
+      "description": "Validates public transport passes co-funding or active workspace bike parking[cite: 1]."
+    },
+    "ind106": {
+      "block": "environmental_sustainability",
+      "unit": "boolean",
+      "formula": "metrics['m_q4102'] == 1 ? 1 : 0",
+      "title": "Execution of an internal footprint control checking CO2 metrics",
+      "description": "Confirms systematic tracking of resources generating greenhouse gases[cite: 1]."
+    },
+    "ind38": {
+      "block": "social_commitment_cooperation",
+      "unit": "boolean",
+      "formula": "metrics['m_q50b'] == 1 ? 1 : 0",
+      "title": "Active membership inside alternative transformation networks and groups",
+      "description": "Sizers long-term commitment (>30h or fee payment) within solidarity networks[cite: 1]."
     },
     "ind42": {
+      "block": "social_commitment_cooperation",
       "unit": "percentage",
-      "formula": "metrics['m_q1202'] > 0 ? (metrics['m_q5302'] / metrics['m_q1202']) * 100 : 0"
+      "formula": "metrics['m_q1202'] > 0 ? (metrics['m_q5302'] / metrics['m_q1202']) * 100 : 0",
+      "title": "% of purchases from Social Market and/or REAS providers",
+      "description": "Procurement index checking inter-cooperative commercial network integration[cite: 1]."
     },
     "ind71": {
+      "block": "social_commitment_cooperation",
       "unit": "boolean",
-      "formula": "metrics['m_q5202'] == 1 ? 1 : 0"
+      "formula": "metrics['m_q5202'] == 1 ? 1 : 0",
+      "title": "Active membership or accounts inside solidary ethical banking platforms",
+      "description": "Confirms systematic reliance on funding nodes like Coop57 or Fiare[cite: 1]."
     },
     "ind72": {
+      "block": "social_commitment_cooperation",
       "unit": "percentage",
-      "formula": "metrics['m_q1202'] > 0 ? (metrics['m_q5306'] / metrics['m_q1202']) * 100 : 0"
+      "formula": "metrics['m_q1202'] > 0 ? (metrics['m_q5306'] / metrics['m_q1202']) * 100 : 0",
+      "title": "% of total supply buying directed to alternative Social Economy nodes",
+      "description": "Procurement tracking focusing on generic non-profit external operator tasks[cite: 1]."
     },
     "ind74": {
+      "block": "social_commitment_cooperation",
       "unit": "boolean",
-      "formula": "metrics['m_q5501'] == 1 ? 1 : 0"
+      "formula": "metrics['m_q5501'] == 1 ? 1 : 0",
+      "title": "Systemic release of tools or creative knowledge blocks into the open commons",
+      "description": "Confirms sharing of methods under Creative Commons or open-access structures[cite: 1]."
+    },
+    "ind75": {
+      "block": "social_commitment_cooperation",
+      "unit": "boolean",
+      "formula": "metrics['m_q5502'] == 1 ? 1 : 0",
+      "title": "Documented corporate commitment prioritizing Free Software profiles",
+      "description": "Tracks systemic usage of open systems securing tech collective freedom[cite: 1]."
+    },
+    "ind103": {
+      "block": "social_commitment_cooperation",
+      "unit": "boolean",
+      "formula": "metrics['m_q5305'] == 1 ? 1 : 0",
+      "title": "Active peer cooperation with competitor entities inside the same sector",
+      "description": "Mutual aid index optimizing shared projects over pure market rivalries[cite: 1]."
+    },
+    "ind254": {
+      "block": "social_commitment_cooperation",
+      "unit": "percentage",
+      "formula": "indicators['ind42'] + indicators['ind72']",
+      "title": "Total aggregated percentage of purchases made from social economy providers",
+      "description": "Global performance sum tracking overall supply chains spent on social economy structures[cite: 1]."
     },
     "ind77": {
+      "block": "quality_of_work",
       "unit": "boolean",
-      "formula": "metrics['m_q6202'] == 1 ? 1 : 0"
+      "formula": "metrics['m_q6202'] == 1 ? 1 : 0",
+      "title": "Execution of proactive campaigns promoting labor health parameters",
+      "description": "Tracks preventative actions covering workspace safety, nutrition, and ergonomic check-ins[cite: 1]."
     },
     "ind78": {
+      "block": "quality_of_work",
       "unit": "boolean",
-      "formula": "metrics['m_q6601'] == 1 ? 1 : 0"
+      "formula": "metrics['m_q6601'] == 1 ? 1 : 0",
+      "title": "Presence of internal regulations boosting baseline collective labor agreements",
+      "description": "Written internal enhancements optimizing standard reference labor guidelines[cite: 1]."
     },
     "ind80": {
+      "block": "quality_of_work",
       "unit": "boolean",
-      "formula": "metrics['m_q6801'] == 1 ? 1 : 0"
+      "formula": "metrics['m_q6801'] == 1 ? 1 : 0",
+      "title": "Formalization of written policies scaling up family conciliation permits",
+      "description": "Written extensions expanding balancing permits above strict legal statutory floors[cite: 1]."
+    },
+    "ind104": {
+      "block": "quality_of_work",
+      "unit": "boolean",
+      "formula": "metrics['m_q6701'] == 1 ? 1 : 0",
+      "title": "Execution of specific programs supporting professional workforce training",
+      "description": "Dedicated funding loops enhancing personnel capacity in skills proper to the project[cite: 1]."
     },
     "ind105": {
+      "block": "quality_of_work",
       "unit": "boolean",
-      "formula": "metrics['m_q6802'] == 1 ? 1 : 0"
+      "formula": "metrics['m_q6802'] == 1 ? 1 : 0",
+      "title": "Regular activation of internal emotional care and evaluation spaces",
+      "description": "Confirms regular safe spaces tracking psychological safety and feedback for workers[cite: 1]."
     }
   }
 }
