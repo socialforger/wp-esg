@@ -1,0 +1,151 @@
+{
+  "product_id": "bread_and_bakery",
+  "category_scope": "food_and_agrifood",
+  "version": "1.0.0",
+  "product_evaluation_criteria": {
+    "bakery_products_names_types": {
+      "block": "product_specifications",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Nomi e Tipologie dei Prodotti da Forno",
+      "help": "Elencare i nomi e le varianti di pane e prodotti da forno realizzati (es. Pane semintegrale a lievitazione naturale, Pane di segale)."
+    },
+    "flours_used_types": {
+      "block": "flours_ingredients",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Tipologie di Farine Utilizzate",
+      "help": "Specificare i tipi di farine impiegate (es. Farina di grano tenero tipo 1, grani antichi, farina di farro macinata a pietra)."
+    },
+    "flours_origin_own_or_third_party_location": {
+      "block": "flours_ingredients",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Origine e Approvvigionamento delle Farine",
+      "help": "Indicare se la farina proviene da cereali di propria produzione o specificare il nome e la località del mulino / azienda agricola terza."
+    },
+    "flours_characteristics_agronomical_features": {
+      "block": "flours_ingredients",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Caratteristiche Agronomiche delle Farine",
+      "help": "Descrivere i metodi di coltivazione dei cereali (es. agricoltura biologica certificata, pratiche biodinamiche, sementi locali libere da brevetti)."
+    },
+    "other_ingredients_names_origin": {
+      "block": "flours_ingredients",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Altri Ingredienti e Relativa Origine",
+      "help": "Elencare eventuali altri ingredienti utilizzati (olio, sale, semi, frutta secca) e la loro provenienza geografica o etica."
+    },
+    "raw_materials_storage_locations": {
+      "block": "flours_ingredients",
+      "type": "string",
+      "control": "text",
+      "fallback": "",
+      "label": "Luoghi di Stoccaggio delle Materie Prime",
+      "help": "Specificare dove vengono conservati i cereali e le farine per garantire il controllo igienico-sanitario e della temperatura."
+    },
+    "water_supply_source": {
+      "block": "water_leavening",
+      "type": "string",
+      "control": "text",
+      "required": true,
+      "label": "Fonte di Approvvigionamento Idrico",
+      "help": "Identificare la fonte dell'acqua utilizzata per gli impasti (es. acquedotto comunale pubblico, pozzo privato controllato)."
+    },
+    "water_quality_control_monitoring": {
+      "block": "water_leavening",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Monitoraggio e Controllo Qualità dell'Acqua",
+      "help": "Dettagliare la presenza di sistemi di filtraggio o le date delle analisi microbiologiche periodiche eseguite sulla rete idrica."
+    },
+    "yeasts_used_types": {
+      "block": "water_leavening",
+      "type": "string",
+      "control": "text",
+      "required": true,
+      "label": "Tipologia di Lievito o Agenti Lievitanti",
+      "help": "Specificare il metodo di lievitazione (es. pasta madre/lievito madre solido, li.co.li., lievito di birra biologico)."
+    },
+    "additives_usage_log": {
+      "block": "additives_processing",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Registro di Utilizzo Additivi",
+      "help": "Dichiarare eventuali regolatori di acidità, agenti di trattamento delle farine o enzimi aggiunti in lavorazione. Lasciare vuoto se nessuno."
+    },
+    "preservatives_usage_log": {
+      "block": "additives_processing",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Registro di Utilizzo Conservanti",
+      "help": "Annotare eventuali conservanti chimici o antimuffa usati per estendere la shelf-life. Lasciare vuoto se nessuno."
+    },
+    "flavorings_usage_log": {
+      "block": "additives_processing",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Registro di Utilizzo Aromi",
+      "help": "Specificare se negli impasti vengono inseriti aromi artificiali o naturali estratti chimicamente. Lasciare vuoto se nessuno."
+    },
+    "processing_and_transformation_methodology": {
+      "block": "additives_processing",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Metodologia di Lavorazione e Trasformazione",
+      "help": "Descrivere le fasi di impastamento, i tempi di lievitazione (ore e temperature) e il processo generale di manifattura artigianale."
+    },
+    "baking_oven_type_and_fuel": {
+      "block": "baking_packaging",
+      "type": "string",
+      "control": "text",
+      "required": true,
+      "label": "Tipologia di Forno e Combustibile Utilizzato",
+      "help": "Specificare la tecnologia e l'energia usata per la cottura (es. forno a legna diretto con legname locale certificato, forno elettrico a platea)."
+    },
+    "packaging_types_materials": {
+      "block": "baking_packaging",
+      "type": "string",
+      "control": "text",
+      "fallback": "",
+      "label": "Tipologia e Materiali di Confezionamento",
+      "help": "Descrivere il formato di imballaggio (es. sacchetti di carta riciclata non sbiancata, sacchetti compostabili in PLA, sfuso senza incarto)."
+    },
+    "organoleptic_description_free_text": {
+      "block": "baking_packaging",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Descrizione Qualitativa Organolettica",
+      "help": "Fornire note sulla consistenza della crosta, alveolatura della mollica, profilo aromatico e suggerimenti tipici di conservazione."
+    },
+    "source_price_per_kg_including_vat": {
+      "block": "source_pricing",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Scomposizione del Prezzo Sorgente al KG (IVA Inclusa)",
+      "help": "Dettagliare il costo finale trasparente al KG per i consumatori, esplicitando il peso delle materie prime rispetto ai margini di lavoro."
+    },
+    "additional_considerations_notes": {
+      "block": "source_pricing",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Note e Considerazioni Aggiuntive",
+      "help": "Qualsiasi altra specifica logistica o accordo solidale relativo alle forniture e alla gestione degli ordini del forno."
+    }
+  }
+}
