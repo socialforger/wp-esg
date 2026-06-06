@@ -6,12 +6,48 @@
   "author": "SocialForger",
   "year": 2024,
   "blocks": [
-    { "id": "general_data", "order": 1, "weight": 0.0 },
-    { "id": "economy_profit_policy", "order": 2, "weight": 0.2 },
-    { "id": "equity_democracy", "order": 3, "weight": 0.2 },
-    { "id": "environmental_sustainability", "order": 4, "weight": 0.2 },
-    { "id": "social_commitment_cooperation", "order": 5, "weight": 0.2 },
-    { "id": "quality_of_work", "order": 6, "weight": 0.2 }
+    { 
+      "id": "general_data", 
+      "order": 1, 
+      "weight": 0.0,
+      "name": "General Data",
+      "description": "Quantitative information regarding the social base and workforce structure of the organization."
+    },
+    { 
+      "id": "economy_profit_policy", 
+      "order": 2, 
+      "weight": 0.2,
+      "name": "Economy and Profit Policy",
+      "description": "Financial metrics, accounting costs, and allocation rules for economic surpluses."
+    },
+    { 
+      "id": "equity_democracy", 
+      "order": 3, 
+      "weight": 0.2,
+      "name": "Equity and Democracy",
+      "description": "Measures internal transparency, democratic participation, wage gaps, and gender equality."
+    },
+    { 
+      "id": "environmental_sustainability", 
+      "order": 4, 
+      "weight": 0.2,
+      "name": "Environmental Sustainability",
+      "description": "Tracks energy efficiency, waste prevention, water footprint, and carbon neutrality plans."
+    },
+    { 
+      "id": "social_commitment_cooperation", 
+      "order": 5, 
+      "weight": 0.2,
+      "name": "Social Commitment and Cooperation",
+      "description": "Evaluates ethical financing integration, network participation, and contributions to the commons."
+    },
+    { 
+      "id": "quality_of_work", 
+      "order": 6, 
+      "weight": 0.2,
+      "name": "Quality of Work",
+      "description": "Assesses labor well-being, work-life balance frameworks, and emotional care spaces."
+    }
   ],
   "settings": {
     "allow_partial_save": true,
