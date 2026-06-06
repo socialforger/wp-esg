@@ -207,8 +207,8 @@ msgid "The unbundled assessment data blocks have been registered and successfull
 msgstr "I singoli blocchi di dati della valutazione sono stati registrati e bloccati con successo. Il modulo OpenESEA è in coda per il processo di verifica e audit."
 
 #: includes/Frontend/AssessmentShortcode.php:62
-msgid "Corporate ESG Reporting Archive"
-msgstr "Archivio Storico dei Report ESG Aziendali"
+msgid "ESG Assessment Campaign Archive"
+msgstr "Archivio Campagne Valutazione ESG"
 
 #: includes/Frontend/AssessmentShortcode.php:63
 msgid "+ New Campaign Assessment"
@@ -219,8 +219,8 @@ msgid "Review previously locked accounting disclosure campaigns or launch a new 
 msgstr "Rivedi le campagne di rendicontazione precedentemente bloccate o avvia un nuovo profilo dinamico del ciclo di vita della validazione."
 
 #: includes/Frontend/AssessmentShortcode.php:70
-msgid "No historical assessments found. Click the button above to initialize your first framework."
-msgstr "Nessuna valutazione storica trovata. Clicca sul pulsante in alto per inizializzare il tuo primo framework."
+msgid "No previous assessments found. Click the button above to create your first ESG assessment."
+msgstr "Nessuna valutazione precedente trovata. Clicca sul pulsante in alto per creare la tua prima valutazione ESG."
 
 #: includes/Frontend/AssessmentShortcode.php:77
 msgid "Target Year"
