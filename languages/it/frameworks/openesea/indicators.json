@@ -1,85 +1,516 @@
 {
-  "domain": "wp-esg-indicators",
-  "locale_data": {
-    "wp-esg-indicators": {
-      "": {
-        "domain": "wp-esg-indicators",
-        "lang": "it_IT",
-        "plural_forms": "nplurals=2; plural=(n != 1);"
-      },
-      "ind1": ["Numero totale di persone dell'organizzazione (disaggregato per sesso)[cite: 5]"],
-      "ind2": ["Numero totale di persone membri dell'organizzazione[cite: 5]"],
-      "ind3": ["% di persone dell'organizzazione (disaggregato per sesso)[cite: 5]"],
-      "ind118": ["Numero totale di persone lavoratrices dell'organizzazione[cite: 5]"],
-      "ind264": ["Numero di centri di lavoro dell'organizzazione[cite: 5]"],
-      "ind4": ["Organico medio equivalente (Plantilla media)[cite: 5]"],
-      "ind5": ["Volume di acquisti rispetto alle spese[cite: 5]"],
-      "ind6": ["Fatturato / Cifra d'affari[cite: 5]"],
-      "ind7": ["% di dipendenza da sovvenzioni[cite: 5]"],
-      "ind8": ["Differenza tra ricavi e spese[cite: 5]"],
-      "ind9": ["Risultato economico annuale[cite: 5]"],
-      "ind114": ["Salario medio dell'esercizio (disaggregato per sesso)[cite: 5]"],
-      "ind168": ["Percezioni salariali lorde totali[cite: 5]"],
-      "ind256": ["% di eccedenze economiche distribuite alle imprese o alle persone socie rispetto al totale[cite: 5]"],
-      "ind257": ["% di eccedenze economiche distribuite dedicate alla compensazione delle perdite rispetto al totale[cite: 5]"],
-      "ind258": ["% di eccedenze economiche distribuite dedicate a riserve rispetto al totale[cite: 5]"],
-      "ind275": ["Eccedenze economiche distribuite dedicate a Riserve[cite: 5]"],
-      "ind276": ["% riserve destinate a educazione / formazione interna[cite: 5]"],
-      "ind277": ["% riserve destinate a cause sociali e solidali[cite: 5]"],
-      "ind278": ["% riserve destinate a investimenti finanziari in entità dell'Economia Solidale[cite: 5]"],
-      "ind279": ["% riserve destinate a Riserve (obbligatorie, volontarie, ecc)[cite: 5]"],
-      "ind280": ["% riserve destinate a altre riserve[cite: 5]"],
-      "ind10": ["% di persone che hanno partecipato alla redazione del piano di gestione e del budget annuale (disaggregato per sesso)[cite: 5]"],
-      "ind11": ["% di persone che hanno partecipato alla redazione del piano di gestione e del budget annuale[cite: 5]"],
-      "ind12": ["% di persone che hanno partecipato all'approvazione del piano di gestione e del budget annuale (disaggregato per sesso)[cite: 5]"],
-      "ind13": ["% di persone che hanno partecipato all'approvazione del piano di gestione e del budget annuale[cite: 5]"],
-      "ind14": ["Pubblicazione dei risultati del Bilancio Sociale dell'ultimo esercizio[cite: 5]"],
-      "ind20": ["% di cariche di responsabilità sul totale dei membri dell'organizzazione (disaggregato per sesso)[cite: 5]"],
-      "ind21": ["% di cariche di responsabilità sul totale dei membri dell'organizzazione[cite: 5]"],
-      "ind23": ["% di cariche societarie/politiche sul totale dei membri dell'organizzazione (disaggregato per sesso)[cite: 5]"],
-      "ind24": ["% di cariche societarie/politiche sul totale dei membri dell'organizzazione[cite: 5]"],
-      "ind26": ["Indice di divario salariale (Brecha Salarial) disaggregato per sesso[cite: 5]"],
-      "ind27": ["Indice di divario salariale (Brecha Salarial)[cite: 5]"],
-      "ind84": ["Numero totale di persone che hanno partecipato alla redazione del piano di gestione e del budget annuale[cite: 5]"],
-      "ind85": ["Numero totale di persone che hanno partecipato all'approvazione del piano di gestione e del budget annuale[cite: 5]"],
-      "ind88": ["Numero di persone che occupano cariche di responsabilità nella struttura lavorativa dell'organizzazione[cite: 5]"],
-      "ind89": ["Numero di persone che occupano cariche societarie/politiche nell'organizzazione[cite: 5]"],
-      "ind97": ["Divario salariale tra uomini e donne[cite: 5]"],
-      "ind98": ["Utilizzo di un linguaggio non sessista e inclusivo[cite: 5]"],
-      "ind152": ["Livello di informazioni pubbliche disponibili[cite: 5]"],
-      "ind178": ["Età media[cite: 5]"],
-      "ind190": ["Si tiene conto della diversità funzionale e si promuove e/o si facilita l'inclusione di tutte le persone[cite: 5]"],
-      "ind259": ["Numero totale di persone lavoratrici che hanno partecipato all'approvazione del piano di gestione e del budget annuale[cite: 5]"],
-      "ind260": ["Numero totale di persone socie lavoratrici che hanno partecipato all'approvazione del piano di gestione e del budget annuale[cite: 5]"],
-      "ind261": ["Disponibilità di un piano di uguaglianza vigente e delle risorse per realizzare il corrispondente monitoraggio e valutazione[cite: 5]"],
-      "ind262": ["Disponibilità di un protocollo per la prevenzione e il contrasto delle molestie sessuali, per ragioni di sesso, identità di genere o preferenza sessuale[cite: 5]"],
-      "ind272": ["Divario salariale tra uomini e altre identità[cite: 5]"],
-      "ind273": ["% di persone lavoratrici che hanno partecipato all'approvazione del piano di gestione e del budget annuale[cite: 5]"],
-      "ind274": ["% di persone socie lavoratrici che hanno partecipato all'approvazione del piano di gestione e del budget annuale[cite: 5]"],
-      "ind322": ["Applicazione di azioni positive per promuovere il rispetto della diversità nell'entità[cite: 5]"],
-      "ind329": ["% di persone lavoratrici con diversità funzionale[cite: 5]"],
-      "ind59": ["Disponibilità di un piano d'azione o sistema di gestione ambientale[cite: 5]"],
-      "ind60": ["Disponibilità di pratiche e procedure per il risparmio e l'efficienza energetica[cite: 5]"],
-      "ind61": ["Disponibilità di pratiche e procedure per il risparmio e l'efficienza nel consumo di acqua[cite: 5]"],
-      "ind62": ["Contrattazione del servizio elettrico con aziende fornitrici che generano il 100% della loro energia elettrica da fonti rinnovabili certificate con garanzia di origine[cite: 5]"],
-      "ind63": ["Utilizzazione di carta riciclata e/o con certificazione di gestione forestale sostenibile in modo regolare e maggioritario[cite: 5]"],
-      "ind65": ["Disponibilità di pratiche formali di gestione dei rifiuti[cite: 5]"],
-      "ind69": ["Al momento dell'acquisto di un prodotto, l'entità considera criteri di consumo responsabile[cite: 5]"],
-      "ind102": ["L'entità incorpora, offre o facilita qualche alternativa/aiuto in merito al trasporto[cite: 5]"],
-      "ind106": ["Al momento dell'acquisto di un prodotto, l'entità considera criteri di consumo responsabile (Verifica emissioni CO2)[cite: 5]"],
-      "ind38": ["Entità, reti, federazioni o iniziative di trasformazione sociale stabili nelle quali l'entità partecipa in modo attivo[cite: 5]"],
-      "ind42": ["% di acquisti da fornitori del mercato sociale e/o REAS[cite: 5]"],
-      "ind71": ["L'entità è socia o cliente di entità di finanza etica e solidale[cite: 5]"],
-      "ind72": ["Indicatore % totale degli acquisti di beni e servizi realizzati a entità della economia sociale (non appartenenti al Mercato Sociale o REAS)[cite: 5]"],
-      "ind74": ["A monte della sua attività, l'entità genera qualche tipo di bene, servizio o materiale che mette a libera disposizione della collettività o sotto licenze libere come Creative Commons[cite: 5]"],
-      "ind75": ["Livello di impegno con il Software Libero[cite: 5]"],
-      "ind103": ["L'organizzazione collabora con altre che offrono gli stessi prodotti o servizi[cite: 5]"],
-      "ind254": ["% totale di acquisti realizzati da entità del MES, di REAS o dell'Economia Sociale[cite: 5]"],
-      "ind77": ["La realtà adotta misure attive e/o preventive per la promozione della salute nella sede di lavoro[cite: 5]"],
-      "ind78": ["Presenza di un regolamento o protocollo interno con misure migliorative rispetto al CCNL applicato[cite: 5]"],
-      "ind80": ["Presenza di misure migliorative rispetto alla legge per la conciliazione della vita familiare e lavorativa[cite: 5]"],
-      "ind104": ["Misure applicate per promuovere e incentivare la formazione delle persone lavoratrici[cite: 5]"],
-      "ind105": ["Generazione di spazi interni di attenzione emotiva e cura delle persone lavoratrici[cite: 5]"]
+  "framework_id": "openesea_core_2024",
+  "indicators": {
+    "ind1": {
+      "block": "general_data",
+      "unit": "count",
+      "formula": "metrics['m_q0101'] + metrics['m_q0103'] + metrics['m_q0104'] + metrics['m_q0105'] + metrics['m_q0106'] + metrics['m_q0107']",
+      "title": "Numero totale di persone nell'organizzazione aggregate per sesso",
+      "description": "Somma tutte le diverse componenti umane attive all'interno del perimetro sociale diretto dell'ente."
+    },
+    "ind2": {
+      "block": "general_data",
+      "unit": "count",
+      "formula": "metrics['m_q0101'] + metrics['m_q0103'] + metrics['m_q0104'] + metrics['m_q0105'] + metrics['m_q0106'] + metrics['m_q0107']",
+      "title": "Numero totale di persone socie dell'organizzazione",
+      "description": "Calcola la consistenza numerica complessiva della base sociale, operativa e strutturale sottostante."
+    },
+    "ind3": {
+      "block": "general_data",
+      "unit": "percentage",
+      "formula": "indicators['ind2'] > 0 ? (indicators['ind1'] / indicators['ind2']) * 100 : 0",
+      "title": "Percentuale di persone nell'organizzazione suddivise per sesso",
+      "description": "Indicatore proporzionale per mappare le metriche di distribuzione di genere all'interno della base sociale."
+    },
+    "ind118": {
+      "block": "general_data",
+      "unit": "count",
+      "formula": "metrics['m_q0105'] + metrics['m_q0106']",
+      "title": "Numero totale di persone lavoratrici nell'organizzazione",
+      "description": "Aggrega i soci lavoratori della cooperativa e il personale dipendente standard registrato a libro paga."
+    },
+    "ind264": {
+      "block": "general_data",
+      "unit": "count",
+      "formula": "metrics['m_q0201']",
+      "title": "Numero di centri o sedi di lavoro dell'organizzazione",
+      "description": "Il conteggio assoluto delle sedi fisiche operative, uffici, impianti o officine."
+    },
+    "ind4": {
+      "block": "economy_profit_policy",
+      "unit": "count",
+      "formula": "metrics['m_q1101']",
+      "title": "Organico medio equivalente a tempo pieno (unità FTE)",
+      "description": "Il volume occupazionale normalizzato espresso in giornate annue equivalenti a tempo pieno lavorate."
+    },
+    "ind5": {
+      "block": "economy_profit_policy",
+      "unit": "percentage",
+      "formula": "metrics['m_q1201'] > 0 ? (metrics['m_q1202'] / metrics['m_q1201']) * 100 : 0",
+      "title": "Volume degli acquisti rispetto alle spese operative totali",
+      "description": "Rapporto che valuta l'incidenza degli approvvigionamenti esterni rispetto alle uscite annue complessive."
+    },
+    "ind6": {
+      "block": "economy_profit_policy",
+      "unit": "percentage",
+      "formula": "metrics['m_q1203'] > 0 ? (metrics['m_q1204'] / metrics['m_q1203']) * 100 : 0",
+      "title": "Tasso di fatturato da attività commerciale",
+      "description": "Proporzione dei ricavi totali derivanti direttamente dalle vendite di beni e dalle prestazioni di servizi sul mercato."
+    },
+    "ind7": {
+      "block": "economy_profit_policy",
+      "unit": "percentage",
+      "formula": "metrics['m_q1203'] > 0 ? (metrics['m_q1205'] / metrics['m_q1203']) * 100 : 0",
+      "title": "Percentuale di dipendenza da sussidi pubblici",
+      "description": "Misura l'affidamento finanziario dell'ente su sovvenzioni e contributi pubblici rispetto agli ingressi monetari totali."
+    },
+    "ind8": {
+      "block": "economy_profit_policy",
+      "unit": "currency",
+      "formula": "metrics['m_q1203'] - metrics['m_q1201']",
+      "title": "Differenza algebrica tra entrate e uscite",
+      "description": "Indicatore economico operativo lordo che traccia il margine finanziario di base dell'esercizio."
+    },
+    "ind9": {
+      "block": "economy_profit_policy",
+      "unit": "currency",
+      "formula": "metrics['m_q1203'] - metrics['m_q1201']",
+      "title": "Risultato economico netto annuale",
+      "description": "Il saldo definitivo di bilancio (utile o perdita) al termine del periodo contabile di riferimento."
+    },
+    "ind168": {
+      "block": "economy_profit_policy",
+      "unit": "currency",
+      "formula": "metrics['m_q1102'] + metrics['m_q1107']",
+      "title": "Spesa totale complessiva per retribuzioni e salari lordi",
+      "description": "Combina i salari lordi annuali diretti con i costi assorbiti internamente per le indennità di congedo o malattia."
+    },
+    "ind114": {
+      "block": "economy_profit_policy",
+      "unit": "currency",
+      "formula": "metrics['m_q1101'] > 0 ? (indicators['ind168'] / metrics['m_q1101']) : 0",
+      "title": "Salario medio dell'esercizio suddiviso per sesso",
+      "description": "Paga media annuale normalizzata corrisposta dall'ente per singola unità lavorativa FTE attiva."
+    },
+    "ind256": {
+      "block": "economy_profit_policy",
+      "unit": "percentage",
+      "formula": "metrics['m_q1413'] > 0 ? (metrics['m_q1405'] / metrics['m_q1413']) * 100 : 0",
+      "title": "Percentuale di avanzi economici distribuiti a entità o persone socie",
+      "description": "Frazione di utili corrisposta sotto forma di dividendi diretti rispetto alla base totale deliberata."
+    },
+    "ind257": {
+      "block": "economy_profit_policy",
+      "unit": "percentage",
+      "formula": "metrics['m_q1413'] > 0 ? (metrics['m_q1406'] / metrics['m_q1413']) * 100 : 0",
+      "title": "Percentuale di avanzi economici destinata alla copertura delle perdite",
+      "description": "Quota di eccedenti reinvestita per sanare i disallineamenti finanziari o le perdite degli anni passati."
+    },
+    "ind258": {
+      "block": "economy_profit_policy",
+      "unit": "percentage",
+      "formula": "metrics['m_q1413'] > 0 ? ((metrics['m_q1407'] + metrics['m_q1408'] + metrics['m_q1409'] + metrics['m_q1410'] + metrics['m_q1411']) / metrics['m_q1413']) * 100 : 0",
+      "title": "Percentuale di avanzi economici destinata a riserve strutturali",
+      "description": "Quota complessiva di utili reinvestita nei diversi fondi di riserva interni dell'organizzazione."
+    },
+    "ind275": {
+      "block": "economy_profit_policy",
+      "unit": "currency",
+      "formula": "metrics['m_q1407'] + metrics['m_q1408'] + metrics['m_q1409'] + metrics['m_q1410'] + metrics['m_q1411']",
+      "title": "Avanzi economici dedicati interamente all'accantonamento in Riserve",
+      "description": "Volume monetario assoluto trattenuto a bilancio sotto i codici di incremento patrimoniale delle riserve."
+    },
+    "ind276": {
+      "block": "economy_profit_policy",
+      "unit": "percentage",
+      "formula": "indicators['ind275'] > 0 ? (metrics['m_q1407'] / indicators['ind275']) * 100 : 0",
+      "title": "Percentuale di riserve destinata a istruzione e strutture di formazione interna",
+      "description": "Proporzione dei nuovi fondi vincolati per i percorsi di aggiornamento tecnico e cooperativo."
+    },
+    "ind277": {
+      "block": "economy_profit_policy",
+      "unit": "percentage",
+      "formula": "indicators['ind275'] > 0 ? (metrics['m_q1408'] / indicators['ind275']) * 100 : 0",
+      "title": "Percentuale di riserve destinata a cause sociali e di solidarietà esterna",
+      "description": "Proporzione di utili destinata a donazioni o al supporto di movimenti e trasformazioni sociali territoriali."
+    },
+    "ind278": {
+      "block": "economy_profit_policy",
+      "unit": "percentage",
+      "formula": "indicators['ind275'] > 0 ? (metrics['m_q1409'] / indicators['ind275']) * 100 : 0",
+      "title": "Percentuale di riserve destinata a investimenti finanziari nelle reti dell'economia sociale",
+      "description": "Allocazione degli utili destinata all'aumento di capitale o liquidità in strutture come Fiare o Coop57."
+    },
+    "ind279": {
+      "block": "economy_profit_policy",
+      "unit": "percentage",
+      "formula": "indicators['ind275'] > 0 ? (metrics['m_q1410'] / indicators['ind275']) * 100 : 0",
+      "title": "Percentuale di riserve destinata a fondi obbligatori, volontari o statutari",
+      "description": "Quota standard di utili vincolata a patrimonio netto indivisibile secondo requisiti di legge o statuto."
+    },
+    "ind280": {
+      "block": "economy_profit_policy",
+      "unit": "percentage",
+      "formula": "indicators['ind275'] > 0 ? (metrics['m_q1411'] / indicators['ind275']) * 100 : 0",
+      "title": "Percentuale di riserve destinata ad altre opzioni interne e fondi generici",
+      "description": "Proporzione di utili assegnata a target interni specifici localizzati non classificati altrove."
+    },
+    "ind10": {
+      "block": "equity_democracy",
+      "unit": "percentage",
+      "formula": "indicators['ind84'] > 0 ? (metrics['m_q2101'] / indicators['ind84']) * 100 : 0",
+      "title": "Percentuale di persone che hanno partecipato alla stesura del piano di gestione suddivise per sesso",
+      "description": "Verifica il livello di diversità e inclusione nelle fasi iniziali di progettazione e pianificazione strategica."
+    },
+    "ind11": {
+      "block": "equity_democracy",
+      "unit": "percentage",
+      "formula": "indicators['ind2'] > 0 ? (indicators['ind84'] / indicators['ind2']) * 100 : 0",
+      "title": "Percentuale di persone della base sociale attive nell'elaborazione del piano",
+      "description": "Fattore di democrazia interna che valuta l'effettivo accesso dei membri ai processi di co-design strategico."
+    },
+    "ind12": {
+      "block": "equity_democracy",
+      "unit": "percentage",
+      "formula": "indicators['ind85'] > 0 ? (metrics['m_q2102'] / indicators['ind85']) * 100 : 0",
+      "title": "Percentuale di persone che hanno approvato il piano e il budget suddivise per genere",
+      "description": "Traccia la distribuzione di genere e la parità durante le votazioni di convalida del budget in assemblea."
+    },
+    "ind13": {
+      "block": "equity_democracy",
+      "unit": "percentage",
+      "formula": "indicators['ind2'] > 0 ? (indicators['ind85'] / indicators['ind2']) * 100 : 0",
+      "title": "Percentuale dell'intera base sociale attiva nei voti di approvazione del budget",
+      "description": "Indicatore della densità partecipativa e dell'allineamento della base sociale alle decisioni dell'assemblea."
+    },
+    "ind14": {
+      "block": "equity_democracy",
+      "unit": "boolean",
+      "formula": "metrics['m_q2203'] == 1 ? 1 : 0",
+      "title": "Pubblicazione digitale aperta dei risultati del Bilancio Sociale dell'ultimo esercizio",
+      "description": "Valida la trasparenza pubblica e l'accountability rendendo accessibili i report sulle piattaforme web dell'ente."
+    },
+    "ind20": {
+      "block": "equity_democracy",
+      "unit": "percentage",
+      "formula": "indicators['ind2'] > 0 ? (metrics['m_q3201'] / indicators['ind2']) * 100 : 0",
+      "title": "Percentuale di ruoli di responsabilità rispetto alla base sociale totale suddivisi per sesso",
+      "description": "Valuta la distribuzione del potere decisionale e i parametri di diversità nei livelli di coordinamento, segregati per sesso."
+    },
+    "ind21": {
+      "block": "equity_democracy",
+      "unit": "percentage",
+      "formula": "indicators['ind118'] > 0 ? (indicators['ind88'] / indicators['ind118']) * 100 : 0",
+      "title": "Percentuale di posizioni di responsabilità rispetto alla forza lavoro totale",
+      "description": "Rapporto strutturale che monitora la densità dei ruoli di comando e middle management sul totale del personale attivo."
+    },
+    "ind23": {
+      "block": "equity_democracy",
+      "unit": "percentage",
+      "formula": "indicators['ind118'] > 0 ? (metrics['m_q3202'] / indicators['ind118']) * 100 : 0",
+      "title": "Percentuale di cariche politiche e di governance societaria suddivise per sesso",
+      "description": "Misura l'equilibrio di genere e le quote di rappresentanza all'interno del consiglio di amministrazione e dei comitati direttivi."
+    },
+    "ind24": {
+      "block": "equity_democracy",
+      "unit": "percentage",
+      "formula": "indicators['ind118'] > 0 ? (indicators['ind89'] / indicators['ind118']) * 100 : 0",
+      "title": "Percentuale di cariche politiche di governance rispetto all'organico dei lavoratori",
+      "description": "Fattore di governance che rapporta la dimensione del consiglio direttivo all'organico dei dipendenti operativi."
+    },
+    "ind26": {
+      "block": "equity_democracy",
+      "unit": "ratio",
+      "formula": "metrics['m_q3302'] > 0 ? (metrics['m_q3301'] / metrics['m_q3302']) : 0",
+      "title": "Indice del divario salariale interno segregato per sesso (Rapporto Max vs Min)",
+      "description": "Calcola il coefficiente di dispersione e ampiezza della forbice retributiva oraria interna all'ente."
+    },
+    "ind27": {
+      "block": "equity_democracy",
+      "unit": "ratio",
+      "formula": "metrics['m_q3302'] > 0 ? (metrics['m_q3301'] / metrics['m_q3302']) : 0",
+      "title": "Indice globale della forbice salariale e dell'intervallo retributivo interno",
+      "description": "Moltiplicatore assoluto che intercorre tra la paga oraria più alta e la remunerazione minima erogata al livello più basso."
+    },
+    "ind58": {
+      "block": "equity_democracy",
+      "unit": "boolean",
+      "formula": "metrics['m_q2202'] == 1 ? 1 : 0",
+      "title": "Trasparenza e pubblicità dei salari tra le persone lavoratrici",
+      "description": "Verifica l'esistenza di una politica interna di trasparenza aziendale sull'accessibilità dei registri e dei pacchetti retributivi."
+    },
+    "ind84": {
+      "block": "equity_democracy",
+      "unit": "count",
+      "formula": "metrics['m_q2101']",
+      "title": "Conteggio totale delle persone attive nella co-creazione del piano",
+      "description": "Il numero esatto di individui coinvolti nel team di progettazione strategica e finanziaria."
+    },
+    "ind85": {
+      "block": "equity_democracy",
+      "unit": "count",
+      "formula": "metrics['m_q2102']",
+      "title": "Conteggio totale delle persone presenti alla votazione del piano",
+      "description": "Presenze effettive registrate in assemblea per l'esercizio del voto sulle linee programmatiche."
+    },
+    "ind88": {
+      "block": "equity_democracy",
+      "unit": "count",
+      "formula": "metrics['m_q3201']",
+      "title": "Numero di persone con ruoli di responsabilità nella struttura lavorativa",
+      "description": "Conteggio assoluto dei dipendenti operativi che ricoprono cariche manageriali o di coordinamento."
+    },
+    "ind89": {
+      "block": "equity_democracy",
+      "unit": "count",
+      "formula": "metrics['m_q3202']",
+      "title": "Numero di persone con cariche politiche o statutarie negli organi di governo",
+      "description": "Conteggio assoluto dei membri eletti con diritto di voto nei consigli direttivi e organi collegiali di indirizzo."
+    },
+    "ind97": {
+      "block": "equity_democracy",
+      "unit": "percentage",
+      "formula": "100",
+      "title": "Scostamento strutturale del divario retributivo di genere tra FTE",
+      "description": "Metrica di equità che evidenzia eventuali sbilanciamenti salariali tra le componenti maschili e femminili a parità di tempo pieno."
+    },
+    "ind98": {
+      "block": "equity_democracy",
+      "unit": "boolean",
+      "formula": "metrics['m_q3401'] == 1 ? 1 : 0",
+      "title": "Adozione ed esecuzione di protocolli per un linguaggio inclusivo e non sessista",
+      "description": "Conferma l'applicazione sistematica di linee guida neutre rispetto al genere nella documentazione e messaggistica."
+    },
+    "ind152": {
+      "block": "equity_democracy",
+      "unit": "count",
+      "formula": "metrics['m_q14401'] == 1 ? 1 : 0",
+      "title": "Livello di dati strutturati ospitati in regime di trasparenza pubblica",
+      "description": "Indicatore di visibilità che conteggia quanti moduli informativi estesi sono pubblicati digitalmente dall'ente."
+    },
+    "ind178": {
+      "block": "equity_democracy",
+      "unit": "float",
+      "formula": "metrics['m_q3109']",
+      "title": "Età media calcolata del team operativo e della forza lavoro",
+      "description": "Fattore demografico che traccia la media dell'età anagrafica all'interno dei binari lavorativi dell'ente."
+    },
+    "ind190": {
+      "block": "equity_democracy",
+      "unit": "boolean",
+      "formula": "metrics['m_q5104'] == 1 ? 1 : 0",
+      "title": "Priorità agli interventi di inclusione e accessibilità per la diversità funzionale",
+      "description": "Attesta la configurazione proattiva di barriere architettoniche azzerate o interfacce digitali accessibili."
+    },
+    "ind259": {
+      "block": "equity_democracy",
+      "unit": "count",
+      "formula": "metrics['m_q2110']",
+      "title": "Personale dipendente standard presente all'approvazione del piano",
+      "description": "Conteggio assoluto dei lavoratori subordinati attivi nelle sessioni di voto strategico sul budget."
+    },
+    "ind260": {
+      "block": "equity_democracy",
+      "unit": "count",
+      "formula": "metrics['m_q2111']",
+      "title": "Soci lavoratori attivi partecipanti all'approvazione del piano annuale",
+      "description": "Conteggio assoluto dei partner di lavoro della cooperativa coinvolti nella convalida del budget."
+    },
+    "ind261": {
+      "block": "equity_democracy",
+      "unit": "boolean",
+      "formula": "metrics['m_q3402'] == 1 ? 1 : 0",
+      "title": "Disponibilità di un Piano di Uguaglianza attivo con risorse di monitoraggio",
+      "description": "Conferma l'implementazione efficace di meccanismi e budget dedicati alle linee di parità."
+    },
+    "ind262": {
+      "block": "equity_democracy",
+      "unit": "boolean",
+      "formula": "metrics['m_q3403'] == 1 ? 1 : 0",
+      "title": "Attivazione di protocolli operativi per la prevenzione e risoluzione delle molestie",
+      "description": "Traccia i sistemi di tutela e i canali di segnalazione a protezione del personale contro le molestie di genere o sessuali."
+    },
+    "ind272": {
+      "block": "equity_democracy",
+      "unit": "percentage",
+      "formula": "0",
+      "title": "Metriche sul divario salariale relative a identità non binarie",
+      "description": "Verifica del bilanciamento e dell'equità nelle buste paga per le linee identitarie inclusive."
+    },
+    "ind273": {
+      "block": "equity_democracy",
+      "unit": "percentage",
+      "formula": "indicators['ind118'] > 0 ? (indicators['ind259'] / indicators['ind118']) * 100 : 0",
+      "title": "Percentuale di personale dipendente standard coinvolto nella validazione del piano",
+      "description": "Rapporto proporzionale per valutare il coinvolgimento dei lavoratori subordinati nei passaggi deliberativi."
+    },
+    "ind274": {
+      "block": "equity_democracy",
+      "unit": "percentage",
+      "formula": "metrics['m_q0105'] > 0 ? (indicators['ind260'] / metrics['m_q0105']) * 100 : 0",
+      "title": "Percentuale di soci lavoratori totali attivi nelle conferme assembleari",
+      "description": "Fattore di ingaggio interno alla cooperativa che testa la densità di partecipazione al voto."
+    },
+    "ind322": {
+      "block": "equity_democracy",
+      "unit": "boolean",
+      "formula": "metrics['m_q3111'] == 1 ? 1 : 0",
+      "title": "Applicazione di azioni positive a supporto della diversità del progetto",
+      "description": "Valuta le iniziative e le tutele esplicite avviate per difendere e valorizzare le differenze individuali."
+    },
+    "ind329": {
+      "block": "equity_democracy",
+      "unit": "percentage",
+      "formula": "indicators['ind118'] > 0 ? (metrics['m_q3108'] / indicators['ind118']) * 100 : 0",
+      "title": "Percentuale di lavoratori in organico con disabilità o diversità funzionale",
+      "description": "Proporzione dei posti di lavoro interni coperti da personale appartenente a categorie protette o con diversità funzionale."
+    },
+    "ind60": {
+      "block": "environmental_sustainability",
+      "unit": "boolean",
+      "formula": "metrics['m_q4201'] == 1 ? 1 : 0",
+      "title": "Presenza di routine interne attive mirate all'ottimizzazione energetica",
+      "description": "Conferma l'esecuzione di interventi sull'hardware o l'uso di registri di controllo sui consumi elettrici."
+    },
+    "ind61": {
+      "block": "environmental_sustainability",
+      "unit": "boolean",
+      "formula": "metrics['m_q4206'] == 1 ? 1 : 0",
+      "title": "Presenza di routine attive per il controllo della densità dei consumi idrici",
+      "description": "Conferma l'installazione di dispositivi o l'adozione di regole per limitare lo spreco di liquidi."
+    },
+    "ind62": {
+      "block": "environmental_sustainability",
+      "unit": "boolean",
+      "formula": "metrics['m_q4208'] == 1 ? 1 : 0",
+      "title": "Approvvigionamento di energia elettrica al 100% verde con Garanzia d'Origine",
+      "description": "Traccia l'integrazione completa di contratti di fornitura da fonti energetiche rinnovabili certificate."
+    },
+    "ind63": {
+      "block": "environmental_sustainability",
+      "unit": "boolean",
+      "formula": "metrics['m_q4301'] == 1 ? 1 : 0",
+      "title": "Utilizzo prevalente di carta per ufficio riciclata o certificata FSC",
+      "description": "Verifica il rispetto dei vincoli d'acquisto volti a escludere stock di carta non tracciati."
+    },
+    "ind65": {
+      "block": "environmental_sustainability",
+      "unit": "boolean",
+      "formula": "metrics['m_q4401'] == 1 ? 1 : 0",
+      "title": "Implementazione di routine strutturate per la riduzione e prevenzione dei rifiuti",
+      "description": "Controlla l'applicazione di vincoli sul monouso, sugli imballaggi e la gestione della raccolta differenziata."
+    },
+    "ind69": {
+      "block": "environmental_sustainability",
+      "unit": "boolean",
+      "formula": "metrics['m_q4503'] == 1 ? 1 : 0",
+      "title": "Integrazione di criteri ecologici e responsabili nei flussi di acquisto generali",
+      "description": "Premia la scelta di fornitori biologici, locali, a filiera corta o legati al circuito del commercio equo."
+    },
+    "ind102": {
+      "block": "environmental_sustainability",
+      "unit": "boolean",
+      "formula": "metrics['m_q4601'] == 1 ? 1 : 0",
+      "title": "Agevolazioni e incentivi aziendali per opzioni di trasporto eco-consapevoli",
+      "description": "Valida l'attivazione di rimborsi per abbonamenti pubblici, parcheggi bici o piani di smart working."
+    },
+    "ind106": {
+      "block": "environmental_sustainability",
+      "unit": "boolean",
+      "formula": "metrics['m_q4102'] == 1 ? 1 : 0",
+      "title": "Esecuzione di un controllo e tracciamento dell'impronta carbonica (CO2)",
+      "description": "Conferma il monitoraggio sistematico dei consumi di risorse che generano gas a effetto serra."
+    },
+    "ind38": {
+      "block": "social_commitment_cooperation",
+      "unit": "boolean",
+      "formula": "metrics['m_q50b'] == 1 ? 1 : 0",
+      "title": "Integrazione stabile all'interno di reti e movimenti di trasformazione sociale",
+      "description": "Valuta il coinvolgimento a lungo termine (>30h annue o pagamento quote) in reti locali di economia solidale."
+    },
+    "ind42": {
+      "block": "social_commitment_cooperation",
+      "unit": "percentage",
+      "formula": "metrics['m_q1202'] > 0 ? (metrics['m_q5302'] / metrics['m_q1202']) * 100 : 0",
+      "title": "Percentuale di acquisti effettuati all'interno del circuito del Mercato Sociale / REAS",
+      "description": "Indice di integrazione economica che traccia il potere di rete e gli scambi inter-cooperativi interni."
+    },
+    "ind71": {
+      "block": "social_commitment_cooperation",
+      "unit": "boolean",
+      "formula": "metrics['m_q5202'] == 1 ? 1 : 0",
+      "title": "Rapporti operativi e conti attivi presso piattaforme di finanza etica e solidale",
+      "description": "Conferma l'affidamento sistematico dei flussi finanziari a istituti dedicati (es. Banca Etica, Fiare, Coop57)."
+    },
+    "ind72": {
+      "block": "social_commitment_cooperation",
+      "unit": "percentage",
+      "formula": "metrics['m_q1202'] > 0 ? (metrics['m_q5306'] / metrics['m_q1202']) * 100 : 0",
+      "title": "Quota di acquisti totali indirizzata a operatori dell'Economia Sociale generica",
+      "description": "Analisi degli approvvigionamenti diretti verso onlus, fondazioni o cooperative estranee alle reti REAS."
+    },
+    "ind74": {
+      "block": "social_commitment_cooperation",
+      "unit": "boolean",
+      "formula": "metrics['m_q5501'] == 1 ? 1 : 0",
+      "title": "Rilascio sistematico di strumenti e blocchi di conoscenza nei beni comuni (commons)",
+      "description": "Conferma la pubblicazione di tecniche, testi o software sotto licenze Creative Commons o open access."
+    },
+    "ind75": {
+      "block": "social_commitment_cooperation",
+      "unit": "boolean",
+      "formula": "metrics['m_q5502'] == 1 ? 1 : 0",
+      "title": "Politiche e impegni aziendali scritti che privilegiano l'uso di Software Libero",
+      "description": "Traccia il livello d'integrazione di sistemi informatici aperti per tutelare la sovranità digitale collettiva."
+    },
+    "ind103": {
+      "block": "social_commitment_cooperation",
+      "unit": "boolean",
+      "formula": "metrics['m_q5305'] == 1 ? 1 : 0",
+      "title": "Cooperazione attiva tra pari con entità concorrenti nello stesso settore di mercato",
+      "description": "Metrica di co-creazione che valorizza il mutuo aiuto e i progetti condivisi rispetto alla rivalità competitiva."
+    },
+    "ind254": {
+      "block": "social_commitment_cooperation",
+      "unit": "percentage",
+      "formula": "indicators['ind42'] + indicators['ind72']",
+      "title": "Percentuale complessiva aggregata degli acquisti effettuati da fornitori dell'economia sociale",
+      "description": "Somma totale delle performance di integrazione che traccia le catene di fornitura etiche complessive."
+    },
+    "ind77": {
+      "block": "quality_of_work",
+      "unit": "boolean",
+      "formula": "metrics['m_q6202'] == 1 ? 1 : 0",
+      "title": "Attivazione di campagne proattive per la promozione della salute e sicurezza sul lavoro",
+      "description": "Routines interne che coprono la formazione sui rischi, l'ergonomia, la corretta alimentazione e lo stress."
+    },
+    "ind78": {
+      "block": "quality_of_work",
+      "unit": "boolean",
+      "formula": "metrics['m_q6601'] == 1 ? 1 : 0",
+      "title": "Presenza di regolamenti interni migliorativi rispetto ai contratti collettivi nazionali",
+      "description": "Accordi aziendali scritti volti a ottimizzare le soglie minime di tutela stabilite dai CCNL settoriali."
+    },
+    "ind80": {
+      "block": "quality_of_work",
+      "unit": "boolean",
+      "formula": "metrics['m_q6801'] == 1 ? 1 : 0",
+      "title": "Formalizzazione scritta di accordi migliorativi per i permessi di conciliazione familiare",
+      "description": "Traccia le estensioni dei congedi di cura parentale o assistenza superiori ai pavimenti obbligatori di legge."
+    },
+    "ind104": {
+      "block": "quality_of_work",
+      "unit": "boolean",
+      "formula": "metrics['m_q6701'] == 1 ? 1 : 0",
+      "title": "Esecuzione di programmi dedicati e finanziati per la formazione tecnica dei lavoratori",
+      "description": "Stanziamenti interni volti ad accrescere il bagaglio di competenze professionali del personale in orario di lavoro."
+    },
+    "ind105": {
+      "block": "quality_of_work",
+      "unit": "boolean",
+      "formula": "metrics['m_q6802'] == 1 ? 1 : 0",
+      "title": "Attivazione periodica e strutturata di spazi di cura emotiva e ascolto del personale",
+      "description": "Conferma la presenza di check-in relazionali stabili e commissioni interne volte a tutelare la salute psicologica dei lavoratori."
     }
   }
 }
