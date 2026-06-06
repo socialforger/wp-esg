@@ -355,3 +355,17 @@ msgstr "Compila →"
 #: includes/Frontend/AssessmentShortcode.php (screening)
 msgid "Product Sheets to Compile:"
 msgstr "Schede Prodotto da Compilare:"
+
+#: includes/Frontend/AssessmentShortcode.php (screening table)
+msgid "Scheda"
+msgstr "Scheda"
+
+msgid "Categoria"
+msgstr "Categoria"
+
+#: includes/Frontend/AssessmentShortcode.php:515
+msgid "VAT ID:"
+msgstr "Partita IVA:"
+
+msgid "Year:"
+msgstr "Anno:"
