@@ -1,0 +1,58 @@
+{
+  "id": "openesea_core_2024",
+  "version": "1.0.0",
+  "name": "Quadro ESG Globale OpenESEA",
+  "description": "Framework core di valutazione quantitativa ESG basato sulla metodologia open standard di OpenESEA",
+  "author": "SocialForger",
+  "year": 2024,
+  "blocks": [
+    { 
+      "id": "general_data", 
+      "order": 1, 
+      "weight": 0.0,
+      "name": "Dati Generali",
+      "description": "Informazioni quantitative sulla base sociale e sulla struttura della forza lavoro dell'organizzazione."
+    },
+    { 
+      "id": "economy_profit_policy", 
+      "order": 2, 
+      "weight": 0.2,
+      "name": "Economia e Politica degli Utili",
+      "description": "Metriche finanziarie, costi contabili e regole di ripartizione degli avanzi economici."
+    },
+    { 
+      "id": "equity_democracy", 
+      "order": 3, 
+      "weight": 0.2,
+      "name": "Equità e Democrazia",
+      "description": "Misura la trasparenza interna, la partecipazione democratica, i divari salariali e l'uguaglianza di genere."
+    },
+    { 
+      "id": "environmental_sustainability", 
+      "order": 4, 
+      "weight": 0.2,
+      "name": "Sostenibilità Ambientale",
+      "description": "Traccia l'efficienza energetica, la prevenzione dei rifiuti, l'impronta idrica e i piani di neutralità carbonica."
+    },
+    { 
+      "id": "social_commitment_cooperation", 
+      "order": 5, 
+      "weight": 0.2,
+      "name": "Impegno Sociale e Cooperazione",
+      "description": "Valuta l'integrazione della finanza etica, la partecipazione alle reti e i contributi ai beni comuni."
+    },
+    { 
+      "id": "quality_of_work", 
+      "order": 6, 
+      "weight": 0.2,
+      "name": "Qualità del Lavoro",
+      "description": "Valuta il benessere lavorativo, i quadri di conciliazione vita-lavoro e gli spazi di cura emotiva."
+    }
+  ],
+  "settings": {
+    "allow_partial_save": true,
+    "require_labor_validation": true,
+    "min_labor_response_rate_small_entities": 50,
+    "min_labor_response_rate_large_entities": 25
+  }
+}
