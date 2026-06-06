@@ -508,7 +508,7 @@
     "ind104": {
       "block": "quality_of_work",
       "unit": "boolean",
-      "formula": "metrics['m_q6701'] == 1 ? 1 : 0",
+      "formula": "metrics['m_701'] == 1 ? 1 : 0",
       "title": "Execution of specific programs supporting professional workforce training",
       "description": "Dedicated funding loops enhancing personnel capacity in skills proper to the project[cite: 1]."
     },
