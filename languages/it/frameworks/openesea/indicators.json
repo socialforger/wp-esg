@@ -239,6 +239,13 @@
       "title": "Trasparenza e pubblicità dei salari tra le persone lavoratrici",
       "description": "Verifica l'esistenza di una politica interna di trasparenza aziendale sull'accessibilità dei registri e dei pacchetti retributivi."
     },
+    "ind59": {
+      "block": "environmental_sustainability",
+      "unit": "boolean",
+      "formula": "metrics['m_q4101'] == 1 ? 1 : 0",
+      "title": "Disponibilità di una politica ambientale, piano d'azione o sistema di gestione",
+      "description": "Verifica il dispiegamento di strutture di audit che mappano l'impatto eco-operativo dell'organizzazione."
+    },
     "ind84": {
       "block": "equity_democracy",
       "unit": "count",
@@ -501,7 +508,7 @@
     "ind104": {
       "block": "quality_of_work",
       "unit": "boolean",
-      "formula": "metrics['m_q6701'] == 1 ? 1 : 0",
+      "formula": "metrics['m_701'] == 1 ? 1 : 0",
       "title": "Esecuzione di programmi dedicati e finanziati per la formazione tecnica dei lavoratori",
       "description": "Stanziamenti interni volti ad accrescere il bagaglio di competenze professionali del personale in orario di lavoro."
     },
