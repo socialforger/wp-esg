@@ -343,7 +343,7 @@ class AssessmentShortcode {
         ob_start();
         ?>
         <div class="esg-screening-box" style="max-width: 550px; margin: 30px auto; padding: 25px; border: 1px solid #ccd0d4; background: #fff; border-radius: 6px; font-family: sans-serif;">
-            <div style="margin-bottom:15px;"><a href="<?php echo esc_url(add_query_arg('esg_step', 'history', get_permalink())); ?>" style="color:#2271b1; text-decoration:none; font-size:13px;">&larr; Back to Archive</a></div>
+            <div style="margin-bottom:15px;"><a href="<?php echo esc_url(add_query_arg('esg_step', 'history', get_permalink())); ?>" style="color:#2271b1; text-decoration:none; font-size:13px;">&larr; <?php esc_html_e( 'Back to Archive', 'wp-esg' ); ?></a></div>
             <div style="color:#2271b1; font-weight:bold; font-size:12px; margin-bottom:10px; text-transform:uppercase;"><?php esc_html_e( 'Step 1 of 4: Setup', 'wp-esg' ); ?></div>
             <h2><?php esc_html_e( 'Pre-Assessment Screening', 'wp-esg' ); ?></h2>
             <form method="post" action="">
@@ -456,7 +456,7 @@ class AssessmentShortcode {
         ob_start();
         ?>
         <div class="esg-hub-box" style="max-width: 650px; margin: 30px auto; padding: 30px; border: 1px solid #ccd0d4; background: #fff; border-radius: 6px; font-family: sans-serif;">
-            <div style="margin-bottom:15px;"><a href="<?php echo esc_url(add_query_arg('esg_step', 'history', get_permalink())); ?>" style="color:#2271b1; text-decoration:none; font-size:13px;">&larr; Back to Archive</a></div>
+            <div style="margin-bottom:15px;"><a href="<?php echo esc_url(add_query_arg('esg_step', 'history', get_permalink())); ?>" style="color:#2271b1; text-decoration:none; font-size:13px;">&larr; <?php esc_html_e( 'Back to Archive', 'wp-esg' ); ?></a></div>
             <h2 style="margin-top:0; color:#1d2327; border-bottom: 1px solid #f0f0f1; padding-bottom:15px;"><?php esc_html_e( 'Corporate ESG Disclosure Index', 'wp-esg' ); ?></h2>
             <p style="color:#646970; font-size:14px; margin-bottom:25px;">
                 <strong>VAT ID:</strong> <?php echo esc_html($tax_id); ?> | <strong>Year:</strong> <?php echo (int)$year; ?>
