@@ -2,55 +2,533 @@
   "framework_id": "openesea_core_2024",
   "schema_version": "1.0.0",
   "questions": {
-    "q0101": { "block": "general_data", "type": "int", "required": true },
-    "q0102": { "block": "general_data", "type": "int", "required": true },
-    "q0103": { "block": "general_data", "type": "int", "required": true },
-    "q0104": { "block": "general_data", "type": "int", "required": true },
-    "q0105": { "block": "general_data", "type": "int", "required": true },
-    "q0106": { "block": "general_data", "type": "int", "required": true },
-    "q0107": { "block": "general_data", "type": "int", "required": true },
-    "q0110": { "block": "general_data", "type": "int", "required": true },
-    "q0112": { "block": "general_data", "type": "int", "required": true },
-    "q0201": { "block": "general_data", "type": "int", "required": true },
-    "q1101": { "block": "economy_profit_policy", "type": "float", "required": true },
-    "q1102": { "block": "economy_profit_policy", "type": "float", "required": true },
-    "q1107": { "block": "economy_profit_policy", "type": "float", "required": true },
-    "q1201": { "block": "economy_profit_policy", "type": "float", "required": true },
-    "q1202": { "block": "economy_profit_policy", "type": "float", "required": true },
-    "q1203": { "block": "economy_profit_policy", "type": "float", "required": true },
-    "q1204": { "block": "economy_profit_policy", "type": "float", "required": true },
-    "q1205": { "block": "economy_profit_policy", "type": "float", "required": true },
-    "q1206": { "block": "economy_profit_policy", "type": "float", "required": true },
-    "q1405": { "block": "economy_profit_policy", "type": "float", "required": true },
-    "q1406": { "block": "economy_profit_policy", "type": "float", "required": true },
-    "q1413": { "block": "economy_profit_policy", "type": "float", "required": true },
-    "q2101": { "block": "equity_democracy", "type": "int", "required": true },
-    "q2102": { "block": "equity_democracy", "type": "int", "required": true },
-    "q2110": { "block": "equity_democracy", "type": "int", "required": true },
-    "q2111": { "block": "equity_democracy", "type": "int", "required": true },
-    "q3201": { "block": "equity_democracy", "type": "int", "required": true },
-    "q3202": { "block": "equity_democracy", "type": "int", "required": true },
-    "q3301": { "block": "equity_democracy", "type": "float", "required": true },
-    "q3302": { "block": "equity_democracy", "type": "float", "required": true },
-    "q2202": { "block": "equity_democracy", "type": "bool", "required": true },
-    "q2203": { "block": "equity_democracy", "type": "bool", "required": true },
-    "block_34": { "block": "equity_democracy", "type": "group", "fields": ["q3401", "q3402", "q3403"] },
-    "q3108": { "block": "equity_democracy", "type": "int", "required": true },
-    "q3109": { "block": "equity_democracy", "type": "float", "required": true },
-    "q3111": { "block": "equity_democracy", "type": "bool", "required": true },
-    "q4102": { "block": "environmental_sustainability", "type": "bool", "required": true },
-    "q4206": { "block": "environmental_sustainability", "type": "bool", "required": true },
-    "q4208": { "block": "environmental_sustainability", "type": "bool", "required": true },
-    "q4301": { "block": "environmental_sustainability", "type": "bool", "required": true },
-    "q4601": { "block": "environmental_sustainability", "type": "bool", "required": true },
-    "q5202": { "block": "social_commitment_cooperation", "type": "bool", "required": true },
-    "q5302": { "block": "social_commitment_cooperation", "type": "float", "required": true },
-    "q5305": { "block": "social_commitment_cooperation", "type": "bool", "required": true },
-    "q5306": { "block": "social_commitment_cooperation", "type": "float", "required": true },
-    "q5501": { "block": "social_commitment_cooperation", "type": "bool", "required": true },
-    "q6202": { "block": "quality_of_work", "type": "bool", "required": true },
-    "q6601": { "block": "quality_of_work", "type": "bool", "required": true },
-    "q6801": { "block": "quality_of_work", "type": "bool", "required": true },
-    "q6802": { "block": "quality_of_work", "type": "bool", "required": true }
+    "q0101": {
+      "block": "general_data",
+      "legal_form": "ALL",
+      "type": "int",
+      "required": true,
+      "text": "Number of non-working member persons",
+      "help": "Indicate the number of member and/or collaborator persons of the organization who are NOT salaried (e.g., consumer members, service members, or professional members in the case of second-degree or worker cooperatives)[cite: 1]."
+    },
+    "q0102": {
+      "block": "general_data",
+      "legal_form": "ALL",
+      "type": "int",
+      "required": true,
+      "text": "Number of partner/patron organizations",
+      "help": "Only for second and third-degree organizations. Indicate the number of companies or entities that are members[cite: 1]."
+    },
+    "q0103": {
+      "block": "general_data",
+      "legal_form": "ALL",
+      "type": "int",
+      "required": true,
+      "text": "Persons participating on behalf of partner/patron organizations",
+      "help": "Only for second and third-degree entities. Indicate the number of representatives from partner organizations who actively participate in decision-making and executive spaces[cite: 1]."
+    },
+    "q0104": {
+      "block": "general_data",
+      "legal_form": "FOUNDATION",
+      "type": "int",
+      "required": true,
+      "text": "Number of board members / trustees",
+      "help": "Only for foundations. Indicate the number of persons who make up the foundation's board of trustees[cite: 1]."
+    },
+    "q0105": {
+      "block": "general_data",
+      "legal_form": "ALL",
+      "type": "int",
+      "required": true,
+      "text": "Number of working member persons",
+      "help": "Indicate the number of working persons who are, at the same time, members of the organization[cite: 1]."
+    },
+    "q0106": {
+      "block": "general_data",
+      "legal_form": "ALL",
+      "type": "int",
+      "required": true,
+      "text": "Number of non-member working persons",
+      "help": "Indicate the number of salaried employees who are not members of the organization[cite: 1]."
+    },
+    "q0107": {
+      "block": "general_data",
+      "legal_form": "ALL",
+      "type": "int",
+      "required": true,
+      "text": "Number of volunteers",
+      "help": "For all entities that regularly rely on the presence of volunteers due to the nature of their activity. Indicate the number of people who voluntarily participate in the association's structure[cite: 1]."
+    },
+    "q0110": {
+      "block": "general_data",
+      "legal_form": "ALL",
+      "type": "int",
+      "required": true,
+      "text": "Number of working persons who are not on the payroll",
+      "help": "Indicate the number of working persons who DO NOT have an employment contract linked to the project, segregated by sex (e.g., freelance workers or professionals who submit a monthly or quarterly invoice/receipt)[cite: 1]."
+    },
+    "q0112": {
+      "block": "general_data",
+      "legal_form": "ALL",
+      "type": "int",
+      "required": true,
+      "text": "Number of communal land partners (comuneras)",
+      "help": "Indicate the number of communal land partners. Only for communal neighborhood forests ('montes vecinales en mano común')[cite: 1]."
+    },
+    "q0201": {
+      "block": "general_data",
+      "legal_form": "ALL",
+      "type": "int",
+      "required": true,
+      "text": "Number of workplaces in the organization",
+      "help": "Indicate the total quantity of workplaces (offices, workshops, factories, etc.) of the organization[cite: 1]."
+    },
+    "q1101": {
+      "block": "economy_profit_policy",
+      "legal_form": "ALL",
+      "type": "float",
+      "required": true,
+      "text": "Total number of jobs expressed in full-time equivalent (FTE) days worked",
+      "help": "Report the full-time equivalent days worked by all persons who had an employment contract during the year. Include cooperative working members and freelancers with exclusive dedication (counted as 1 FTE)[cite: 1]."
+    },
+    "q1216": {
+      "block": "economy_profit_policy",
+      "legal_form": "COOP",
+      "type": "bool",
+      "required": true,
+      "text": "Indicate the Social Security regime for cooperative working members",
+      "help": "Specify if workers are registered under the General Regime or the Special Regime for Self-Employed Workers (RETA)[cite: 1]."
+    },
+    "q1102": {
+      "block": "economy_profit_policy",
+      "legal_form": "ALL",
+      "type": "float",
+      "required": true,
+      "text": "Sum of the annual gross salary of all working persons of the entity in the last fiscal year",
+      "help": "Total sum of gross annual salaries of all workers without including indemnities. This can be found under account 640 of the General Accounting Plan[cite: 1]."
+    },
+    "q1107": {
+      "block": "economy_profit_policy",
+      "legal_form": "ALL",
+      "type": "float",
+      "required": true,
+      "text": "Sum of remunerations not paid by the company/entity due to medical leave or permission",
+      "help": "Total gross remunerations saved by the entity because they were assumed directly by the Social Security system during temporary leaves[cite: 1]."
+    },
+    "q1201": {
+      "block": "economy_profit_policy",
+      "legal_form": "ALL",
+      "type": "float",
+      "required": true,
+      "text": "Total annual amount of expenses - in € -",
+      "help": "Indicate the total annual expenses (sum of all items in group 6 'Purchases and Expenses' of the General Accounting Plan, including salaries, rent, purchases, etc.)[cite: 1]."
+    },
+    "q1203": {
+      "block": "economy_profit_policy",
+      "legal_form": "ALL",
+      "type": "float",
+      "required": true,
+      "text": "Total annual amount of revenue/income - in € -",
+      "help": "Indicate the total income from sales of goods/services, subsidies, donations, membership fees, etc. (Group 7 'Sales and Income' of the PGC)[cite: 1]."
+    },
+    "q1202": {
+      "block": "economy_profit_policy",
+      "legal_form": "ALL",
+      "type": "float",
+      "required": true,
+      "text": "Total annual amount of acquisitions of goods and services - in € -",
+      "help": "Total purchases made for merchandise (office supplies, industrial provisions, IT equipment) and contracted external services. Accounts 60 and 62 of the PGC[cite: 1]."
+    },
+    "q1206": {
+      "block": "economy_profit_policy",
+      "legal_form": "ALL",
+      "type": "float",
+      "required": true,
+      "text": "Total annual amount of personnel expenses - in € -",
+      "help": "Annual total personnel cost obtained from account 64 of the General Accounting Plan[cite: 1]."
+    },
+    "q1204": {
+      "block": "economy_profit_policy",
+      "legal_form": "ALL",
+      "type": "float",
+      "required": true,
+      "text": "Total annual amount of sales of goods and services - in € -",
+      "help": "Income perceived from sales or provisions of services (account 70 of the PGC), including invoicing to Public Administrations[cite: 1]."
+    },
+    "q1205": {
+      "block": "economy_profit_policy",
+      "legal_form": "ALL",
+      "type": "float",
+      "required": true,
+      "text": "Total annual amount of subsidies granted to the organization - in € -",
+      "help": "Sum of those amounts appearing in account 740 of the Profit and Loss statement. Exclude income from public service provisions with standard invoices[cite: 1]."
+    },
+    "q1405": {
+      "block": "economy_profit_policy",
+      "legal_form": "ALL",
+      "type": "float",
+      "required": true,
+      "text": "Amount of economic surpluses distributed to partner companies or member persons",
+      "help": "Specify the exact amount of benefits or surpluses distributed internally to the members or shareholders, if any[cite: 1]."
+    },
+    "q1406": {
+      "block": "economy_profit_policy",
+      "legal_form": "ALL",
+      "type": "float",
+      "required": true,
+      "text": "Amount of economic surpluses dedicated to loss compensation",
+      "help": "Amount of current surpluses used to clear or compensate financial losses carried forward from previous years[cite: 1]."
+    },
+    "q1407": {
+      "block": "economy_profit_policy",
+      "legal_form": "ALL",
+      "type": "float",
+      "required": true,
+      "text": "Amount of economic surpluses dedicated to reserves: Education / internal training",
+      "help": "Surpluses allocated directly to internal educational, cooperative promotion, or technical training funds[cite: 1]."
+    },
+    "q1408": {
+      "block": "economy_profit_policy",
+      "legal_form": "ALL",
+      "type": "float",
+      "required": true,
+      "text": "Amount of economic surpluses dedicated to reserves: Social and solidary causes",
+      "help": "Surpluses allocated to donations or structural projects supporting external social and solidary movements[cite: 1]."
+    },
+    "q1409": {
+      "block": "economy_profit_policy",
+      "legal_form": "ALL",
+      "type": "float",
+      "required": true,
+      "text": "Amount of economic surpluses dedicated to reserves: Financial investments in Social Economy financial entities",
+      "help": "Surpluses dedicated to funding or increasing capital in entities like Coop57, Fiare, and/or Triodos Bank[cite: 1]."
+    },
+    "q1410": {
+      "block": "economy_profit_policy",
+      "legal_form": "ALL",
+      "type": "float",
+      "required": true,
+      "text": "Amount of economic surpluses dedicated to reserves: Mandatory, voluntary, and other internal reserves",
+      "help": "Surpluses assigned to general mandatory legal reserves, statutory voluntary reserves, etc[cite: 1]."
+    },
+    "q1411": {
+      "block": "economy_profit_policy",
+      "legal_form": "ALL",
+      "type": "float",
+      "required": true,
+      "text": "Amount of economic surpluses dedicated to reserves: Others",
+      "help": "Any other allocation of economic surpluses to internal funds not covered by previous categories[cite: 1]."
+    },
+    "q2101": {
+      "block": "equity_democracy",
+      "legal_form": "ALL",
+      "type": "int",
+      "required": true,
+      "text": "Number of persons who participated in the elaboration of the Management Plan and annual budget",
+      "help": "Total number of people involved in drafting the plan and budget. Verified via meeting minutes or internal draft distribution lists[cite: 1]."
+    },
+    "q2102": {
+      "block": "equity_democracy",
+      "legal_form": "ALL",
+      "type": "int",
+      "required": true,
+      "text": "Number of persons who participated in the approval of the Management Plan and annual budget",
+      "help": "Total number of people present or voting in the meetings where the management plans and annual budgets were formally approved[cite: 1]."
+    },
+    "q2110": {
+      "block": "equity_democracy",
+      "legal_form": "ALL",
+      "type": "int",
+      "required": true,
+      "text": "Number of working persons who participated in the approval of the Management Plan and annual budget",
+      "help": "Total number of internal workers or salaried employees who took part in the approval of the management plan and budget[cite: 1]."
+    },
+    "q2111": {
+      "block": "equity_democracy",
+      "legal_form": "COOP",
+      "type": "int",
+      "required": true,
+      "text": "Number of working member persons who participated in the approval of the Management Plan and annual budget",
+      "help": "Only for cooperatives. Total number of cooperative working members who participated in approving the annual plan and budget[cite: 1]."
+    },
+    "q3201": {
+      "block": "equity_democracy",
+      "legal_form": "ALL",
+      "type": "int",
+      "required": true,
+      "text": "Number of persons occupying positions of responsibility in the labor structure of the organization",
+      "help": "Number of people in management and middle-management roles within the labor structure, regardless of political/societary roles[cite: 1]."
+    },
+    "q3202": {
+      "block": "equity_democracy",
+      "legal_form": "ALL",
+      "type": "int",
+      "required": true,
+      "text": "Number of persons occupying corporate/political positions in the organization",
+      "help": "Number of members in governing bodies: board of directors (associations), governing council (cooperatives), trustees (foundations), or management council (social enterprises)[cite: 1]."
+    },
+    "q3301": {
+      "block": "equity_democracy",
+      "legal_form": "ALL",
+      "type": "float",
+      "required": true,
+      "text": "Highest remuneration (in gross price per hour worked) - in € -",
+      "help": "Highest gross hourly wage. Include gross salary plus representation fees or external meeting stipends paid due to holding a role[cite: 1]."
+    },
+    "q3302": {
+      "block": "equity_democracy",
+      "legal_form": "ALL",
+      "type": "float",
+      "required": true,
+      "text": "Lowest remuneration (in gross price per hour worked) - in € -",
+      "help": "Lowest gross hourly wage calculated by dividing the annual gross salary by the contract hours. Exclude interns or trainees[cite: 1]."
+    },
+    "q2202": {
+      "block": "equity_democracy",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "Are salaries and other remunerations public for the working persons?",
+      "help": "Indicate if there is an internal communication system (intranet, member area, internal email) where any member can access salary details[cite: 1]."
+    },
+    "q2203": {
+      "block": "equity_democracy",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "Have we published the data/results of the Social Audit of the last fiscal year on the web and/or social networks?",
+      "help": "Indicate whether the results of the previous balance sheet or social audit have been published openly on the organization's website[cite: 1]."
+    },
+    "q14401": {
+      "block": "equity_democracy",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "Do you publish detailed organizational or environmental metrics openly via electronic channels?",
+      "help": "Select if the entity provides structured operational and transparency disclosures on its digital platforms[cite: 1]."
+    },
+    "q3401": {
+      "block": "equity_democracy",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "Does the entity use non-sexist and inclusive language?",
+      "help": "Refers to the conscious adoption of language strategies that include both women and men equally (e.g., 'working staff' instead of masculine defaults)[cite: 1]."
+    },
+    "q3402": {
+      "block": "equity_democracy",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "Does the entity have a valid equality plan and the resources to carry out the corresponding monitoring and evaluation?",
+      "help": "Indicate whether a formal equality plan exists. Small entities (<5 workers) can validate this if daily informal practices active support equality[cite: 1]."
+    },
+    "q3403": {
+      "block": "equity_democracy",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "Does the entity have a protocol for the prevention and addressing of sexual harassment, based on sex, gender identity, or sexual preference?",
+      "help": "Indicate whether a formal harassment prevention protocol exists. Small entities (<5 workers) can validate this if daily practices informally handle it[cite: 1]."
+    },
+    "q3109": {
+      "block": "equity_democracy",
+      "legal_form": "ALL",
+      "type": "float",
+      "required": true,
+      "text": "Average age of the working persons",
+      "help": "The average age obtained by summing the age of all working persons and dividing by the total number of workers[cite: 1]."
+    },
+    "q3111": {
+      "block": "equity_democracy",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "Have positive actions been applied to promote diversity in the entity?",
+      "help": "Indicate whether specific active measures or campaigns have been introduced to foster inclusion and respect for diversity within the project[cite: 1]."
+    },
+    "q3108": {
+      "block": "equity_democracy",
+      "legal_form": "ALL",
+      "type": "int",
+      "required": true,
+      "text": "Number of working persons with functional diversity / disability",
+      "help": "Number of workers identified by the entity as having functional diversity or disability, regardless of official recognition by Social Security[cite: 1]."
+    },
+    "q5104": {
+      "block": "equity_democracy",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "Is functional diversity taken into account and is the inclusion of all people promoted and/or facilitated?",
+      "help": "Refers to spatial accessibility, adapted training materials, web accessibility compliance, or sign language support[cite: 1]."
+    },
+    "q4101": {
+      "block": "environmental_sustainability",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "Do you have an environmental policy, action plan or management system?",
+      "help": "Formalized tools (ISO 14000, EMAS) or own systems with published objectives to minimize environmental footprint. Small entities can validate informal practices[cite: 1]."
+    },
+    "q4102": {
+      "block": "environmental_sustainability",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "Is an internal control of CO2 emissions carried out?",
+      "help": "Refers to tracking resource consumptions (electricity, gas, mileage) and applying documented reduction or prevention measures[cite: 1]."
+    },
+    "q4201": {
+      "block": "environmental_sustainability",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "Do you have practices and procedures for energy saving and efficiency?",
+      "help": "Active measures favoring energy reduction. Ideally supported by registration sheets tracking investments and savings[cite: 1]."
+    },
+    "q4206": {
+      "block": "environmental_sustainability",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "Do you have practices and procedures for saving and efficiency in water consumption?",
+      "help": "Indicate whether the organization carries out active water-saving measures[cite: 1]."
+    },
+    "q4208": {
+      "block": "environmental_sustainability",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "Do you contract all electrical services from supplier companies that generate 100% of their electrical energy from certified renewable sources with a guarantee of origin?",
+      "help": "Accredited via Guarantees of Origin (GdO) erogated by CNMC. Partial contracting only applies to organizations with multiple workplaces[cite: 1]."
+    },
+    "q4301": {
+      "block": "environmental_sustainability",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "Do you use recycled paper and/or paper with sustainable forest management certification on a regular and majority basis?",
+      "help": "Accepted standard for white paper is FSC; PEFC is excluded due to active institutional controversies[cite: 1]."
+    },
+    "q4401": {
+      "block": "environmental_sustainability",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "Do you have practices and procedures for waste prevention?",
+      "help": "Measures targeting waste reduction, including criteria applied to purchases (avoiding single-use containers, selecting recyclable materials)[cite: 1]."
+    },
+    "q4503": {
+      "block": "environmental_sustainability",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "When purchasing a product, are responsible consumption criteria taken into account?",
+      "help": "Refers to purchasing items (food, supplies, furniture) with ecological manufacturing, local sourcing, Fair Trade, and/or second-hand criteria[cite: 1]."
+    },
+    "q4601": {
+      "block": "environmental_sustainability",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "Does the entity incorporate, offer, or facilitate any alternative/help related to transport?",
+      "help": "Includes carpooling, public transport financing, bicycle facilities, or teleworking setups to optimize internal mobility[cite: 1]."
+    },
+    "q50b": {
+      "block": "social_commitment_cooperation",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "Do you actively participate in stable networks, federations, or social transformation initiatives?",
+      "help": "Active participation requires a minimum of 30 hours per year and/or the payment of a regular membership fee[cite: 1]."
+    },
+    "q5202": {
+      "block": "social_commitment_cooperation",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "Is the entity a partner or client of ethical and solidary finance institutions?",
+      "help": "Indicate if the organization operates with entities like Coop57, Fiare, Oikocredit, or Triodos Bank[cite: 1]."
+    },
+    "q5302": {
+      "block": "social_commitment_cooperation",
+      "legal_form": "ALL",
+      "type": "float",
+      "required": true,
+      "text": "Amount of purchases of goods and services from Social Market and/or REAS entities",
+      "help": "Economic volume spent on purchases from providers within certified solidary networks (mercadosocial.net / economiasolidaria.org)[cite: 1]."
+    },
+    "q5305": {
+      "block": "social_commitment_cooperation",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "Does the organization cooperate with others that provide the same products or services?",
+      "help": "Measures sectorial cooperation over pure market competition. Must be documented via minutes, shared projects, or tenancy agreements[cite: 1]."
+    },
+    "q5306": {
+      "block": "social_commitment_cooperation",
+      "legal_form": "ALL",
+      "type": "float",
+      "required": true,
+      "text": "Amount of purchases of goods and services made from Social Economy entities (NOT belonging to the Social Market or REAS)",
+      "help": "Acquisitions from non-profit entities, associations, foundations, or insertion enterprises explicitly forbidding profit distribution[cite: 1]."
+    },
+    "q5501": {
+      "block": "social_commitment_cooperation",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "Does your activity generate any type of good, service, or material made freely available to the commons or under free licenses like Creative Commons?",
+      "help": "Sharing recipes, techniques, working tools, seeds, or creative knowledge so third parties can use them freely[cite: 1]."
+    },
+    "q5502": {
+      "block": "social_commitment_cooperation",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "Do you implement explicit policies or commitments favoring the use of Free Software?",
+      "help": "Utilization of open-source applications and tools ensuring user digital privacy and collective technological freedom[cite: 1]."
+    },
+    "q6202": {
+      "block": "quality_of_work",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "Do you take active preventive and/or health promotion measures in your workplace?",
+      "help": "Includes prevention training (avoiding risk control issues) and proactive promotion (fostering healthy diets, physical activity, tobacco cessation)[cite: 1]."
+    },
+    "q6601": {
+      "block": "quality_of_work",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "Does the organization have an internal regulation or protocol that includes measures to improve the working conditions established in the applicable collective agreement?",
+      "help": "Requires an internal framework officially improving sector standards (e.g., better leave policies, paid vacations, higher sick coverage)[cite: 1]."
+    },
+    "q6701": {
+      "block": "quality_of_work",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "Do you apply specific measures to promote the professional and technical training of workers?",
+      "help": "Refers to structural policies enhancing professional capacity in skills and scopes proper to the organization's mission[cite: 1]."
+    },
+    "q6801": {
+      "block": "quality_of_work",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "Are measures that improve legal permits for balancing family, personal, and work life contemplated and formalized in writing?",
+      "help": "Formal internal frameworks improving legal balance parameters (e.g., longer parental or care leave). Small entities can validate active informal practices[cite: 1]."
+    },
+    "q6802": {
+      "block": "quality_of_work",
+      "legal_form": "ALL",
+      "type": "bool",
+      "required": true,
+      "text": "Are emotional support and care spaces generated for workers in relation to their situation with the work environment?",
+      "help": "Regular systems to share personal feelings and feedback regarding the work space (emotional check-ins, care commissions, etc.)[cite: 1]."
+    }
   }
 }
