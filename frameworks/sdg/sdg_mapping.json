@@ -1,89 +1,89 @@
 {
-  "framework_id": "openesea_core_2024",
+  "framework_id": "sdg_global_v1",
   "mappings": {
     "sdg1": {
       "name": "No Poverty",
-      "icon_key": "sdg01",
+      "icon_key": "sdg01_en",
       "indicators": ["ind114", "ind168", "ind256"]
     },
     "sdg2": {
       "name": "Zero Hunger",
-      "icon_key": "sdg02",
+      "icon_key": "sdg02_en",
       "indicators": ["ind69"]
     },
     "sdg3": {
       "name": "Good Health and Well-being",
-      "icon_key": "sdg03",
+      "icon_key": "sdg03_en",
       "indicators": ["ind77", "ind105"]
     },
     "sdg4": {
       "name": "Quality Education",
-      "icon_key": "sdg04",
+      "icon_key": "sdg04_en",
       "indicators": ["ind104", "ind276"]
     },
     "sdg5": {
       "name": "Gender Equality",
-      "icon_key": "sdg05",
+      "icon_key": "sdg05_en",
       "indicators": ["ind10", "ind12", "ind20", "ind23", "ind26", "ind97", "ind261", "ind262", "ind272"]
     },
     "sdg6": {
       "name": "Clean Water and Sanitation",
-      "icon_key": "sdg06",
+      "icon_key": "sdg06_en",
       "indicators": ["ind61"]
     },
     "sdg7": {
       "name": "Affordable and Clean Energy",
-      "icon_key": "sdg07",
+      "icon_key": "sdg07_en",
       "indicators": ["ind60", "ind62"]
     },
     "sdg8": {
       "name": "Decent Work and Economic Growth",
-      "icon_key": "sdg08",
+      "icon_key": "sdg08_en",
       "indicators": ["ind4", "ind114", "ind114_men", "ind114_women", "ind168", "ind58", "ind77", "ind78", "ind80", "ind104", "ind105", "ind273", "ind274"]
     },
     "sdg9": {
       "name": "Industry, Innovation and Infrastructure",
-      "icon_key": "sdg09",
+      "icon_key": "sdg09_en",
       "indicators": ["ind264", "ind74", "ind75"]
     },
     "sdg10": {
       "name": "Reduced Inequalities",
-      "icon_key": "sdg10",
+      "icon_key": "sdg10_en",
       "indicators": ["ind26", "ind27", "ind190", "ind322", "ind329"]
     },
     "sdg11": {
       "name": "Sustainable Cities and Communities",
-      "icon_key": "sdg11",
+      "icon_key": "sdg11_en",
       "indicators": ["ind102", "ind264", "ind38"]
     },
     "sdg12": {
       "name": "Responsible Consumption and Production",
-      "icon_key": "sdg12",
+      "icon_key": "sdg12_en",
       "indicators": ["ind5", "ind63", "ind65", "ind69", "ind42", "ind72", "ind254", "ind256", "ind257", "ind258", "ind275", "ind276", "ind277", "ind278", "ind279", "ind280"]
     },
     "sdg13": {
       "name": "Climate Action",
-      "icon_key": "sdg13",
+      "icon_key": "sdg13_en",
       "indicators": ["ind59", "ind60", "ind61", "ind62", "ind106"]
     },
     "sdg14": {
       "name": "Life Below Water",
-      "icon_key": "sdg14",
+      "icon_key": "sdg14_en",
       "indicators": ["ind59"]
     },
     "sdg15": {
       "name": "Life on Land",
-      "icon_key": "sdg15",
+      "icon_key": "sdg15_en",
       "indicators": ["ind59", "ind63"]
     },
     "sdg16": {
       "name": "Peace, Justice and Strong Institutions",
-      "icon_key": "sdg16",
+      "icon_key": "sdg16_en",
       "indicators": ["ind11", "ind13", "ind14", "ind24", "ind58", "ind85", "ind89", "ind152", "ind259", "ind260"]
     },
     "sdg17": {
       "name": "Partnerships for the Goals",
-      "icon_key": "sdg17",
+      "icon_key": "sdg17_en",
       "indicators": ["ind1", "ind2", "ind3", "ind38", "ind71", "ind74", "ind75", "ind103", "ind277", "ind278"]
     }
   }
