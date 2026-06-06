@@ -386,7 +386,8 @@ class AssessmentShortcode {
                             $rel = str_replace($base_dir, '', $file->getPathname());
                             $key = preg_replace('/\.json$/', '', $rel);
                             $pdata = $this->load_framework_json( 'products/' . $key . '.json' );
-                            $product_options[$key] = $pdata['title'] ?? $pdata['product_id'] ?? $key;
+                            $raw_id = $pdata['product_id'] ?? $key;
+                            $product_options[$key] = $pdata['title'] ?? ucwords( str_replace( '_', ' ', $raw_id ) );
                         }
                     }
                 }
@@ -758,7 +759,7 @@ class AssessmentShortcode {
                     <tbody>
                         <?php foreach ( $product_files as $key => $abs_path ) :
                             $pdata = $this->load_framework_json( 'products/' . $key . '.json' );
-                            $label = $pdata['title'] ?? $pdata['product_id'] ?? $key;
+                            $label = $pdata['title'] ?? ucwords( str_replace( '_', ' ', $pdata['product_id'] ?? $key ) );
                             $is_done = in_array($key, $done);
                             $url = esc_url( add_query_arg( array('esg_step' => 'products', 'product' => $key), get_permalink() ) );
                         ?>
@@ -801,7 +802,7 @@ class AssessmentShortcode {
                 . '</p>';
         }
 
-        $product_name = $data['title'] ?? $data['product_id'] ?? $product_key;
+        $product_name = $data['title'] ?? ucwords( str_replace( '_', ' ', $data['product_id'] ?? $product_key ) );
 
         // Raggruppa per blocco
         $blocks = array();
