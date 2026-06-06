@@ -3,96 +3,573 @@
   "system_type": "participatory_guarantee_system",
   "version": "1.0.0",
   "pgs_evaluation_criteria": {
-    
-    "/* --- 1. GENERAL INFORMATION --- */": {},
-    "legal_form": { "type": "string", "required": true },
-    "geographic_location": { "type": "enum", "choices": ["PLAIN", "HILL", "MOUNTAIN"] },
-    "altitude_meters": { "type": "int", "fallback": null },
-    "activity_start_year": { "type": "int", "required": true },
-    "has_on_site_farm_shop": { "type": "bool", "mapping": { "YES": 1, "NO": 0 } },
-    "land_tenure_type": { "type": "enum", "choices": ["OWNERSHIP", "RENT", "LOAN_FOR_USE", "OTHER"] },
-    "economic_sustenance_level": { "type": "enum", "choices": ["PRIMARY", "SECONDARY_PART_TIME"] },
-
-    "/* --- 2. COMPANY STRUCTURE & LABOR MANAGEMENT --- */": {},
-    "total_land_surface_sqm_or_ha": { "type": "string", "required": true },
-    "cultivated_surface_hectares": { "type": "float", "fallback": 0.0 },
-    "greenhouse_surface_sqm": { "type": "float", "fallback": 0.0 },
-    "main_machinery_equipment": { "type": "text", "fallback": "" },
-    "hr_family_workers_count": { "type": "int", "fallback": 0 },
-    "hr_permanent_workers_count": { "type": "int", "fallback": 0 },
-    "hr_seasonal_workers_count": { "type": "int", "fallback": 0 },
-    "seasonal_employment_months_details": { "type": "string", "fallback": "" },
-    "hr_agency_or_external_coop_workers_count": { "type": "int", "fallback": 0 },
-    "applied_labor_contracts_type": { "type": "string", "required": true },
-    "workers_living_on_site_count": { "type": "int", "fallback": 0 },
-    "is_social_cooperative": { "type": "bool", "fallback": false },
-    "social_coop_total_member_workers": { "type": "int", "fallback": null },
-    "social_coop_disadvantaged_workers_l381": { "type": "int", "fallback": null },
-    "social_coop_total_employees": { "type": "int", "fallback": null },
-    "labor_self_certification_compliance_statement": { "type": "bool", "required": true, "must_be": true },
-
-    "/* --- 3. METHOD OF PRODUCTION & CERTIFICATIONS --- */": {},
-    "prevalent_production_method": { "type": "enum", "choices": ["CERTIFIED_ORGANIC", "BIODYNAMIC", "IN_CONVERSION", "INTEGRATED", "CONVENTIONAL"] },
-    "has_official_organic_certification": { "type": "bool", "mapping": { "YES": 1, "NO": 0 } },
-    "organic_certification_body_name": { "type": "string", "fallback": "" },
-    "organic_operator_code": { "type": "string", "fallback": "" },
-    "organic_first_certification_year": { "type": "int", "fallback": null },
-    "organic_last_inspection_date": { "type": "string", "fallback": "" },
-    "previous_certification_bodies_change_reasons": { "type": "text", "fallback": "" },
-    "non_certified_organic_rules_compliance_details": { "type": "text", "fallback": "" },
-    "organic_choice_motivation_lacking_logo_reasons": { "type": "text", "fallback": "" },
-    "conventional_integrated_chemical_inputs_log": { "type": "text", "fallback": "" },
-    "production_method_ideal_motivation_gmo_opinion": { "type": "text", "required": true },
-    "performs_periodic_chemical_analyses": { "type": "bool", "mapping": { "YES": 1, "NO": 0 } },
-    "last_chemical_analysis_date": { "type": "string", "fallback": "" },
-
-    "/* --- 4. AGRONOMIC PRACTICES & ENVIRONMENTAL CONTEXT --- */": {},
-    "irrigation_water_source": { "type": "string", "required": true },
-    "soil_fertility_management_manure_type_source": { "type": "text", "required": true },
-    "manure_fertilizer_quantity_per_hectare_crops": { "type": "text", "fallback": "" },
-    "weed_control_methodology": { "type": "text", "required": true },
-    "pest_insect_disease_control_methodology": { "type": "text", "required": true },
-    "seeds_seedlings_origin_and_nature": { "type": "text", "required": true },
-    "pollution_sources_proximity_risk": { "type": "array", "items": "string" },
-    "pollution_source_distance_km_details": { "type": "text", "fallback": "" },
-    "neighboring_farms_production_method": { "type": "string", "fallback": "" },
-    "environmental_sustainability_energy_saving_features": { "type": "array", "items": "string" },
-
-    "/* --- 5. CATALOG, LOGISTICS & ECONOMICS --- */": {},
-    "offered_products_macro_categories": { "type": "array", "items": "string" },
-    "transformation_entirely_in_house": { "type": "bool", "mapping": { "YES": 1, "NO": 0 } },
-    "third_party_processing_company_location_details": { "type": "text", "fallback": "" },
-    "commercializes_third_party_products": { "type": "bool", "mapping": { "YES": 1, "NO": 0 } },
-    "third_party_products_revenue_percentage": { "type": "float", "fallback": 0.0 },
-    "active_sales_channels": { "type": "array", "items": "string" },
-    "farmers_markets_details_and_frequency": { "type": "text", "fallback": "" },
-    "gas_delivery_mode": { "type": "enum", "choices": ["GAS_PICKUP", "PRODUCER_HOME_DELIVERY", "THIRD_PARTY_COURIER"] },
-    "specific_delivery_conditions_minimum_order_costs": { "type": "text", "fallback": "" },
-    "costs_transparency_and_transparent_price_agreement": { "type": "bool", "mapping": { "YES": 1, "NO": 0 } },
-    "fiscal_payment_mode": { "type": "enum", "choices": ["RECEIPT", "INVOICE", "SELF_INVOICE", "FEES_REPORT"] },
-    "indicative_turnover_current_year": { "type": "string", "fallback": "" },
-    "indicative_turnover_previous_year": { "type": "string", "fallback": "" },
-    "indicative_turnover_year_minus_two": { "type": "string", "fallback": "" },
-
-    "/* --- 6. PUBLIC SERVICES & SOLIDARITY ENGAGEMENT --- */": {},
-    "gas_presenter_name": { "type": "string", "required": true },
-    "public_connected_activities": { "type": "array", "items": "string" },
-    "ideal_gas_visit_period": { "type": "string", "fallback": "" },
-    "active_or_past_gas_network_collaborations": { "type": "text", "fallback": "" },
-    "ethical_social_practices_territorial_impact": { "type": "bool", "mapping": { "YES": 1, "NO": 0 } },
-    "ethical_practices_specific_types": { "type": "array", "items": "string" },
-
-    "/* --- 7. COMMITMENTS & SIGN-OFF --- */": {},
-    "commitment_gas_charter_of_intents_coherence": { "type": "bool", "required": true, "must_be": true },
-    "commitment_allow_gas_inspection_visits": { "type": "bool", "required": true, "must_be": true },
-    "commitment_regular_updates_certs_price_lists": { "type": "bool", "required": true, "must_be": true },
-    "commitment_personal_data_processing_authorization": { "type": "bool", "required": true, "must_be": true }
+    "legal_form": {
+      "block": "general_information",
+      "type": "string",
+      "control": "text",
+      "required": true,
+      "label": "Legal Form of the Entity",
+      "help": "Specify the official registered legal form (e.g., Sole Proprietorship, SSC Agricultural Cooperative)."
+    },
+    "geographic_location": {
+      "block": "general_information",
+      "type": "enum",
+      "choices": ["PLAIN", "HILL", "MOUNTAIN"],
+      "required": true,
+      "label": "Geographic Location",
+      "help": "Select the dominant geographical classification of the production plots."
+    },
+    "altitude_meters": {
+      "block": "general_information",
+      "type": "int",
+      "fallback": 0,
+      "label": "Altitude (Meters above sea level)",
+      "help": "Average altitude of the cultivated farmlands."
+    },
+    "activity_start_year": {
+      "block": "general_information",
+      "type": "int",
+      "required": true,
+      "label": "Activity Start Year",
+      "help": "The exact year agricultural or transformation operations began under this entity."
+    },
+    "has_on_site_farm_shop": {
+      "block": "general_information",
+      "type": "bool",
+      "mapping": { "yes": 1, "no": 0 },
+      "fallback": 0,
+      "label": "On-Site Farm Shop Presence",
+      "help": "Confirm if there is a permanent physical direct sales point setup on the farm premises."
+    },
+    "land_tenure_type": {
+      "block": "general_information",
+      "type": "enum",
+      "choices": ["OWNERSHIP", "RENT", "LOAN_FOR_USE", "OTHER"],
+      "required": true,
+      "label": "Land Tenure Type",
+      "help": "Main legal framework regulating farmland usage rights."
+    },
+    "economic_sustenance_level": {
+      "block": "general_information",
+      "type": "enum",
+      "choices": ["PRIMARY", "SECONDARY_PART_TIME"],
+      "required": true,
+      "label": "Economic Sustenance Level",
+      "help": "Indicate if this farm represents the primary income source or a part-time secondary activity."
+    },
+    "total_land_surface_sqm_or_ha": {
+      "block": "company_structure",
+      "type": "string",
+      "control": "text",
+      "required": true,
+      "label": "Total Farmland Surface Area",
+      "help": "Specify total extension expressing clearly the unit used (e.g., 5 Hectares, 2500 SQM)."
+    },
+    "cultivated_surface_hectares": {
+      "block": "company_structure",
+      "type": "float",
+      "fallback": 0.0,
+      "label": "Cultivated Surface Area (Hectares)",
+      "help": "Net fraction of land actively dedicated to ongoing crops or orchards."
+    },
+    "greenhouse_surface_sqm": {
+      "block": "company_structure",
+      "type": "float",
+      "fallback": 0.0,
+      "label": "Greenhouse Surface Area (SQM)",
+      "help": "Total surface sheltered under permanent or seasonal greenhouses/tunnels."
+    },
+    "main_machinery_equipment": {
+      "block": "company_structure",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Main Machinery and Equipment",
+      "help": "List owned or shared vehicles, tractors, tools, and industrial transformation lines."
+    },
+    "hr_family_workers_count": {
+      "block": "company_structure",
+      "type": "int",
+      "fallback": 0,
+      "label": "Family Workers Headcount",
+      "help": "Number of family relatives active on the farm without standard external labor contracts."
+    },
+    "hr_permanent_workers_count": {
+      "block": "company_structure",
+      "type": "int",
+      "fallback": 0,
+      "label": "Permanent Workers Headcount",
+      "help": "Number of external employees hired under permanent/open-ended payroll agreements."
+    },
+    "hr_seasonal_workers_count": {
+      "block": "company_structure",
+      "type": "int",
+      "fallback": 0,
+      "label": "Seasonal Workers Headcount",
+      "help": "Number of temporary staff brought in during peak harvesting seasons."
+    },
+    "seasonal_employment_months_details": {
+      "block": "company_structure",
+      "type": "string",
+      "control": "text",
+      "fallback": "",
+      "label": "Seasonal Employment Window Details",
+      "help": "Specify during which months seasonal workforce contracts are active (e.g., June-August)."
+    },
+    "hr_agency_or_external_coop_workers_count": {
+      "block": "company_structure",
+      "type": "int",
+      "fallback": 0,
+      "label": "External Agency or Cooperative Workers Headcount",
+      "help": "Staff numbers supplied via external labor outsourcing or external agricultural service cooperatives."
+    },
+    "applied_labor_contracts_type": {
+      "block": "company_structure",
+      "type": "string",
+      "control": "text",
+      "required": true,
+      "label": "Applied Collective Labor Contracts Type",
+      "help": "Specify the exact framework trade contract applied to workers (e.g., National Agricultural CCNL)."
+    },
+    "workers_living_on_site_count": {
+      "block": "company_structure",
+      "type": "int",
+      "fallback": 0,
+      "label": "Workers Living On-Site Headcount",
+      "help": "Number of personnel or temporary workers accommodated directly inside farm facilities."
+    },
+    "is_social_cooperative": {
+      "block": "company_structure",
+      "type": "bool",
+      "mapping": { "yes": 1, "no": 0 },
+      "fallback": 0,
+      "label": "Social Cooperative Status Indicator",
+      "help": "Check if the entity is registered formally as a social cooperative (e.g., Italian Law 381/91)."
+    },
+    "social_coop_total_member_workers": {
+      "block": "company_structure",
+      "type": "int",
+      "fallback": 0,
+      "label": "Social Coop Total Member Workers",
+      "help": "Total working partner headcount inside the social cooperative structure."
+    },
+    "social_coop_disadvantaged_workers_l381": {
+      "block": "company_structure",
+      "type": "int",
+      "fallback": 0,
+      "label": "Social Coop Disadvantaged Workers Count",
+      "help": "Headcount of disadvantaged staff integrated under legal social protection layers."
+    },
+    "social_coop_total_employees": {
+      "block": "company_structure",
+      "type": "int",
+      "fallback": 0,
+      "label": "Social Coop Total Employees Payroll Size",
+      "help": "Global combined staff payload active on cooperative books."
+    },
+    "labor_self_certification_compliance_statement": {
+      "block": "company_structure",
+      "type": "bool",
+      "mapping": { "yes": 1, "no": 0 },
+      "required": true,
+      "validation": "must_accept",
+      "label": "Labor Self-Certification Compliance Statement",
+      "help": "Formal self-declaration ensuring full compliance with binding labor laws, safety rules, and ethical rewards."
+    },
+    "prevalent_production_method": {
+      "block": "production_methods",
+      "type": "enum",
+      "choices": ["CERTIFIED_ORGANIC", "BIODYNAMIC", "IN_CONVERSION", "INTEGRATED", "CONVENTIONAL"],
+      "required": true,
+      "label": "Prevalent Production Method",
+      "help": "Main agronomic guideline model deployed systematically across the plots."
+    },
+    "has_official_organic_certification": {
+      "block": "production_methods",
+      "type": "bool",
+      "mapping": { "yes": 1, "no": 0 },
+      "fallback": 0,
+      "label": "Official Organic Certification Status",
+      "help": "Confirm if the farm holds a valid formal third-party organic certification status logo."
+    },
+    "organic_certification_body_name": {
+      "block": "production_methods",
+      "type": "string",
+      "control": "text",
+      "fallback": "",
+      "label": "Organic Certification Body Name",
+      "help": "Specify the accredited control body monitoring operations (e.g., ICEA, CCPB, Bioagricert)."
+    },
+    "organic_operator_code": {
+      "block": "production_methods",
+      "type": "string",
+      "control": "text",
+      "fallback": "",
+      "label": "Official Organic Operator Code",
+      "help": "The unique national/regional registration alphanumeric code given by the control body."
+    },
+    "organic_first_certification_year": {
+      "block": "production_methods",
+      "type": "int",
+      "fallback": 0,
+      "label": "First Year of Organic Certification",
+      "help": "The fiscal year the farm completed its first full organic conversion cycle."
+    },
+    "organic_last_inspection_date": {
+      "block": "production_methods",
+      "type": "string",
+      "control": "text",
+      "fallback": "",
+      "label": "Latest Organic Inspection Date",
+      "help": "Date tracking the latest physical regulatory field audit executed on premises."
+    },
+    "previous_certification_bodies_change_reasons": {
+      "block": "production_methods",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Reasons for Changing Control Bodies",
+      "help": "Detail historical triggers prompting shifts across external certifying companies if applicable."
+    },
+    "non_certified_organic_rules_compliance_details": {
+      "block": "production_methods",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Non-Certified Organic Compliance Details",
+      "help": "If practicing un-certified organic, describe routines ensuring fidelity to agroecology rules."
+    },
+    "organic_choice_motivation_lacking_logo_reasons": {
+      "block": "production_methods",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Organic Choices and Logo Discrepancy Reasons",
+      "help": "Explain values behind clean choices and reasons for avoiding standard state organic certification tracks."
+    },
+    "conventional_integrated_chemical_inputs_log": {
+      "block": "production_methods",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Conventional/Integrated Chemical Inputs Log",
+      "help": "If integrated/conventional, list synthetic treatments, pesticides, or chemical fertilizers used."
+    },
+    "production_method_ideal_motivation_gmo_opinion": {
+      "block": "production_methods",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Agroecology Motivations and Anti-GMO Statement",
+      "help": "Elaborate vision supporting ethical soil handling and explicit policy banning GMO vectors."
+    },
+    "performs_periodic_chemical_analyses": {
+      "block": "production_methods",
+      "type": "bool",
+      "mapping": { "yes": 1, "no": 0 },
+      "fallback": 0,
+      "label": "Periodic Chemical Laboratory Soil/Water Analyses",
+      "help": "Confirm execution of laboratory screening checking for heavy metals or chemical residues."
+    },
+    "last_chemical_analysis_date": {
+      "block": "production_methods",
+      "type": "string",
+      "control": "text",
+      "fallback": "",
+      "label": "Latest Chemical Laboratory Analysis Date",
+      "help": "Logs the calendar date of the latest laboratory multiresidue analysis report."
+    },
+    "irrigation_water_source": {
+      "block": "agronomic_practices",
+      "type": "string",
+      "control": "text",
+      "required": true,
+      "label": "Irrigation Water Source Setup",
+      "help": "Identify delivery supply lines (e.g., Private well, Consorzio di Bonifica channel, Rain collection dams)."
+    },
+    "soil_fertility_management_manure_type_source": {
+      "block": "agronomic_practices",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Soil Fertility and Manure Sourcing Rules",
+      "help": "Detail inputs used to fix fertility levels (e.g., self-composting, external organic cattle manure sourcing)."
+    },
+    "manure_fertilizer_quantity_per_hectare_crops": {
+      "block": "agronomic_practices",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Fertilization Volumes Applied per Crop Group",
+      "help": "Quantify distribution averages (e.g., Quintals per hectare split across greenhouse and open fields)."
+    },
+    "weed_control_methodology": {
+      "block": "agronomic_practices",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Weed Management Control Methodology",
+      "help": "Describe physical techniques applied (e.g., mechanical weeding, manual hoeing, green mulching, solarization)."
+    },
+    "pest_insect_disease_control_methodology": {
+      "block": "agronomic_practices",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Crop Defense and Pest Management Protocols",
+      "help": "Detail treatments matching biocontrol lines (e.g., copper, sulfur, beneficial insects launch, macerates)."
+    },
+    "seeds_seedlings_origin_and_nature": {
+      "block": "agronomic_practices",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Seeds and Seedlings Origin Tracker",
+      "help": "Identify provenance of propagation materials (e.g., local organic nursery, internal seed saving swaps)."
+    },
+    "pollution_sources_proximity_risk": {
+      "block": "agronomic_practices",
+      "type": "array",
+      "control": "checkbox",
+      "items": "string",
+      "label": "Proximity Pollution Source Risk Layers",
+      "help": "Select environmental threats active near plot borders."
+    },
+    "pollution_source_distance_km_details": {
+      "block": "agronomic_practices",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Pollution Source Distance and Containment Details",
+      "help": "Specify exact distances in kilometers and structural buffers built (e.g., thick protection hedges)."
+    },
+    "neighboring_farms_production_method": {
+      "block": "agronomic_practices",
+      "type": "string",
+      "control": "text",
+      "fallback": "",
+      "label": "Neighboring Farms Production Guideline Models",
+      "help": "Note practices utilized across boundaries to screen drift risks (e.g., conventional orchards spraying)."
+    },
+    "environmental_sustainability_energy_saving_features": {
+      "block": "agronomic_practices",
+      "type": "array",
+      "control": "checkbox",
+      "items": "string",
+      "label": "Sustainability and Power Saving Features Deployed",
+      "help": "Check active environmental elements configured inside the operational loop."
+    },
+    "offered_products_macro_categories": {
+      "block": "catalog_economics",
+      "type": "array",
+      "control": "checkbox",
+      "items": "string",
+      "label": "Commercial Catalog Product Macro-Categories",
+      "help": "Select items routinely present inside the wholesale/retail price lists."
+    },
+    "transformation_entirely_in_house": {
+      "block": "catalog_economics",
+      "type": "bool",
+      "mapping": { "yes": 1, "no": 0 },
+      "fallback": 0,
+      "label": "In-House Product Transformation Status",
+      "help": "Confirm if manufacturing/processing occurs completely inside dedicated certified farm labs."
+    },
+    "third_party_processing_company_location_details": {
+      "block": "catalog_economics",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Third-Party Processing Partner Details",
+      "help": "If processing is outsourced, specify the company name, tracking location, and organic certification credentials."
+    },
+    "commercializes_third_party_products": {
+      "block": "catalog_economics",
+      "type": "bool",
+      "mapping": { "yes": 1, "no": 0 },
+      "fallback": 0,
+      "label": "Third-Party Products Brokerage Commercialization",
+      "help": "Confirm if price lists integrate external commodities bought from other farms for resale."
+    },
+    "third_party_products_revenue_percentage": {
+      "block": "catalog_economics",
+      "type": "float",
+      "fallback": 0.0,
+      "label": "Third-Party Brokerage Income Percentage Weight",
+      "help": "Incidence percentage of resale volumes over the overall corporate farm turnover."
+    },
+    "active_sales_channels": {
+      "block": "catalog_economics",
+      "type": "array",
+      "control": "checkbox",
+      "items": "string",
+      "label": "Active Farm Sourcing Sales Channels",
+      "help": "Check distribution formats operated to empty stocks."
+    },
+    "farmers_markets_details_and_frequency": {
+      "block": "catalog_economics",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Farmers Markets Specific Attendance and Frequency",
+      "help": "List solidary and local farmers markets frequented regular hours (e.g., weekly Earth Market)."
+    },
+    "gas_delivery_mode": {
+      "block": "catalog_economics",
+      "type": "enum",
+      "choices": ["GAS_PICKUP", "PRODUCER_HOME_DELIVERY", "THIRD_PARTY_COURIER"],
+      "required": true,
+      "label": "GAS Delivery and Dispatch Logistics Mode",
+      "help": "Primary logistics node used to channel collective boxes ordered by solidary purchase rings."
+    },
+    "specific_delivery_conditions_minimum_order_costs": {
+      "block": "catalog_economics",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Minimum Orders Constraints and Delivery Fees Condition",
+      "help": "Specify structural hurdles or rules configured (e.g., minimum 150€ box value for free delivery)."
+    },
+    "costs_transparency_and_transparent_price_agreement": {
+      "block": "catalog_economics",
+      "type": "bool",
+      "mapping": { "yes": 1, "no": 0 },
+      "fallback": 0,
+      "label": "Transparent Pricing Cost Breakdown Framework Policy",
+      "help": "Confirm open calculation shares detailing labor, fuel, and profit margins to consumers."
+    },
+    "fiscal_payment_mode": {
+      "block": "catalog_economics",
+      "type": "enum",
+      "choices": ["RECEIPT", "INVOICE", "SELF_INVOICE", "FEES_REPORT"],
+      "required": true,
+      "label": "Primary Fiscal Document Payment Format",
+      "help": "The standard legal accounting receipt route used during order clearing actions."
+    },
+    "indicative_turnover_current_year": {
+      "block": "catalog_economics",
+      "type": "string",
+      "control": "text",
+      "fallback": "",
+      "label": "Indicative Farm Income - Current Year Range",
+      "help": "Rough aggregate income tier reflecting the ongoing seasonal clearing volume."
+    },
+    "indicative_turnover_previous_year": {
+      "block": "catalog_economics",
+      "type": "string",
+      "control": "text",
+      "fallback": "",
+      "label": "Indicative Farm Income - Previous Year Range",
+      "help": "Consolidated overall revenue ledger closed during the preceding fiscal year."
+    },
+    "indicative_turnover_year_minus_two": {
+      "block": "catalog_economics",
+      "type": "string",
+      "control": "text",
+      "fallback": "",
+      "label": "Indicative Farm Income - Two Years Ago Range",
+      "help": "Historical reference turnover boundary ledger matching the older period."
+    },
+    "gas_presenter_name": {
+      "block": "solidarity_engagement",
+      "type": "string",
+      "control": "text",
+      "required": true,
+      "label": "Sponsoring GAS Presenter Person Name",
+      "help": "Name of the active solidary consumer member introducing and validating the farm inside the network."
+    },
+    "public_connected_activities": {
+      "block": "solidarity_engagement",
+      "type": "array",
+      "control": "checkbox",
+      "items": "string",
+      "label": "Public Connected Multi-functional Activities Managed",
+      "help": "Check secondary services hosted on site (e.g., Educational farm tasks, Social Agritourism)."
+    },
+    "ideal_gas_visit_period": {
+      "block": "solidarity_engagement",
+      "type": "string",
+      "control": "text",
+      "fallback": "",
+      "label": "Optimal Period for Peer PGS Inspection Visits",
+      "help": "Best calendar window for execution of group field audit sessions (e.g., Spring harvest, May)."
+    },
+    "active_or_past_gas_network_collaborations": {
+      "block": "solidarity_engagement",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Historical GAS Solidary Network Cooperation Record",
+      "help": "Detail older or current common projects, group buying agreements, or co-investment tasks."
+    },
+    "ethical_social_practices_territorial_impact": {
+      "block": "solidarity_engagement",
+      "type": "bool",
+      "mapping": { "yes": 1, "no": 0 },
+      "fallback": 0,
+      "label": "Explicit Territorial Social and Ethical Practices Policy",
+      "help": "Check if running clear procedures targeting community aid, insertion tracks, or open hosting."
+    },
+    "ethical_practices_specific_types": {
+      "block": "solidarity_engagement",
+      "type": "array",
+      "control": "checkbox",
+      "items": "string",
+      "label": "Ethical and Proactive Social Framework Practices Type",
+      "help": "Select areas of direct localized non-profit or inclusion commitment."
+    },
+    "commitment_gas_charter_of_intents_coherence": {
+      "block": "commitments_signoff",
+      "type": "bool",
+      "mapping": { "yes": 1, "no": 0 },
+      "required": true,
+      "validation": "must_accept",
+      "label": "Coherence Pledge with GAS Charter of Intents Values",
+      "help": "Binding strategic alignment confirming adherence to global economy of solidarity definitions."
+    },
+    "commitment_allow_gas_inspection_visits": {
+      "block": "commitments_signoff",
+      "type": "bool",
+      "mapping": { "yes": 1, "no": 0 },
+      "required": true,
+      "validation": "must_accept",
+      "label": "Open Gate Peer-Led Visit Audit Consent Agreement",
+      "help": "Binding agreement allowing unannounced check-ins from consumers and peer producers."
+    },
+    "commitment_regular_updates_certs_price_lists": {
+      "block": "commitments_signoff",
+      "type": "bool",
+      "mapping": { "yes": 1, "no": 0 },
+      "required": true,
+      "validation": "must_accept",
+      "label": "Price List Transparency and Documents Update Promise",
+      "help": "Mandatory promise to upload fresh certifications, laboratory screens, and wholesale price balances immediately."
+    },
+    "commitment_personal_data_processing_authorization": {
+      "block": "commitments_signoff",
+      "type": "bool",
+      "mapping": { "yes": 1, "no": 0 },
+      "required": true,
+      "validation": "must_accept",
+      "label": "Data Processing and Open Web Registry Disclosure Authorization",
+      "help": "Mandatory privacy consent enabling public hosting of farm sheets on network server maps."
+    }
   },
   "pgs_workflow_stages": {
     "stages": {
-      "producer_self_assessment": { "order": 1, "requires_fields": ["labor_self_certification_compliance_statement", "soil_fertility_management_manure_type_source"] },
-      "gas_peer_visit_verification": { "order": 2, "mandatory": true, "requires_verification_of": ["weed_control_methodology", "pollution_sources_proximity_risk"] },
-      "network_approval_deliberation": { "order": 3, "consensus_required": "majority_vote" }
+      "producer_self_assessment": {
+        "order": 1,
+        "requires_fields": ["labor_self_certification_compliance_statement", "soil_fertility_management_manure_type_source"]
+      },
+      "gas_peer_visit_verification": {
+        "order": 2,
+        "mandatory": true,
+        "requires_verification_of": ["weed_control_methodology", "pollution_sources_proximity_risk"]
+      },
+      "network_approval_deliberation": {
+        "order": 3,
+        "consensus_required": "majority_vote"
+      }
     }
   }
 }
