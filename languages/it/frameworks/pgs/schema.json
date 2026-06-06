@@ -1,26 +1,575 @@
 {
-  "domain": "wp-esg-qualitative-pgs",
-  "locale_data": {
-    "wp-esg-qualitative-pgs": {
-      "": {
-        "domain": "wp-esg-qualitative-pgs",
-        "lang": "it_IT",
-        "plural_forms": "nplurals=2; plural=(n != 1);"
+  "framework_id": "pgs_2026",
+  "system_type": "participatory_guarantee_system",
+  "version": "1.0.0",
+  "pgs_evaluation_criteria": {
+    "legal_form": {
+      "block": "general_information",
+      "type": "string",
+      "control": "text",
+      "required": true,
+      "label": "Forma Giuridica dell'Azienda",
+      "help": "Specificare la forma giuridica ufficiale registrata (es. Ditta Individuale, Società Semplice Agricola, Cooperativa)."
+    },
+    "geographic_location": {
+      "block": "general_information",
+      "type": "enum",
+      "choices": ["PLAIN", "HILL", "MOUNTAIN"],
+      "required": true,
+      "label": "Collocazione Geografica",
+      "help": "Selezionare la classificazione geografica prevalente dei terreni produttivi dell'azienda."
+    },
+    "altitude_meters": {
+      "block": "general_information",
+      "type": "int",
+      "fallback": 0,
+      "label": "Altitudine (Metri sopra il livello del mare)",
+      "help": "Altitudine media dei terreni coltivati dall'azienda agricola."
+    },
+    "activity_start_year": {
+      "block": "general_information",
+      "type": "int",
+      "required": true,
+      "label": "Anno di Inizio Attività",
+      "help": "L'anno esatto in cui sono iniziate le operazioni agricole o di trasformazione sotto questa gestione."
+    },
+    "has_on_site_farm_shop": {
+      "block": "general_information",
+      "type": "bool",
+      "mapping": { "yes": 1, "no": 0 },
+      "fallback": 0,
+      "label": "Presenza di uno Spaccio Aziendale in Sede",
+      "help": "Confermare se esiste un punto vendita fisico permanente all'interno dei locali dell'azienda."
+    },
+    "land_tenure_type": {
+      "block": "general_information",
+      "type": "enum",
+      "choices": ["OWNERSHIP", "RENT", "LOAN_FOR_USE", "OTHER"],
+      "required": true,
+      "label": "Titolo di Possesso della Terra",
+      "help": "Inquadramento giuridico principale che regola il diritto d'uso dei terreni agricoli (es. Proprietà, Affitto, Comodato d'uso)."
+    },
+    "economic_sustenance_level": {
+      "block": "general_information",
+      "type": "enum",
+      "choices": ["PRIMARY", "SECONDARY_PART_TIME"],
+      "required": true,
+      "label": "Livello di Sostentamento Economico",
+      "help": "Indicare se l'attività agricola rappresenta la fonte di reddito primaria o un'occupazione secondaria / part-time."
+    },
+    "total_land_surface_sqm_or_ha": {
+      "block": "company_structure",
+      "type": "string",
+      "control": "text",
+      "required": true,
+      "label": "Superficie Totale Aziendale",
+      "help": "Specificare l'estensione complessiva indicando chiaramente l'unità di misura (es. 5 Ettari, 2500 Mq)."
+    },
+    "cultivated_surface_hectares": {
+      "block": "company_structure",
+      "type": "float",
+      "fallback": 0.0,
+      "label": "Superficie Coltivata (Ettari)",
+      "help": "Quota netta di terreno attivamente dedicata a colture in corso, rotazioni o frutteti."
+    },
+    "greenhouse_surface_sqm": {
+      "block": "company_structure",
+      "type": "float",
+      "fallback": 0.0,
+      "label": "Superficie in Serra (Mq)",
+      "help": "Superficie totale protetta sotto serre stabili, tunnel stagionali o coperture rimosse periodicamente."
+    },
+    "main_machinery_equipment": {
+      "block": "company_structure",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Macchinari e Attrezzature Principali",
+      "help": "Elencare i veicoli, trattori, attrezzi meccanici o linee industriali di trasformazione posseduti o condivisi."
+    },
+    "hr_family_workers_count": {
+      "block": "company_structure",
+      "type": "int",
+      "fallback": 0,
+      "label": "Collaboratori Familiari (Coadiuvanti)",
+      "help": "Numero di parenti attivi nei lavori agricoli senza un contratto standard di lavoro dipendente."
+    },
+    "hr_permanent_workers_count": {
+      "block": "company_structure",
+      "type": "int",
+      "fallback": 0,
+      "label": "Lavoratori a Tempo Indeterminato",
+      "help": "Numero di dipendenti esterni assunti con contratti di lavoro stabili a tempo indeterminato."
+    },
+    "hr_seasonal_workers_count": {
+      "block": "company_structure",
+      "type": "int",
+      "fallback": 0,
+      "label": "Lavoratori Stagionali (Avventizi)",
+      "help": "Numero di persone assunte temporaneamente durante i picchi di raccolta delle colture."
+    },
+    "seasonal_employment_months_details": {
+      "block": "company_structure",
+      "type": "string",
+      "control": "text",
+      "fallback": "",
+      "label": "Dettaglio Mesi di Lavoro Stagionale",
+      "help": "Specificare in quali mesi dell'anno si attiva la forza lavoro stagionale (es. Giugno-Agosto)."
+    },
+    "hr_agency_or_external_coop_workers_count": {
+      "block": "company_structure",
+      "type": "int",
+      "fallback": 0,
+      "label": "Lavoratori Interinali o da Cooperative Esterne",
+      "help": "Numero di addetti forniti tramite agenzie di somministrazione o cooperative esterne di servizi agricoli."
+    },
+    "applied_labor_contracts_type": {
+      "block": "company_structure",
+      "type": "string",
+      "control": "text",
+      "required": true,
+      "label": "Contratto Collettivo di Lavoro Applicato",
+      "help": "Specificare il CCNL di riferimento applicato ai dipendenti (es. CCNL Agricoltura e Operai Florovivaisti)."
+    },
+    "workers_living_on_site_count": {
+      "block": "company_structure",
+      "type": "int",
+      "fallback": 0,
+      "label": "Lavoratori Alloggiati in Azienda",
+      "help": "Numero di dipendenti o stagionali che beneficiano di alloggi messi a disposizione nelle strutture aziendali."
+    },
+    "is_social_cooperative": {
+      "block": "company_structure",
+      "type": "bool",
+      "mapping": { "yes": 1, "no": 0 },
+      "fallback": 0,
+      "label": "Status di Cooperativa Sociale",
+      "help": "Selezionare Sì se l'ente è registrato formalmente come cooperativa sociale (es. ai sensi della Legge 381/91)."
+    },
+    "social_coop_total_member_workers": {
+      "block": "company_structure",
+      "type": "int",
+      "fallback": 0,
+      "label": "Soci Lavoratori Totali della Cooperativa",
+      "help": "Numero complessivo di soci cooperatori attivi nell'organico lavorativo dell'ente."
+    },
+    "social_coop_disadvantaged_workers_l381": {
+      "block": "company_structure",
+      "type": "int",
+      "fallback": 0,
+      "label": "Lavoratori Svantaggiati Inseriti (L.381)",
+      "help": "Numero di lavoratori svantaggiati integrati nei cicli produttivi ai sensi delle tutele sociali della legge 381."
+    },
+    "social_coop_total_employees": {
+      "block": "company_structure",
+      "type": "int",
+      "fallback": 0,
+      "label": "Dipendenti Totali a Libro Paga della Cooperativa",
+      "help": "Massa complessiva del personale dipendente operante sui libri contabili della cooperativa."
+    },
+    "labor_self_certification_compliance_statement": {
+      "block": "company_structure",
+      "type": "bool",
+      "mapping": { "yes": 1, "no": 0 },
+      "required": true,
+      "validation": "must_accept",
+      "label": "Autocertificazione di Conformità e Regolarità del Lavoro",
+      "help": "Dichiarazione formale obbligatoria che attesta il pieno rispetto delle leggi sul lavoro, della sicurezza e delle retribuzioni etiche."
+    },
+    "prevalent_production_method": {
+      "block": "production_methods",
+      "type": "enum",
+      "choices": ["CERTIFIED_ORGANIC", "BIODYNAMIC", "IN_CONVERSION", "INTEGRATED", "CONVENTIONAL"],
+      "required": true,
+      "label": "Metodo di Produzione Prevalente",
+      "help": "Modello agronomico guida applicato sistematicamente sui terreni aziendali."
+    },
+    "has_official_organic_certification": {
+      "block": "production_methods",
+      "type": "bool",
+      "mapping": { "yes": 1, "no": 0 },
+      "fallback": 0,
+      "label": "Certificazione Biologica Ufficiale (Terzo Grado)",
+      "help": "Confermare se l'azienda possiede la certificazione biologica formale rilasciata ai sensi dei regolamenti europei."
+    },
+    "organic_certification_body_name": {
+      "block": "production_methods",
+      "type": "string",
+      "control": "text",
+      "fallback": "",
+      "label": "Nome dell'Organismo di Certificazione Bio",
+      "help": "Specificare l'ente terzo accreditato che esegue i controlli (es. ICEA, CCPB, Bioagricert, Valoritalia)."
+    },
+    "organic_operator_code": {
+      "block": "production_methods",
+      "type": "string",
+      "control": "text",
+      "fallback": "",
+      "label": "Codice Operatore Biologico Ufficiale",
+      "help": "Il codice alfanumerico univoco di registrazione nazionale/regionale assegnato dall'organismo di controllo."
+    },
+    "organic_first_certification_year": {
+      "block": "production_methods",
+      "type": "int",
+      "fallback": 0,
+      "label": "Anno di Prima Certificazione Biologica",
+      "help": "L'anno solare in cui l'azienda ha completato con successo il suo primo ciclo di conversione al bio."
+    },
+    "organic_last_inspection_date": {
+      "block": "production_methods",
+      "type": "string",
+      "control": "text",
+      "fallback": "",
+      "label": "Data dell'Ultima Ispezione Bio Ricevuta",
+      "help": "Registrare la data dell'ultimo audit ispettivo sul campo effettuato dall'ente certificatore."
+    },
+    "previous_certification_bodies_change_reasons": {
+      "block": "production_methods",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Motivazioni Cambio Organismo di Controllo",
+      "help": "Dettagliare i motivi storici che hanno spinto l'azienda a cambiare ente di certificazione, se applicabile."
+    },
+    "non_certified_organic_rules_compliance_details": {
+      "block": "production_methods",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Dettagli Pratiche di Biologico Non Certificato",
+      "help": "Se l'azienda pratica il bio senza logo formale, descrivere le routine che assicurano il rispetto del disciplinare agroecologico."
+    },
+    "organic_choice_motivation_lacking_logo_reasons": {
+      "block": "production_methods",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Motivazioni Scelta Bio e Mancanza del Logo Ufficiale",
+      "help": "Spiegare i valori etici alla base della scelta pulita e i motivi del rifiuto dei canali di certificazione statale."
+    },
+    "conventional_integrated_chemical_inputs_log": {
+      "block": "production_methods",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Registro Input Chimici (Lotta Integrata / Convenzionale)",
+      "help": "Se si pratica la lotta integrata o convenzionale, elencare i trattamenti di sintesi, i pesticidi o i concimi chimici usati."
+    },
+    "production_method_ideal_motivation_gmo_opinion": {
+      "block": "production_methods",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Motivazioni Agroecologiche e Posizione Anti-OGM",
+      "help": "Argomentare la visione a supporto della gestione biologica della terra e la politica esplicita di totale rifiuto dei vettori OGM."
+    },
+    "performs_periodic_chemical_analyses": {
+      "block": "production_methods",
+      "type": "bool",
+      "mapping": { "yes": 1, "no": 0 },
+      "fallback": 0,
+      "label": "Esecuzione Analisi Chimiche Periodiche (Terreno / Acqua)",
+      "help": "Confermare se vengono eseguiti screening di laboratorio periodici per escludere metalli pesanti o residui di pesticidi."
+    },
+    "last_chemical_analysis_date": {
+      "block": "production_methods",
+      "type": "string",
+      "control": "text",
+      "fallback": "",
+      "label": "Data dell'Ultima Analisi Chimica Effettuata",
+      "help": "Riportare la data di calendario dell'ultimo rapporto di analisi multiresiduale di laboratorio."
+    },
+    "irrigation_water_source": {
+      "block": "agronomic_practices",
+      "type": "string",
+      "control": "text",
+      "required": true,
+      "label": "Fonte dell'Acqua di Irrigazione",
+      "help": "Identificare i canali di approvvigionamento idrico (es. Pozzo privato, Canale del Consorzio di Bonifica, Raccolta piovana)."
+    },
+    "soil_fertility_management_manure_type_source": {
+      "block": "agronomic_practices",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Gestione della Fertilità e Provenienza del Letame",
+      "help": "Dettagliare gli input usati per nutrire la terra (es. autocompostaggio, letame da allevamenti bovini locali non intensivi)."
+    },
+    "manure_fertilizer_quantity_per_hectare_crops": {
+      "block": "agronomic_practices",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Quantità di Fertilizzante Distribuita per Coltura",
+      "help": "Quantificare i volumi medi distribuiti (es. Quintali per ettaro divisi tra pieno campo e colture protette)."
+    },
+    "weed_control_methodology": {
+      "block": "agronomic_practices",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Metodologia di Controllo delle Erbe Infestanti (Diserbo)",
+      "help": "Descrivere le tecniche meccaniche e fisiche applicate (es. sarchiatura meccanica, scerbatura manuale, pacciamatura, solarizzazione)."
+    },
+    "pest_insect_disease_control_methodology": {
+      "block": "agronomic_practices",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Protocolli di Difesa delle Colture e Fitopatologie",
+      "help": "Dettagliare i trattamenti ammessi usati per la difesa (es. rame, zolfo, lancio di insetti utili, macerati autoprodotti)."
+    },
+    "seeds_seedlings_origin_and_nature": {
+      "block": "agronomic_practices",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Origine e Natura di Sementi e Piantine",
+      "help": "Identificare la provenienza dei materiali di propagazione (es. vivaio bio locale, scambio di sementi antiche autoprodotte)."
+    },
+    "pollution_sources_proximity_risk": {
+      "block": "agronomic_practices",
+      "type": "array",
+      "control": "checkbox",
+      "items": "string",
+      "label": "Fattori di Rischio Inquinamento da Fonti di Prossimità",
+      "help": "Selezionare eventuali minacce ambientali attive nei pressi dei confini aziendali."
+    },
+    "pollution_source_distance_km_details": {
+      "block": "agronomic_practices",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Distanza dalle Fonti e Barriere di Contenimento",
+      "help": "Specificare le distanze in chilometri ed eventuali barriere fisiche realizzate (es. siepi protettive spesse anti-deriva)."
+    },
+    "neighboring_farms_production_method": {
+      "block": "agronomic_practices",
+      "type": "string",
+      "control": "text",
+      "fallback": "",
+      "label": "Modelli Produttivi delle Aziende Agricole Confinanti",
+      "help": "Annotare i metodi usati dai vicini per valutare rischi di deriva chimica (es. frutteti convenzionali con trattamenti atomizzati)."
+    },
+    "environmental_sustainability_energy_saving_features": {
+      "block": "agronomic_practices",
+      "type": "array",
+      "control": "checkbox",
+      "items": "string",
+      "label": "Sistemi di Sostenibilità ed Efficientamento Energetico Applicati",
+      "help": "Selezionare gli elementi ecologici attivi inseriti nel ciclo operativo aziendale."
+    },
+    "offered_products_macro_categories": {
+      "block": "catalog_economics",
+      "type": "array",
+      "control": "checkbox",
+      "items": "string",
+      "label": "Macro-Categorie dei Prodotti in Catalogo",
+      "help": "Selezionare le tipologie di beni regolarmente presenti nei listini di vendita aziendali."
+    },
+    "transformation_entirely_in_house": {
+      "block": "catalog_economics",
+      "type": "bool",
+      "mapping": { "yes": 1, "no": 0 },
+      "fallback": 0,
+      "label": "Trasformazione Prodotti Interamente Interna (In-House)",
+      "help": "Confermare se le lavorazioni o i confezionamenti avvengono interamente nei laboratori certificati interni all'azienda."
+    },
+    "third_party_processing_company_location_details": {
+      "block": "catalog_economics",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Dettagli Conto Terzisti per la Trasformazione",
+      "help": "Se la trasformazione è esternalizzata, specificare il nome del laboratorio partner, la sede e le credenziali bio."
+    },
+    "commercializes_third_party_products": {
+      "block": "catalog_economics",
+      "type": "bool",
+      "mapping": { "yes": 1, "no": 0 },
+      "fallback": 0,
+      "label": "Commercializzazione di Prodotti di Terzi (Conto Commerciale)",
+      "help": "Confermare se nei listini vengono inseriti prodotti acquistati da altre aziende agricole per completare la gamma di vendita."
+    },
+    "third_party_products_revenue_percentage": {
+      "block": "catalog_economics",
+      "type": "float",
+      "fallback": 0.0,
+      "label": "Incidenza Percentuale Fatturato da Prodotti di Terzi",
+      "help": "Il peso percentuale dei ricavi derivanti dalla rivendita di merci terze rispetto al fatturato agricolo globale."
+    },
+    "active_sales_channels": {
+      "block": "catalog_economics",
+      "type": "array",
+      "control": "checkbox",
+      "items": "string",
+      "label": "Canali di Vendita e Distribuzione Attivi",
+      "help": "Selezionare i formati distributivi utilizzati per canalizzare i prodotti sul mercato."
+    },
+    "farmers_markets_details_and_frequency": {
+      "block": "catalog_economics",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Mercati Contadini Frequentati e Frequenza",
+      "help": "Elencare i mercati locali e contadini frequentati con regolarità (es. Mercato della Terra settimanale)."
+    },
+    "gas_delivery_mode": {
+      "block": "catalog_economics",
+      "type": "enum",
+      "choices": ["GAS_PICKUP", "PRODUCER_HOME_DELIVERY", "THIRD_PARTY_COURIER"],
+      "required": true,
+      "label": "Modalità di Consegna e Logistica per i GAS",
+      "help": "Nodo logistico principale usato per distribuire i furgoni o le cassette ordinate dai Gruppi di Acquisto Solidale."
+    },
+    "specific_delivery_conditions_minimum_order_costs": {
+      "block": "catalog_economics",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Condizioni di Consegna e Minimi d'Ordine",
+      "help": "Specificare vincoli o regole commerciali attive (es. ordine minimo di 150€ per spedizioni gratuite alla sede del GAS)."
+    },
+    "costs_transparency_and_transparent_price_agreement": {
+      "block": "catalog_economics",
+      "type": "bool",
+      "mapping": { "yes": 1, "no": 0 },
+      "fallback": 0,
+      "label": "Politica del Prezzo Trasparente (Patto del Prezzo)",
+      "help": "Confermare se l'azienda fornisce la scomposizione dei costi ai consumatori evidenziando i margini per lavoro, carburanti e fisco."
+    },
+    "fiscal_payment_mode": {
+      "block": "catalog_economics",
+      "type": "enum",
+      "choices": ["RECEIPT", "INVOICE", "SELF_INVOICE", "FEES_REPORT"],
+      "required": true,
+      "label": "Formato del Documento Fiscale Prevalente",
+      "help": "La tipologia di scontrino o fattura emessa di norma durante le operazioni di liquidazione degli ordini."
+    },
+    "indicative_turnover_current_year": {
+      "block": "catalog_economics",
+      "type": "string",
+      "control": "text",
+      "fallback": "",
+      "label": "Fatturato Indicativo Aziendale - Anno Corrente",
+      "help": "Scaglione di reddito lordo stimato basato sull'andamento della stagione commerciale in corso."
+    },
+    "indicative_turnover_previous_year": {
+      "block": "catalog_economics",
+      "type": "string",
+      "control": "text",
+      "fallback": "",
+      "label": "Fatturato Indicativo Aziendale - Anno Precedente",
+      "help": "Volume dei ricavi complessivi consolidato e chiuso al termine dell'esercizio fiscale precedente."
+    },
+    "indicative_turnover_year_minus_two": {
+      "block": "catalog_economics",
+      "type": "string",
+      "control": "text",
+      "fallback": "",
+      "label": "Fatturato Indicativo Aziendale - Due Anni Fa",
+      "help": "Riferimento storico dei ricavi lordi aziendali relativo al bilancio di due esercizi fa."
+    },
+    "gas_presenter_name": {
+      "block": "solidarity_engagement",
+      "type": "string",
+      "control": "text",
+      "required": true,
+      "label": "Nome del GAS Referente / Presentatore",
+      "help": "Il nome del consumatore attivo o del referente GAS che ha introdotto e validato l'azienda all'interno della rete."
+    },
+    "public_connected_activities": {
+      "block": "solidarity_engagement",
+      "type": "array",
+      "control": "checkbox",
+      "items": "string",
+      "label": "Attività Multifunzionali e Connesse Gestite",
+      "help": "Selezionare i servizi secondari ospitati in fattoria (es. Fattoria didattica, Agricoltura sociale, Agriturismo)."
+    },
+    "ideal_gas_visit_period": {
+      "block": "solidarity_engagement",
+      "type": "string",
+      "control": "text",
+      "fallback": "",
+      "label": "Periodo Ottimale per le Visite dei Pari PGS",
+      "help": "La finestra di mesi ottimale per l'esecuzione dei sopralluoghi collettivi di verifica sul campo (es. Maggio)."
+    },
+    "active_or_past_gas_network_collaborations": {
+      "block": "solidarity_engagement",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Storico delle Collaborazioni con la Rete dei GAS",
+      "help": "Dettagliare progetti passati o in corso, patti di fida, prefinanziamenti o giornate di lavoro condiviso con i nodi GAS."
+    },
+    "ethical_social_practices_territorial_impact": {
+      "block": "solidarity_engagement",
+      "type": "bool",
+      "mapping": { "yes": 1, "no": 0 },
+      "fallback": 0,
+      "label": "Pratiche Etiche e Sociali con Impatto sul Territorio",
+      "help": "Confermare se si attuano procedure formali o informali di mutuo aiuto, inserimento lavorativo o accoglienza nella comunità."
+    },
+    "ethical_practices_specific_types": {
+      "block": "solidarity_engagement",
+      "type": "array",
+      "control": "checkbox",
+      "items": "string",
+      "label": "Tipologia delle Pratiche Sociali Attuate",
+      "help": "Selezionare i macro-ambiti di impegno sociale e di solidarietà territoriale praticati attivamente."
+    },
+    "commitment_gas_charter_of_intents_coherence": {
+      "block": "commitments_signoff",
+      "type": "bool",
+      "mapping": { "yes": 1, "no": 0 },
+      "required": true,
+      "validation": "must_accept",
+      "label": "Impegno di Coerenza con i Valori del Documento di Intenti dei GAS",
+      "help": "Sottoscrizione strategica vincolante che attesta la piena adesione ai manifesti dell'economia solidale di rete."
+    },
+    "commitment_allow_gas_inspection_visits": {
+      "block": "commitments_signoff",
+      "type": "bool",
+      "mapping": { "yes": 1, "no": 0 },
+      "required": true,
+      "validation": "must_accept",
+      "label": "Consenso ai Sopralluoghi e alle Visite di Verifica dei Pari",
+      "help": "Patto obbligatorio che autorizza l'accesso e l'ispezione partecipata dei terreni da parte di consumatori e altri produttori."
+    },
+    "commitment_regular_updates_certs_price_lists": {
+      "block": "commitments_signoff",
+      "type": "bool",
+      "mapping": { "yes": 1, "no": 0 },
+      "required": true,
+      "validation": "must_accept",
+      "label": "Promessa di Aggiornamento dei Listini e delle Certificazioni",
+      "help": "Impegno formale a caricare tempestivamente nel sistema le analisi chimiche, i certificati bio aggiornati e i prezzi correnti."
+    },
+    "commitment_personal_data_processing_authorization": {
+      "block": "commitments_signoff",
+      "type": "bool",
+      "mapping": { "yes": 1, "no": 0 },
+      "required": true,
+      "validation": "must_accept",
+      "label": "Autorizzazione al Trattamento Dati e Pubblicazione nella Rete",
+      "help": "Consenso obbligatorio alla privacy per abilitare la visualizzazione pubblica della scheda aziendale sulle mappe del server."
+    }
+  },
+  "pgs_workflow_stages": {
+    "stages": {
+      "producer_self_assessment": {
+        "order": 1,
+        "requires_fields": ["labor_self_certification_compliance_statement", "soil_fertility_management_manure_type_source"]
       },
-      "pgs_ch1_title": ["1. ADESIONE E PATTO DI FIDUCIA"],
-      "pgs_ch1_abstract": ["Questo blocco valuta il livello di coinvolgimento formale dell'organizzazione all'interno dei Sistemi di Garanzia Partecipata. Misura l'allineamento dei valori aziendali con i patti di fiducia locali e i criteri di trasparenza condivisi all'interno del distretto di rete."],
-      
-      "pgs_ch1_sub1_title": ["Sottoscrizione e impegni di rete"],
-      "pgs_01": ["Sottoscrizione formale del Patto di Fiducia e Garanzia Partecipata della Rete locale"],
-      "pgs_02": ["Frequenza di partecipazione attiva alle assemblee di distretto e ai nodi di interscambio"],
-
-      "pgs_ch2_title": ["2. VALIDAZIONE PARTECIPATA (PEER REVIEW)"],
-      "pgs_ch2_abstract": ["La valutazione tra pari è il cuore del modulo PGS. In questa sezione si tracciano le visite incrociate effettuate e ricevute, mirate a verificare sul campo l'applicazione reale dei criteri dell'Economia Sociale e Solidale."],
-      
-      "pgs_ch2_sub1_title": ["Visite incrociate e Mutualità"],
-      "pgs_03": ["Coinvolgimento in visite di verifica incrociata (Peer Review) presso altre aziende della rete"],
-      "pgs_04": ["Adesione a progetti di mutualità interna e fondi di solidarietà condivisi tra i nodi"],
-      "pgs_05": ["Risoluzione partecipata dei conflitti tramite i comitati etici o collegi di garanzia locali"]
+      "gas_peer_visit_verification": {
+        "order": 2,
+        "mandatory": true,
+        "requires_verification_of": ["weed_control_methodology", "pollution_sources_proximity_risk"]
+      },
+      "network_approval_deliberation": {
+        "order": 3,
+        "consensus_required": "majority_vote"
+      }
     }
   }
 }
