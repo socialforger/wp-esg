@@ -1,0 +1,288 @@
+{
+  "product_id": "cheese",
+  "title": "Cheese",
+  "category_scope": "food_and_agrifood",
+  "version": "1.0.0",
+  "product_evaluation_criteria": {
+    "cheese_varieties_types": {
+      "block": "product_specifications",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Cheese Varieties and Types Produced",
+      "help": "List all cheese varieties and types produced (e.g., fresh, aged, semi-hard, blue cheese)."
+    },
+    "annual_production_quantity": {
+      "block": "product_specifications",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Annual Production Quantity",
+      "help": "Specify the quantity produced per year. If multiple types are produced, indicate quantities per type."
+    },
+    "flagship_cheese": {
+      "block": "product_specifications",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Flagship Cheese",
+      "help": "Indicate the cheese that best represents the identity of your farm or production."
+    },
+    "product_characteristics": {
+      "block": "product_specifications",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Product Characteristics",
+      "help": "Indicate any special characteristics: organic, biodynamic (with or without certification), or other notable features."
+    },
+    "herd_size_and_breed": {
+      "block": "livestock",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Herd Size and Breed",
+      "help": "Indicate the number of animals and the breed(s) involved in milk production."
+    },
+    "adult_animal_feed": {
+      "block": "livestock",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Adult Animal Feed",
+      "help": "Describe the feed provided to adult animals (type, origin, percentage of own-produced vs. purchased feed)."
+    },
+    "young_animal_feed": {
+      "block": "livestock",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Young Animal Feed",
+      "help": "Describe the feed provided to young animals (calves, kids, lambs)."
+    },
+    "farming_system": {
+      "block": "livestock",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Farming System",
+      "help": "Specify the farming system used (e.g., tethered, free-range, semi-free-range)."
+    },
+    "dry_period": {
+      "block": "livestock",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Dry Period",
+      "help": "Indicate the dry period duration and management practices."
+    },
+    "barn_size_and_type": {
+      "block": "livestock",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Barn Size and Type",
+      "help": "Describe the size and type of barn or housing facility used."
+    },
+    "fixed_housing": {
+      "block": "livestock",
+      "type": "radio",
+      "control": "radio",
+      "required": true,
+      "label": "Fixed Housing (Tie-Stall System)",
+      "help": "Indicate whether animals are kept in fixed tie-stall housing (Yes/No)."
+    },
+    "daily_grazing": {
+      "block": "livestock",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Daily Grazing or Other Outdoor Access",
+      "help": "Describe grazing practices or any other form of daily outdoor access for animals."
+    },
+    "disease_management": {
+      "block": "animal_health",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Disease Management",
+      "help": "Describe the approach to disease treatment (e.g., conventional pharmacology, homeopathy, other)."
+    },
+    "veterinary_advisory": {
+      "block": "animal_health",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Veterinary Advisory",
+      "help": "Indicate whether a veterinarian is consulted regularly and in what capacity."
+    },
+    "vaccinations": {
+      "block": "animal_health",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Vaccinations",
+      "help": "Indicate whether vaccinations are administered (Yes/No) and specify which ones."
+    },
+    "milking_method": {
+      "block": "milk_production",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Milking Method",
+      "help": "Describe the milking method used (e.g., hand milking, mechanical milking, robotic milking)."
+    },
+    "milk_production_volume": {
+      "block": "milk_production",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Milk Production Volume",
+      "help": "Indicate daily or annual milk production volume."
+    },
+    "external_milk_purchase": {
+      "block": "milk_production",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "External Milk Purchase",
+      "help": "Indicate whether milk is purchased from external sources, and if so, specify quantity, origin, and supplier."
+    },
+    "coagulation_method": {
+      "block": "processing",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Coagulation Method",
+      "help": "Describe the coagulation method used (e.g., animal rennet, vegetable rennet, microbial rennet, acid coagulation)."
+    },
+    "starter_culture_type": {
+      "block": "processing",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Starter Culture Type",
+      "help": "Specify the type of whey or starter culture used (e.g., natural whey starter, commercial cultures)."
+    },
+    "ripening": {
+      "block": "processing",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Ripening",
+      "help": "Describe the ripening process, including duration and conditions."
+    },
+    "affinage_methods_and_locations": {
+      "block": "processing",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Affinage Methods and Locations",
+      "help": "Describe the aging/affinage methods and the locations where aging takes place."
+    },
+    "preservatives_additives": {
+      "block": "processing",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Preservatives and Additives",
+      "help": "Specify any preservatives or additives used, including type, quantity, and origin."
+    },
+    "moulds_yeasts": {
+      "block": "processing",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Moulds and Yeasts",
+      "help": "Specify any moulds or yeasts used, including type, quantity, and origin."
+    },
+    "distance_production_to_storage": {
+      "block": "logistics",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Distance from Production to Storage Site",
+      "help": "Indicate the distance between the production site and the storage or aging facility."
+    },
+    "packaging_location_and_method": {
+      "block": "logistics",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Packaging Location and Method",
+      "help": "Describe where and how the cheese is packaged."
+    },
+    "available_packaging_types": {
+      "block": "logistics",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Available Packaging Types",
+      "help": "List the packaging formats available (e.g., vacuum-sealed, wax-wrapped, whole wheel)."
+    },
+    "sales_channels": {
+      "block": "sales_and_pricing",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Sales Channels",
+      "help": "Describe where and how the cheese is sold (e.g., on-farm, local shops, supermarkets, online)."
+    },
+    "source_price_per_kg": {
+      "block": "sales_and_pricing",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Source Price per kg",
+      "help": "Indicate the source price per kg. Specify whether the price includes or excludes VAT."
+    },
+    "average_package_price": {
+      "block": "sales_and_pricing",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Average Package Price",
+      "help": "Indicate the average retail price per package."
+    },
+    "shipping_costs": {
+      "block": "sales_and_pricing",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Shipping Costs",
+      "help": "Specify shipping costs if applicable."
+    },
+    "environmental_conditions": {
+      "block": "quality_and_certifications",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Environmental Conditions at Production Site",
+      "help": "Describe the environmental conditions of the production area, including any known environmental risks."
+    },
+    "laboratory_analysis": {
+      "block": "quality_and_certifications",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Laboratory Analysis",
+      "help": "Indicate whether laboratory analyses are carried out and by which laboratory."
+    },
+    "certification_bodies": {
+      "block": "quality_and_certifications",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Certification Bodies",
+      "help": "Specify any certification bodies involved (e.g., organic, PDO, PGI, biodynamic)."
+    },
+    "other_notes": {
+      "block": "quality_and_certifications",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Other Notes",
+      "help": "Any additional information relevant to the product or production process."
+    }
+  }
+}
