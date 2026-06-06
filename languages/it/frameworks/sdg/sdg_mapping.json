@@ -1,0 +1,90 @@
+{
+  "framework_id": "sdg_global_v1",
+  "mappings": {
+    "sdg1": {
+      "name": "Sconfiggere la Povertà",
+      "icon_key": "sdg01_it",
+      "indicators": ["ind114", "ind168", "ind256"]
+    },
+    "sdg2": {
+      "name": "Sconfiggere la Fame",
+      "icon_key": "sdg02_it",
+      "indicators": ["ind69"]
+    },
+    "sdg3": {
+      "name": "Salute e Benessere",
+      "icon_key": "sdg03_it",
+      "indicators": ["ind77", "ind105"]
+    },
+    "sdg4": {
+      "name": "Istruzione di Qualità",
+      "icon_key": "sdg04_it",
+      "indicators": ["ind104", "inter276"]
+    },
+    "sdg5": {
+      "name": "Parità di Genere",
+      "icon_key": "sdg05_it",
+      "indicators": ["ind10", "ind12", "ind20", "ind23", "ind26", "ind97", "ind261", "ind262", "ind272"]
+    },
+    "sdg6": {
+      "name": "Acqua Pulita e Servizi Igienico-Sanitari",
+      "icon_key": "sdg06_it",
+      "indicators": ["ind61"]
+    },
+    "sdg7": {
+      "name": "Energia Pulita e Accessibile",
+      "icon_key": "sdg07_it",
+      "indicators": ["ind60", "ind62"]
+    },
+    "sdg8": {
+      "name": "Lavoro Dignitoso e Crescita Economica",
+      "icon_key": "sdg08_it",
+      "indicators": ["ind4", "ind114", "ind114_men", "ind114_women", "ind168", "ind58", "ind77", "ind78", "ind80", "ind104", "ind105", "ind273", "ind274"]
+    },
+    "sdg9": {
+      "name": "Imprese, Innovazione e Infrastrutture",
+      "icon_key": "sdg09_it",
+      "indicators": ["ind264", "ind74", "ind75"]
+    },
+    "sdg10": {
+      "name": "Ridurre le Disuguaglianze",
+      "icon_key": "sdg10_it",
+      "indicators": ["ind26", "ind27", "ind190", "ind322", "ind329"]
+    },
+    "sdg11": {
+      "name": "Città e Comunità Sostenibili",
+      "icon_key": "sdg11_it",
+      "indicators": ["ind102", "ind264", "ind38"]
+    },
+    "sdg12": {
+      "name": "Consumo e Produzione Responsabili",
+      "icon_key": "sdg12_it",
+      "indicators": ["ind5", "ind63", "ind65", "ind69", "ind42", "ind72", "ind254", "ind256", "ind257", "ind258", "ind275", "ind276", "ind277", "ind278", "ind279", "ind280"]
+    },
+    "sdg13": {
+      "name": "Lotta Contro il Cambiamento Climatico",
+      "icon_key": "sdg13_it",
+      "indicators": ["ind59", "ind60", "ind61", "ind62", "ind106"]
+    },
+    "sdg14": {
+      "name": "Vita Sott'acqua",
+      "icon_key": "sdg14_it",
+      "indicators": ["ind59"]
+    },
+    "sdg15": {
+      "name": "Vita sulla Terra",
+      "icon_key": "sdg15_it",
+      "indicators": ["ind59", "ind63"]
+    },
+    "sdg16": {
+      "name": "Pace, Giustizia e Istituzioni Solide",
+      "icon_key": "sdg16_it",
+      "indicators": ["ind11", "ind13", "ind14", "ind24", "ind58", "ind85", "ind89", "ind152", "ind259", "ind260"]
+    },
+    "sdg17": {
+      "name": "Partnership per gli Obiettivi",
+      "icon_key": "sdg17_it",
+      "indicators": ["ind1", "ind2", "ind3", "ind38", "ind71", "ind74", "ind75", "ind103", "ind277", "ind278"]
+    }
+  }
+}
