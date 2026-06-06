@@ -309,3 +309,49 @@ msgstr "N/D"
 #: includes/Frontend/AssessmentShortcode.php:375
 msgid "Generate Questionnaires Index →"
 msgstr "Genera Indice Questionari →"
+
+#: includes/Frontend/AssessmentShortcode.php:475
+msgid "1. OpenESEA Core Framework"
+msgstr "1. Framework Core OpenESEA"
+
+#: includes/Frontend/AssessmentShortcode.php:481,493,505
+msgid "Compile Section →"
+msgstr "Compila Sezione →"
+
+#: includes/Frontend/AssessmentShortcode.php:518
+msgid "⚠️ Complete all modules to unlock final locking block execution."
+msgstr "⚠️ Completa tutti i moduli per sbloccare l'esecuzione del blocco di chiusura finale."
+
+#: includes/Frontend/AssessmentShortcode.php:623
+msgid "Network PGS Evaluation"
+msgstr "Valutazione PGS di Rete"
+
+#: includes/Frontend/AssessmentShortcode.php:682
+msgid "Vertical Product Self-Certifications"
+msgstr "Autocertificazioni Verticali di Prodotto"
+
+#: includes/Frontend/AssessmentShortcode.php (products_list)
+msgid "Back to Products List"
+msgstr "Torna all'Elenco Prodotti"
+
+msgid "Seleziona la scheda prodotto da compilare."
+msgstr "Seleziona la scheda prodotto da compilare."
+
+msgid "Nessuna scheda prodotto disponibile."
+msgstr "Nessuna scheda prodotto disponibile."
+
+msgid "Scheda Prodotto"
+msgstr "Scheda Prodotto"
+
+msgid "Da compilare"
+msgstr "Da compilare"
+
+msgid "Modifica →"
+msgstr "Modifica →"
+
+msgid "Compila →"
+msgstr "Compila →"
+
+#: includes/Frontend/AssessmentShortcode.php (screening)
+msgid "Product Sheets to Compile:"
+msgstr "Schede Prodotto da Compilare:"
