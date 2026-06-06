@@ -241,14 +241,15 @@ class AssessmentShortcode {
         ob_start();
         ?>
         <div class="esg-history-box" style="max-width: 700px; margin: 30px auto; padding: 30px; border: 1px solid #ccd0d4; background: #fff; border-radius: 6px; font-family: sans-serif;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom:1px solid #f0f0f1; padding-bottom:15px;">
-                <h2 style="margin:0; color:#1d2327;"><?php esc_html_e( 'Corporate ESG Reporting Archive', 'wp-esg' ); ?></h2>
-                <a href="<?php echo esc_url(add_query_arg('esg_step', 'screening', get_permalink())); ?>" class="button" style="background:#46b450; color:#fff; text-decoration:none; padding:10px 18px; font-weight:bold; border-radius:4px; font-size:14px;"><?php esc_html_e( '+ New Campaign Assessment', 'wp-esg' ); ?></a>
+            <div style="text-align:center; margin-bottom:30px; padding-bottom:25px; border-bottom:1px solid #f0f0f1;">
+                <a href="<?php echo esc_url(add_query_arg('esg_step', 'screening', get_permalink())); ?>" class="button" style="background:#46b450; color:#fff; text-decoration:none; padding:12px 28px; font-weight:bold; border-radius:4px; font-size:15px; display:inline-block;"><?php esc_html_e( '+ New Campaign Assessment', 'wp-esg' ); ?></a>
             </div>
+
+            <h2 style="margin:0 0 20px; color:#1d2327; font-size:18px;"><?php esc_html_e( 'ESG Assessment Campaign Archive', 'wp-esg' ); ?></h2>
 
             <?php if ( empty( $records ) ) : ?>
                 <div style="text-align:center; padding:30px; background:#f6f7f7; border-radius:4px; border:1px dashed #c3c4c7; color:#646970;">
-                    <?php esc_html_e( 'No historical assessments found. Click the button above to initialize your first framework.', 'wp-esg' ); ?>
+                    <?php esc_html_e( 'No previous assessments found. Click the button above to create your first ESG assessment.', 'wp-esg' ); ?>
                 </div>
             <?php else : ?>
                 <table style="width:100%; border-collapse:collapse; margin-top:10px; font-size:14px;">
