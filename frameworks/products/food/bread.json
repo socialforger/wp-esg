@@ -3,35 +3,149 @@
   "category_scope": "food_and_agrifood",
   "version": "1.0.0",
   "product_evaluation_criteria": {
-    
-    "/* --- 1. PRODUCT SPECIFICATIONS & VARIETIES --- */": {},
-    "bakery_products_names_types": { "type": "text", "required": true },
-    
-    "/* --- 2. FLOURS & INGREDIENTS SOURCING --- */": {},
-    "flours_used_types": { "type": "text", "required": true },
-    "flours_origin_own_or_third_party_location": { "type": "text", "required": true },
-    "flours_characteristics_agronomical_features": { "type": "text", "required": true },
-    "other_ingredients_names_origin": { "type": "text", "fallback": "" },
-    "raw_materials_storage_locations": { "type": "string", "fallback": "" },
-    
-    "/* --- 3. WATER & LEAVENING --- */": {},
-    "water_supply_source": { "type": "string", "required": true },
-    "water_quality_control_monitoring": { "type": "text", "fallback": "" },
-    "yeasts_used_types": { "type": "string", "required": true },
-    
-    "/* --- 4. ADDITIVES & PROCESSING --- */": {},
-    "additives_usage_log": { "type": "text", "fallback": "" },
-    "preservatives_usage_log": { "type": "text", "fallback": "" },
-    "flavorings_usage_log": { "type": "text", "fallback": "" },
-    "processing_and_transformation_methodology": { "type": "text", "required": true },
-    
-    "/* --- 5. BAKING & PACKAGING --- */": {},
-    "baking_oven_type_and_fuel": { "type": "string", "required": true },
-    "packaging_types_materials": { "type": "string", "fallback": "" },
-    "organoleptic_description_free_text": { "type": "text", "fallback": "" },
-    
-    "/* --- 6. SOURCE PRICING (PREZZO SORGENTE) --- */": {},
-    "source_price_per_kg_including_vat": { "type": "text", "required": true },
-    "additional_considerations_notes": { "type": "text", "fallback": "" }
+    "bakery_products_names_types": {
+      "block": "product_specifications",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Names and Types of Bakery Products",
+      "help": "List the names and types of bread and bakery items produced (e.g., Sourdough Whole Wheat Bread, Rye Bread)."
+    },
+    "flours_used_types": {
+      "block": "flours_ingredients",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Types of Flours Used",
+      "help": "Specify the types of flours used (e.g., Type 1 wheat flour, ancient grains, stone-ground spelt)."
+    },
+    "flours_origin_own_or_third_party_location": {
+      "block": "flours_ingredients",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Origin and Sourcing of Flours",
+      "help": "Indicate if the flour comes from your own grain crops or specify the name and location of the mill/third-party farm."
+    },
+    "flours_characteristics_agronomical_features": {
+      "block": "flours_ingredients",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Agronomical Characteristics of Flours",
+      "help": "Describe the agronomical features (e.g., certified organic grain, biodynamic methods, heritage open-pollinated seed varieties)."
+    },
+    "other_ingredients_names_origin": {
+      "block": "flours_ingredients",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Other Ingredients and Origin",
+      "help": "List any other ingredients used (oil, salt, seeds, dried fruits) and their geographical or ethical origin."
+    },
+    "raw_materials_storage_locations": {
+      "block": "flours_ingredients",
+      "type": "string",
+      "control": "text",
+      "fallback": "",
+      "label": "Raw Materials Storage Locations",
+      "help": "Specify where grains and flours are stored to ensure environmental and temperature controls."
+    },
+    "water_supply_source": {
+      "block": "water_leavening",
+      "type": "string",
+      "control": "text",
+      "required": true,
+      "label": "Water Supply Source",
+      "help": "Identify the source of the water used in dough preparation (e.g., public municipal aqueduct, private controlled well)."
+    },
+    "water_quality_control_monitoring": {
+      "block": "water_leavening",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Water Quality Control Monitoring",
+      "help": "Detail filtering systems or dates of periodic microbiological analysis conducted on the water supply."
+    },
+    "yeasts_used_types": {
+      "block": "water_leavening",
+      "type": "string",
+      "control": "text",
+      "required": true,
+      "label": "Types of Yeasts or Leavening Used",
+      "help": "Specify the leavening method (e.g., solid sourdough starter, liquid sourdough/li.co.li, organic brewer's yeast)."
+    },
+    "additives_usage_log": {
+      "block": "additives_processing",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Additives Usage Log",
+      "help": "Declare any acidity regulators, flour treatment agents, or enzymes added during production. Leave blank if none."
+    },
+    "preservatives_usage_log": {
+      "block": "additives_processing",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Preservatives Usage Log",
+      "help": "Log any anti-mold or chemical preservatives used to extend shelf-life. Leave blank if none."
+    },
+    "flavorings_usage_log": {
+      "block": "additives_processing",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Flavorings Usage Log",
+      "help": "Specify if natural or synthetic aroma chemical flavorings are inserted into the dough. Leave blank if none."
+    },
+    "processing_and_transformation_methodology": {
+      "block": "additives_processing",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Processing and Transformation Methodology",
+      "help": "Describe the kneading, rising times (hours and temperatures), and general artisan manufacturing process."
+    },
+    "baking_oven_type_and_fuel": {
+      "block": "baking_packaging",
+      "type": "string",
+      "control": "text",
+      "required": true,
+      "label": "Baking Oven Type and Fuel Sourcing",
+      "help": "Specify the technology and fuel used for baking (e.g., direct wood-fired oven with certified local timber, electric deck oven)."
+    },
+    "packaging_types_materials": {
+      "block": "baking_packaging",
+      "type": "string",
+      "control": "text",
+      "fallback": "",
+      "label": "Packaging Types and Materials",
+      "help": "Describe the wrapping format (e.g., unbleached recycled paper bags, PLA compostable bags, unpackaged/bulk)."
+    },
+    "organoleptic_description_free_text": {
+      "block": "baking_packaging",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Organoleptic Qualitative Description",
+      "help": "Provide notes about crust crispness, crumb structure, aroma profile, and typical optimal pairing suggestions."
+    },
+    "source_price_per_kg_including_vat": {
+      "block": "source_pricing",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Source Price Breakdown per KG (Including VAT)",
+      "help": "Detail the final transparent cost per KG to consumers, clarifying the raw material cost shares vs baking labor margins."
+    },
+    "additional_considerations_notes": {
+      "block": "source_pricing",
+      "type": "string",
+      "control": "textarea",
+      "fallback": "",
+      "label": "Additional Considerations and Notes",
+      "help": "Any miscellaneous specifications or solidarity logistics considerations regarding bakery order clearing."
+    }
   }
 }
