@@ -79,6 +79,8 @@ class AssessmentShortcode {
                 return $this->render_pgs_form();
             case 'products':
                 return $this->render_products_form();
+            case 'products_list':
+                return $this->render_products_list();
             case 'view_archive':
                 return $this->render_archive_detail(); 
             default:
@@ -325,11 +327,11 @@ class AssessmentShortcode {
                 <pre style="background:#f8f9fa; padding:10px; border-left:3px solid #2271b1; overflow-x:auto;"><?php print_r($payload['openesea_framework'] ?? []); ?></pre>
             </div>
             <div style="margin-bottom:25px;">
-                <h4 style="color:#2c3338;">2. Network PGS Evaluation</h4>
+                <h4 style="color:#2c3338;"><?php esc_html_e( '2. Network PGS Evaluation', 'wp-esg' ); ?></h4>
                 <pre style="background:#f8f9fa; padding:10px; border-left:3px solid #2c3338; overflow-x:auto;"><?php print_r($payload['pgs_framework'] ?? []); ?></pre>
             </div>
             <div style="margin-bottom:25px;">
-                <h4 style="color:#46b450;">3. Vertical Product Self-Certifications</h4>
+                <h4 style="color:#46b450;"><?php esc_html_e( '3. Vertical Product Self-Certifications', 'wp-esg' ); ?></h4>
                 <pre style="background:#f8f9fa; padding:10px; border-left:3px solid #46b450; overflow-x:auto;"><?php print_r($payload['products_framework'] ?? []); ?></pre>
             </div>
         </div>
@@ -373,6 +375,32 @@ class AssessmentShortcode {
                     <label style="font-weight:bold; display:block; margin-bottom:5px;"><?php esc_html_e( 'Reporting Accounting Year:', 'wp-esg' ); ?></label>
                     <input type="number" name="balance_year" value="2026" required style="width:100%; padding:8px;">
                 </p>
+                <?php
+                // Scansiona frameworks/products/ per le schede disponibili
+                $base_dir = WP_ESG_PATH . 'frameworks/products/';
+                $product_options = array();
+                if ( is_dir($base_dir) ) {
+                    $iterator = new \RecursiveIteratorIterator( new \RecursiveDirectoryIterator($base_dir) );
+                    foreach ( $iterator as $file ) {
+                        if ( $file->isFile() && $file->getExtension() === 'json' ) {
+                            $rel = str_replace($base_dir, '', $file->getPathname());
+                            $key = preg_replace('/\.json$/', '', $rel);
+                            $pdata = $this->load_framework_json( 'products/' . $key . '.json' );
+                            $product_options[$key] = $pdata['product_id'] ?? $key;
+                        }
+                    }
+                }
+                if ( ! empty($product_options) ) : ?>
+                <p>
+                    <label style="font-weight:bold; display:block; margin-bottom:8px;"><?php esc_html_e( 'Product Sheets to Compile:', 'wp-esg' ); ?></label>
+                    <?php foreach ($product_options as $pkey => $plabel) : ?>
+                        <label style="display:block; margin-bottom:6px; font-weight:normal;">
+                            <input type="checkbox" name="selected_products[]" value="<?php echo esc_attr($pkey); ?>">
+                            <?php echo esc_html($plabel); ?>
+                        </label>
+                    <?php endforeach; ?>
+                </p>
+                <?php endif; ?>
                 <input type="submit" class="button button-primary" value="<?php esc_attr_e( 'Generate Questionnaires Index →', 'wp-esg' ); ?>" style="padding:10px 20px;">
             </form>
         </div>
@@ -392,9 +420,13 @@ class AssessmentShortcode {
         $legal_entity_code  = sanitize_text_field($_POST['legal_entity_code'] ?? '');
         $employees          = (int)$_POST['employees_count'];
         $year               = (int)$_POST['balance_year'];
+        $selected_products  = isset($_POST['selected_products']) ? array_map(function($p) {
+            return preg_replace('/[^a-zA-Z0-9_\-\/]/', '', $p);
+        }, (array)$_POST['selected_products']) : array();
 
-        $_SESSION['esg_company_tax_id'] = $tax_id;
-        $_SESSION['esg_balance_year']   = $year;
+        $_SESSION['esg_company_tax_id']    = $tax_id;
+        $_SESSION['esg_balance_year']      = $year;
+        $_SESSION['esg_selected_products'] = $selected_products;
 
         global $wpdb;
         $table = $wpdb->prefix . 'esg_assessments';
@@ -408,12 +440,13 @@ class AssessmentShortcode {
             'country_code'      => $country,
             'workflow_status'   => 'Draft',
             'raw_answers'       => json_encode(array('company_metadata' => array(
-                'company_country'   => $country,
-                'company_tax_id'    => $tax_id,
-                'business_code'     => $ateco,
-                'legal_entity_code' => $legal_entity_code,
-                'employees_count'   => $employees,
-                'balance_year'      => $year,
+                'company_country'    => $country,
+                'company_tax_id'     => $tax_id,
+                'business_code'      => $ateco,
+                'legal_entity_code'  => $legal_entity_code,
+                'employees_count'    => $employees,
+                'balance_year'       => $year,
+                'selected_products'  => $selected_products,
             )))
         );
 
@@ -436,10 +469,12 @@ class AssessmentShortcode {
         
         if ( isset($_GET['resume_id']) ) {
             $resume_id = (int)$_GET['resume_id'];
-            $res_row   = $wpdb->get_row($wpdb->prepare("SELECT company_tax_id, balance_year FROM {$wpdb->prefix}esg_assessments WHERE id = %d", $resume_id));
+            $res_row   = $wpdb->get_row($wpdb->prepare("SELECT company_tax_id, balance_year, raw_answers FROM {$wpdb->prefix}esg_assessments WHERE id = %d", $resume_id));
             if ($res_row) {
                 $_SESSION['esg_company_tax_id'] = $res_row->company_tax_id;
                 $_SESSION['esg_balance_year']   = $res_row->balance_year;
+                $res_payload = json_decode($res_row->raw_answers, true) ?: array();
+                $_SESSION['esg_selected_products'] = $res_payload['company_metadata']['selected_products'] ?? array();
             }
         }
 
@@ -452,7 +487,7 @@ class AssessmentShortcode {
 
         $has_openesea = isset($payload['openesea_framework']);
         $has_pgs      = isset($payload['pgs_framework']);
-        $has_products = isset($payload['products_framework']);
+        $has_products = ! empty($payload['products_framework']);
 
         ob_start();
         ?>
@@ -484,7 +519,7 @@ class AssessmentShortcode {
                 </div>
 
                 <div style="display:flex; justify-content:space-between; align-items:center; padding:15px; border:1px solid #ccd0d4; border-radius:4px; margin-bottom:12px;">
-                    <div><strong style="display:block; font-size:15px; color:#2c3338;">2. Network PGS Evaluation</strong></div>
+                    <div><strong style="display:block; font-size:15px; color:#2c3338;"><?php esc_html_e( '2. Network PGS Evaluation', 'wp-esg' ); ?></strong></div>
                     <div>
                         <?php if($has_pgs): ?>
                             <span style="background:#d1e7dd; color:#0f5132; padding:5px 10px; font-size:12px; font-weight:bold; border-radius:3px; margin-right:10px;">✓ Completato</span>
@@ -496,13 +531,13 @@ class AssessmentShortcode {
                 </div>
 
                 <div style="display:flex; justify-content:space-between; align-items:center; padding:15px; border:1px solid #ccd0d4; border-radius:4px; margin-bottom:12px;">
-                    <div><strong style="display:block; font-size:15px; color:#46b450;">3. Vertical Product Self-Certifications</strong></div>
+                    <div><strong style="display:block; font-size:15px; color:#46b450;"><?php esc_html_e( '3. Vertical Product Self-Certifications', 'wp-esg' ); ?></strong></div>
                     <div>
                         <?php if($has_products): ?>
                             <span style="background:#d1e7dd; color:#0f5132; padding:5px 10px; font-size:12px; font-weight:bold; border-radius:3px; margin-right:10px;">✓ Completato</span>
-                            <a href="<?php echo esc_url(add_query_arg('esg_step', 'products', get_permalink())); ?>" style="font-size:12px;"><?php esc_html_e( 'Edit', 'wp-esg' ); ?></a>
+                            <a href="<?php echo esc_url(add_query_arg('esg_step', 'products_list', get_permalink())); ?>" style="font-size:12px;"><?php esc_html_e( 'Edit', 'wp-esg' ); ?></a>
                         <?php else: ?>
-                            <a href="<?php echo esc_url(add_query_arg('esg_step', 'products', get_permalink())); ?>" class="button"><?php esc_html_e( 'Compile Section →', 'wp-esg' ); ?></a>
+                            <a href="<?php echo esc_url(add_query_arg('esg_step', 'products_list', get_permalink())); ?>" class="button"><?php esc_html_e( 'Compile Section →', 'wp-esg' ); ?></a>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -646,9 +681,101 @@ class AssessmentShortcode {
     // ==========================================
     // PRODUCTS FORM — FIX #3: legge bread.json reale
     // ==========================================
+    private function render_products_list() {
+        // Scansiona ricorsivamente frameworks/products/ per tutti i .json
+        $base_dir    = WP_ESG_PATH . 'frameworks/products/';
+        $product_files = array();
+        if ( is_dir($base_dir) ) {
+            $iterator = new \RecursiveIteratorIterator( new \RecursiveDirectoryIterator($base_dir) );
+            foreach ( $iterator as $file ) {
+                if ( $file->isFile() && $file->getExtension() === 'json' ) {
+                    $abs  = $file->getPathname();
+                    $rel  = str_replace( $base_dir, '', $abs ); // es. food/bread.json
+                    $key  = preg_replace('/\.json$/', '', $rel); // es. food/bread
+                    $product_files[ $key ] = $abs;
+                }
+            }
+        }
+
+        // Carica payload per sapere quali schede sono già compilate e quali selezionate
+        global $wpdb;
+        $tax_id  = $_SESSION['esg_company_tax_id'] ?? '';
+        $year    = $_SESSION['esg_balance_year'] ?? 0;
+        $done    = array();
+        $selected = array();
+        if ( $tax_id && $year ) {
+            $table = $wpdb->prefix . 'esg_assessments';
+            $raw   = $wpdb->get_var($wpdb->prepare("SELECT raw_answers FROM $table WHERE company_tax_id = %s AND balance_year = %d", $tax_id, $year));
+            $payload  = $raw ? json_decode($raw, true) : array();
+            $done     = array_keys( $payload['products_framework'] ?? array() );
+            $selected = $payload['company_metadata']['selected_products'] ?? array();
+        }
+
+        // Filtra: mostra solo le schede selezionate nel pre-questionario
+        $product_files_filtered = array();
+        foreach ( $product_files as $key => $abs_path ) {
+            if ( empty($selected) || in_array($key, $selected) ) {
+                $product_files_filtered[$key] = $abs_path;
+            }
+        }
+        $product_files = $product_files_filtered;
+
+        ob_start();
+        ?>
+        <div class="esg-questions-box" style="max-width: 650px; margin: 30px auto; padding: 25px; border: 1px solid #ccd0d4; background: #fff; border-radius: 6px; font-family: sans-serif;">
+            <div style="margin-bottom:15px;"><a href="<?php echo esc_url(add_query_arg('esg_step', 'hub', get_permalink())); ?>" style="color:#2271b1; text-decoration:none; font-size:13px;">&larr; <?php esc_html_e( 'Back to Index', 'wp-esg' ); ?></a></div>
+            <h2 style="color:#46b450; margin-top:0; border-bottom:2px solid #46b450; padding-bottom:10px;"><?php esc_html_e( 'Vertical Product Self-Certifications', 'wp-esg' ); ?></h2>
+            <p style="color:#646970; font-size:13px; margin-bottom:20px;"><?php esc_html_e( 'Seleziona la scheda prodotto da compilare.', 'wp-esg' ); ?></p>
+
+            <?php if ( empty($product_files) ) : ?>
+                <p style="color:#dc3232;"><?php esc_html_e( 'Nessuna scheda prodotto disponibile.', 'wp-esg' ); ?></p>
+            <?php else : ?>
+                <table style="width:100%; border-collapse:collapse; font-size:14px;">
+                    <thead>
+                        <tr style="background:#f6f7f7; border-bottom:2px solid #dcdcde; text-align:left;">
+                            <th style="padding:10px 12px;"><?php esc_html_e( 'Scheda Prodotto', 'wp-esg' ); ?></th>
+                            <th style="padding:10px 12px;"><?php esc_html_e( 'Stato', 'wp-esg' ); ?></th>
+                            <th style="padding:10px 12px; text-align:right;"><?php esc_html_e( 'Azioni', 'wp-esg' ); ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ( $product_files as $key => $abs_path ) :
+                            $pdata = $this->load_framework_json( 'products/' . $key . '.json' );
+                            $label = $pdata['product_id'] ?? $key;
+                            $is_done = in_array($key, $done);
+                            $url = esc_url( add_query_arg( array('esg_step' => 'products', 'product' => $key), get_permalink() ) );
+                        ?>
+                        <tr style="border-bottom:1px solid #f0f0f1;">
+                            <td style="padding:12px; font-weight:600; color:#1d2327;">📋 <?php echo esc_html($label); ?></td>
+                            <td style="padding:12px;">
+                                <?php if ($is_done) : ?>
+                                    <span style="background:#d1e7dd; color:#0f5132; padding:4px 8px; font-size:12px; font-weight:bold; border-radius:3px;">✓ <?php esc_html_e('Completato', 'wp-esg'); ?></span>
+                                <?php else : ?>
+                                    <span style="background:#fff3cd; color:#664d03; padding:4px 8px; font-size:12px; font-weight:bold; border-radius:3px;">📝 <?php esc_html_e('Da compilare', 'wp-esg'); ?></span>
+                                <?php endif; ?>
+                            </td>
+                            <td style="padding:12px; text-align:right;">
+                                <a href="<?php echo $url; ?>" class="button <?php echo $is_done ? '' : 'button-primary'; ?>" style="<?php echo $is_done ? '' : 'background:#46b450; color:#fff; border-color:#46b450;'; ?>">
+                                    <?php echo $is_done ? esc_html__('Modifica →', 'wp-esg') : esc_html__('Compila →', 'wp-esg'); ?>
+                                </a>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php endif; ?>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
     private function render_products_form() {
-        // Carica la lista dei prodotti disponibili
-        $data     = $this->load_framework_json( 'frameworks/products/food/bread.json' );
+        // Prodotto selezionato via GET (es. ?product=food/bread)
+        $product_key = isset($_GET['product']) ? sanitize_text_field($_GET['product']) : 'food/bread';
+        // Sicurezza: solo alfanumerici, slash e trattini
+        $product_key = preg_replace('/[^a-zA-Z0-9_\-\/]/', '', $product_key);
+
+        $data     = $this->load_framework_json( 'frameworks/products/' . $product_key . '.json' );
         $criteria = $data['product_evaluation_criteria'] ?? array();
 
         if ( empty( $criteria ) ) {
@@ -657,7 +784,7 @@ class AssessmentShortcode {
                 . '</p>';
         }
 
-        $product_name = $data['product_id'] ?? 'food/bread';
+        $product_name = $data['product_id'] ?? $product_key;
 
         // Raggruppa per blocco
         $blocks = array();
@@ -678,13 +805,14 @@ class AssessmentShortcode {
         ob_start();
         ?>
         <div class="esg-questions-box" style="max-width: 650px; margin: 30px auto; padding: 25px; border: 1px solid #ccd0d4; background: #fff; border-radius: 6px; font-family: sans-serif;">
-            <div style="margin-bottom:15px;"><a href="<?php echo esc_url(add_query_arg('esg_step', 'hub', get_permalink())); ?>" style="color:#2271b1; text-decoration:none; font-size:13px;">&larr; <?php esc_html_e( 'Back to Index', 'wp-esg' ); ?></a></div>
+            <div style="margin-bottom:15px;"><a href="<?php echo esc_url(add_query_arg('esg_step', 'products_list', get_permalink())); ?>" style="color:#2271b1; text-decoration:none; font-size:13px;">&larr; <?php esc_html_e( 'Back to Products List', 'wp-esg' ); ?></a></div>
             <h2 style="color:#46b450; margin-top:0; border-bottom:2px solid #46b450; padding-bottom:10px;"><?php esc_html_e( 'Vertical Product Self-Certifications', 'wp-esg' ); ?></h2>
             <p style="color:#646970; font-size:13px; margin-bottom:5px;"><?php esc_html_e( 'Scheda prodotto:', 'wp-esg' ); ?> <strong><?php echo esc_html( $product_name ); ?></strong></p>
             <p style="color:#646970; font-size:13px; margin-bottom:20px;"><?php printf( esc_html__( '%d criteri di auto-certificazione.', 'wp-esg' ), count($criteria) ); ?></p>
             <form method="post" action="">
                 <input type="hidden" name="action" value="submit_products">
                 <input type="hidden" name="products_q1" value="1"><!-- sentinel per process_products_and_route() -->
+                <input type="hidden" name="product_key" value="<?php echo esc_attr( $product_key ); ?>">
 
                 <?php foreach ( $blocks as $block_key => $block_criteria ) : ?>
                     <h2 style="margin-top:30px; margin-bottom:15px; padding:10px 15px; background:#f0faf0; border-left:4px solid #46b450; color:#1d2327; font-size:17px; font-weight:700;">
@@ -791,19 +919,20 @@ class AssessmentShortcode {
                 $payload = json_decode($row->raw_answers, true) ?: array();
                 
                 if ( isset($_POST['products_q1']) ) {
+                    $product_key   = isset($_POST['product_key']) ? preg_replace('/[^a-zA-Z0-9_\-\/]/', '', $_POST['product_key']) : 'food/bread';
                     $products_data = array();
                     foreach ( $_POST as $key => $value ) {
-                        if ( $key === 'action' || $key === 'products_q1' ) continue;
+                        if ( in_array($key, array('action', 'products_q1', 'product_key')) ) continue;
                         if ( is_array($value) ) {
                             $products_data[ sanitize_key($key) ] = array_map('sanitize_text_field', $value);
                         } else {
                             $products_data[ sanitize_key($key) ] = sanitize_text_field($value);
                         }
                     }
-                    $payload['products_framework'] = $products_data;
+                    $payload['products_framework'][ $product_key ] = $products_data;
                     $wpdb->update($table, array( 'raw_answers' => json_encode($payload) ), array('id' => $row->id));
 
-                    return $this->safe_redirect( add_query_arg( 'esg_step', 'hub', get_permalink() ) );
+                    return $this->safe_redirect( add_query_arg( 'esg_step', 'products_list', get_permalink() ) );
                 }
 
                 // Submit finale (hub "Finalize")
