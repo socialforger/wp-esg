@@ -1,0 +1,288 @@
+{
+  "product_id": "cheese",
+  "title": "Formaggio",
+  "category_scope": "food_and_agrifood",
+  "version": "1.0.0",
+  "product_evaluation_criteria": {
+    "cheese_varieties_types": {
+      "block": "product_specifications",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Varietà e tipologie dei formaggi prodotti",
+      "help": "Elencare tutte le varietà e tipologie di formaggio prodotte (es. fresco, stagionato, semiduro, erborinato)."
+    },
+    "annual_production_quantity": {
+      "block": "product_specifications",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Quantità prodotta/anno",
+      "help": "Indicare la quantità prodotta per anno. Se si producono più tipologie, specificare le quantità per ciascuna."
+    },
+    "flagship_cheese": {
+      "block": "product_specifications",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Formaggio simbolo dell'azienda",
+      "help": "Indicare il formaggio che meglio rappresenta l'identità dell'azienda o della produzione."
+    },
+    "product_characteristics": {
+      "block": "product_specifications",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Particolarità del prodotto",
+      "help": "Indicare eventuali particolarità: biologico, biodinamico (con o senza certificazione) o altre caratteristiche rilevanti."
+    },
+    "herd_size_and_breed": {
+      "block": "livestock",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Numero di capi e razza",
+      "help": "Indicare il numero di animali e la/le razza/e coinvolte nella produzione del latte."
+    },
+    "adult_animal_feed": {
+      "block": "livestock",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Alimentazione animali adulti",
+      "help": "Descrivere l'alimentazione degli animali adulti (tipologia, provenienza, percentuale autoprodotta vs. acquistata)."
+    },
+    "young_animal_feed": {
+      "block": "livestock",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Alimentazione animali piccoli",
+      "help": "Descrivere l'alimentazione degli animali giovani (vitelli, capretti, agnelli)."
+    },
+    "farming_system": {
+      "block": "livestock",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Tipo di allevamento",
+      "help": "Specificare il sistema di allevamento adottato (es. alla catena, brado, semibrado)."
+    },
+    "dry_period": {
+      "block": "livestock",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Periodo di asciutta",
+      "help": "Indicare la durata del periodo di asciutta e le relative pratiche gestionali."
+    },
+    "barn_size_and_type": {
+      "block": "livestock",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Dimensione e tipologia stalla",
+      "help": "Descrivere le dimensioni e la tipologia della stalla o struttura di ricovero utilizzata."
+    },
+    "fixed_housing": {
+      "block": "livestock",
+      "type": "radio",
+      "control": "radio",
+      "required": true,
+      "label": "Stabulazione fissa",
+      "help": "Indicare se gli animali sono tenuti in stabulazione fissa alla catena (Sì/No)."
+    },
+    "daily_grazing": {
+      "block": "livestock",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Pascolo giornaliero o altro accesso esterno",
+      "help": "Descrivere le pratiche di pascolo o qualsiasi altra forma di accesso giornaliero all'esterno."
+    },
+    "disease_management": {
+      "block": "animal_health",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Cura delle malattie",
+      "help": "Descrivere l'approccio alla cura delle malattie (es. farmacologia tradizionale, omeopatica, altro)."
+    },
+    "veterinary_advisory": {
+      "block": "animal_health",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Consulenza veterinaria",
+      "help": "Indicare se ci si avvale di consulenza veterinaria regolare e in quale forma."
+    },
+    "vaccinations": {
+      "block": "animal_health",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Vaccinazioni",
+      "help": "Indicare se vengono effettuate vaccinazioni (Sì/No) e specificare quali."
+    },
+    "milking_method": {
+      "block": "milk_production",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Metodo di mungitura",
+      "help": "Descrivere il metodo di mungitura utilizzato (es. manuale, meccanica, robotizzata)."
+    },
+    "milk_production_volume": {
+      "block": "milk_production",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Produzione di latte",
+      "help": "Indicare la produzione giornaliera o annuale di latte."
+    },
+    "external_milk_purchase": {
+      "block": "milk_production",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Acquisto esterno di latte",
+      "help": "Indicare se viene acquistato latte da fonti esterne e, in caso affermativo, specificare quantità, provenienza e fornitore."
+    },
+    "coagulation_method": {
+      "block": "processing",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Metodo di coagulazione",
+      "help": "Descrivere il metodo di coagulazione utilizzato (es. caglio animale, vegetale, microbico, coagulazione acida)."
+    },
+    "starter_culture_type": {
+      "block": "processing",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Tipologia siero innesto",
+      "help": "Specificare il tipo di siero innesto o coltura starter utilizzata (es. siero innesto naturale, colture commerciali)."
+    },
+    "ripening": {
+      "block": "processing",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Maturazione",
+      "help": "Descrivere il processo di maturazione, inclusi durata e condizioni."
+    },
+    "affinage_methods_and_locations": {
+      "block": "processing",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Metodi e luoghi di affinamento",
+      "help": "Descrivere i metodi di stagionatura/affinamento e i luoghi in cui avviene."
+    },
+    "preservatives_additives": {
+      "block": "processing",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Utilizzo di conservanti e additivi",
+      "help": "Specificare eventuali conservanti o additivi utilizzati, indicando tipologia, quantità e provenienza."
+    },
+    "moulds_yeasts": {
+      "block": "processing",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Utilizzo di muffe e lieviti",
+      "help": "Specificare eventuali muffe o lieviti utilizzati, indicando tipologia, quantità e provenienza."
+    },
+    "distance_production_to_storage": {
+      "block": "logistics",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Distanza tra luogo di produzione e luogo di conservazione",
+      "help": "Indicare la distanza tra il sito di produzione e il sito di stoccaggio o stagionatura."
+    },
+    "packaging_location_and_method": {
+      "block": "logistics",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Luogo e modalità di confezionamento",
+      "help": "Descrivere dove e come viene confezionato il formaggio."
+    },
+    "available_packaging_types": {
+      "block": "logistics",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Tipi di confezioni disponibili",
+      "help": "Elencare i formati di confezionamento disponibili (es. sottovuoto, in cera, forma intera)."
+    },
+    "sales_channels": {
+      "block": "sales_and_pricing",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Luogo e modalità di vendita",
+      "help": "Descrivere dove e come viene venduto il formaggio (es. in azienda, negozi locali, supermercati, online)."
+    },
+    "source_price_per_kg": {
+      "block": "sales_and_pricing",
+      "type": "string",
+      "control": "textarea",
+      "required": true,
+      "label": "Prezzo sorgente al kg",
+      "help": "Indicare il prezzo sorgente al kg. Specificare se il prezzo è IVA inclusa o esclusa."
+    },
+    "average_package_price": {
+      "block": "sales_and_pricing",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Prezzo medio confezione",
+      "help": "Indicare il prezzo medio al dettaglio per confezione."
+    },
+    "shipping_costs": {
+      "block": "sales_and_pricing",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Costi di spedizione",
+      "help": "Specificare i costi di spedizione, se applicabili."
+    },
+    "environmental_conditions": {
+      "block": "quality_and_certifications",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Condizioni ambientali del luogo di produzione",
+      "help": "Descrivere le condizioni ambientali dell'area di produzione, inclusi eventuali rischi ambientali noti."
+    },
+    "laboratory_analysis": {
+      "block": "quality_and_certifications",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Eventuale laboratorio di analisi utilizzato",
+      "help": "Indicare se vengono effettuate analisi di laboratorio e da quale laboratorio."
+    },
+    "certification_bodies": {
+      "block": "quality_and_certifications",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Eventuali società di certificazione",
+      "help": "Specificare eventuali enti di certificazione coinvolti (es. biologico, DOP, IGP, biodinamico)."
+    },
+    "other_notes": {
+      "block": "quality_and_certifications",
+      "type": "string",
+      "control": "textarea",
+      "required": false,
+      "label": "Altro",
+      "help": "Qualsiasi informazione aggiuntiva rilevante per il prodotto o il processo produttivo."
+    }
+  }
+}
